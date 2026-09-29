@@ -1,0 +1,41 @@
+table media_type_dict
+	lineageTag: 7b349b3c-fba9-418c-bc17-24bff2c6acc9
+
+	column media_type
+		dataType: string
+		lineageTag: 3a6e4f4e-43ab-4934-8262-c121ef654382
+		summarizeBy: none
+		sourceColumn: media_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column media_type_long
+		dataType: string
+		lineageTag: 81d3dd4c-8d2a-4d63-b00b-2e773ee95c8e
+		summarizeBy: none
+		sourceColumn: media_type_long
+
+		annotation SummarizationSetBy = Automatic
+
+	column media_type_rus
+		dataType: string
+		lineageTag: a8432bbb-3802-4120-8252-f3bc61fa14d4
+		summarizeBy: none
+		sourceColumn: media_type_rus
+
+		annotation SummarizationSetBy = Automatic
+
+	partition media_type_dict = m
+		mode: import
+		queryGroup: 03_Общие_справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select * from media_type_view"]),
+				    #"Условный столбец добавлен" = Table.AddColumn(Источник, "media_type_rus", each if [media_type] = "OD" then "Наружная реклама" else if [media_type] = "PR" then "Пресса" else if [media_type] = "RA" then "Радио" else if [media_type] = "TV" then "ТВ" else [media_type])
+				in
+				    #"Условный столбец добавлен"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

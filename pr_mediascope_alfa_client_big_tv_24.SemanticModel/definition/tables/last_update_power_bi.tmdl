@@ -1,0 +1,34 @@
+table last_update_power_bi
+	isHidden
+	lineageTag: 58e564ce-ed80-4552-ab5b-12bc7ec8a9a4
+
+	column last_update
+		dataType: string
+		isHidden
+		lineageTag: 9b6e23cc-473a-41ac-8130-18cbd33a38fa
+		summarizeBy: none
+		sourceColumn: last_update
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition last_update_power_bi = m
+		mode: import
+		queryGroup: 01_Calendar
+		source = ```
+				let
+				    Источник = Table.FromRecords(
+				{[last_update = 
+				DateTimeZone.ToText(
+				   DateTimeZone.SwitchZone(DateTimeZone.FixedLocalNow(), 3), 
+				[Format="dd.MM.yyyy HH:mm:ss", Culture="ru-RU"])]}
+				)
+				in
+				    Источник
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

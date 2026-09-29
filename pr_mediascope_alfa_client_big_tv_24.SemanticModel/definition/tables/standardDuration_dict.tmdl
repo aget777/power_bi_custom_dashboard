@@ -1,0 +1,45 @@
+table standardDuration_dict
+	lineageTag: 2118e00c-9559-4437-8468-7a299ae3dca1
+
+	column adStandardDuration
+		dataType: int64
+		formatString: 0
+		lineageTag: 112d00fb-044e-4072-9e47-9cb3ab1dd7c0
+		summarizeBy: none
+		sourceColumn: adStandardDuration
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column duration_txt
+		dataType: string
+		isHidden
+		lineageTag: bc51d883-43fe-460f-a0c9-cebff385d80a
+		summarizeBy: none
+		sourceColumn: duration_txt
+		sortByColumn: adStandardDuration
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition standardDuration_dict = m
+		mode: import
+		queryGroup: 05_TV_Index\05_01_Справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select * from standardDuration_view"]),
+				    #"Дублированный столбец" = Table.DuplicateColumn(Источник, "adStandardDuration", "duration_txt"),
+				    #"Измененный тип" = Table.TransformColumnTypes(#"Дублированный столбец",{{"duration_txt", type text}})
+				in
+				    #"Измененный тип"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

@@ -1,0 +1,33 @@
+table new_aud_gdocs
+	lineageTag: c104e90b-4622-4121-8638-7ad7a306a5ec
+
+	column prj_name_rus
+		dataType: string
+		lineageTag: 255e7441-0bfd-47f3-ab09-88ffca991495
+		summarizeBy: none
+		sourceColumn: prj_name_rus
+
+		annotation SummarizationSetBy = Automatic
+
+	column prj-name-custom
+		dataType: string
+		lineageTag: 541b405d-1c4e-442c-b37a-68e88576db8e
+		summarizeBy: none
+		sourceColumn: prj-name-custom
+
+		annotation SummarizationSetBy = Automatic
+
+	partition new_aud_gdocs = m
+		mode: import
+		queryGroup: 02_01_Вспомогательные_таблицы
+		source =
+				let
+				    Источник = Csv.Document(Web.Contents("https://docs.google.com/spreadsheets/d/e/2PACX-1vRLcLAM3N250g4mGfNOShfQsuWk-xk_8zvR_fj-3LlZx-38DC7yAZv-QTMb87RVnn-exGGHRhvYk2hW/pub?gid=968656908&single=true&output=csv"),[Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Повышенные заголовки" = Table.PromoteHeaders(Источник, [PromoteAllScalars=true])
+				in
+				    #"Повышенные заголовки"
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

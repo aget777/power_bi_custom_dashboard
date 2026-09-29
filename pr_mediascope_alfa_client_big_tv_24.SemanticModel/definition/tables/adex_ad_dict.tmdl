@@ -1,0 +1,317 @@
+table adex_ad_dict
+	lineageTag: 8f86a71e-2e65-4800-88c7-0322be353238
+
+	column media_key_id
+		dataType: string
+		isHidden
+		lineageTag: d997956b-4a12-4fa5-b793-6aa265405bcd
+		summarizeBy: none
+		sourceColumn: media_key_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adStandardDuration
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5c2fb391-26d8-452a-b519-44f3b7361999
+		summarizeBy: none
+		sourceColumn: adStandardDuration
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column advertiserListId
+		dataType: int64
+		formatString: 0
+		lineageTag: acf0372a-8359-4833-b926-78793d85b318
+		summarizeBy: count
+		sourceColumn: advertiserListId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column brandListId
+		dataType: int64
+		formatString: 0
+		lineageTag: 0e636d34-65c6-41e4-a743-73110fcba10b
+		summarizeBy: count
+		sourceColumn: brandListId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column subbrandListId
+		dataType: int64
+		formatString: 0
+		lineageTag: d672327c-8a87-4157-a792-373202f9ac93
+		summarizeBy: count
+		sourceColumn: subbrandListId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column modelListId
+		dataType: int64
+		formatString: 0
+		lineageTag: 95ea138c-3cc3-4dd2-967d-ef899105f623
+		summarizeBy: count
+		sourceColumn: modelListId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList2Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d06a1c42-97f2-4243-b534-9e1bbd76a413
+		summarizeBy: count
+		sourceColumn: articleList2Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList3Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 41a43482-a91c-4100-8c0a-39535344599f
+		summarizeBy: count
+		sourceColumn: articleList3Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList4Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 03c22186-e3eb-4eac-8d2d-99d9e1baf3c9
+		summarizeBy: count
+		sourceColumn: articleList4Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ad_type_custom
+		dataType: string
+		isHidden
+		lineageTag: 5ec4ab25-7edc-4374-b91c-8b93be7eb7ac
+		summarizeBy: none
+		sourceColumn: ad_type_custom
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8d0fa1a7-e2a3-49e7-bb85-95173c12e2d9
+		summarizeBy: count
+		sourceColumn: adId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adName
+		dataType: string
+		isHidden
+		lineageTag: bf89be2c-aca6-4454-91a8-11a48f47ec86
+		summarizeBy: none
+		sourceColumn: adName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adNotes
+		dataType: string
+		isHidden
+		lineageTag: 6a4baecf-824f-4773-9daf-71718df97dfa
+		summarizeBy: none
+		sourceColumn: adNotes
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adFirstIssueDate
+		dataType: string
+		isHidden
+		lineageTag: 0a4a4fad-75bc-485c-a90b-fc551e48dd9d
+		summarizeBy: none
+		sourceColumn: adFirstIssueDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cleaning_flag
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f6e041a5-9c91-451c-a835-c073564e1063
+		summarizeBy: sum
+		sourceColumn: cleaning_flag
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column media_type
+		dataType: string
+		isHidden
+		lineageTag: e671a7d7-c8ea-40e9-b69a-3fa0c2039bea
+		summarizeBy: none
+		sourceColumn: media_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column advertiserListName
+		dataType: string
+		lineageTag: b298e9cf-44bc-4e83-ab6e-6b92c6d8cea7
+		summarizeBy: none
+		sourceColumn: advertiserListName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column brandListName
+		dataType: string
+		lineageTag: e853ba1d-91a6-4797-899d-a8e3c7ff0c86
+		summarizeBy: none
+		sourceColumn: brandListName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column subbrandListName
+		dataType: string
+		lineageTag: 89904d2b-7f85-40e0-97c3-2733a4823b6e
+		summarizeBy: none
+		sourceColumn: subbrandListName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column modelListName
+		dataType: string
+		lineageTag: 89986048-ae3a-4999-8123-c65cdda491cc
+		summarizeBy: none
+		sourceColumn: modelListName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList2Name
+		dataType: string
+		lineageTag: 04d8e8d7-9b0b-44db-b095-49c7187f8275
+		summarizeBy: none
+		sourceColumn: articleList2Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList3Name
+		dataType: string
+		lineageTag: 7d863531-d5cf-420a-93a9-221f96950217
+		summarizeBy: none
+		sourceColumn: articleList3Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList4Name
+		dataType: string
+		lineageTag: 59fbe8c7-c251-491e-a7f8-93490a04656a
+		summarizeBy: none
+		sourceColumn: articleList4Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adSloganAudioId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a31826c1-4dc0-4121-b9ed-4fb849b6efe8
+		summarizeBy: count
+		sourceColumn: adSloganAudioId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adSloganVideoId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b95cda6b-414b-449e-80fa-bc46e5d5374b
+		summarizeBy: count
+		sourceColumn: adSloganVideoId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column audioSloganName
+		dataType: string
+		lineageTag: a7d1f0f9-9ad0-422d-9898-e40c608574a2
+		summarizeBy: none
+		sourceColumn: audioSloganName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column videoSloganName
+		dataType: string
+		lineageTag: fa587eee-0691-4c02-a6ee-fba975b4975e
+		summarizeBy: none
+		sourceColumn: videoSloganName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition adex_ad_dict = m
+		mode: import
+		queryGroup: 06_Media_costs\06_01_Справочники
+		source = ```
+				let
+				    Источник = Sql.Database(mssql_server, db_name, 
+				    [Query="select * from adex_ad_dict_cats_name_view
+				            where cleaning_flag in ("&cleaning_flag&")"])
+				in
+				    Источник
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

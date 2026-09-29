@@ -1,0 +1,39 @@
+table adex_max_date
+	isHidden
+	lineageTag: ab71fac6-5e2f-4749-b295-2ac896981fc2
+
+	column max_date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: a0c9b005-7089-423f-b69c-2251cb43783e
+		summarizeBy: none
+		sourceColumn: max_date
+
+		variation Изменение
+			isDefault
+			relationship: 5c0e4733-6706-4dbe-a2ad-2fae0cfaefd3
+			defaultHierarchy: LocalDateTable_fc1b460d-2ecb-45fc-836b-2584d460dc32.'Иерархия дат'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition adex_max_date = m
+		mode: import
+		queryGroup: 01_Calendar
+		source =
+				let
+				    max_date = Sql.Database(mssql_server, db_name, [Query="select max(researchDate) as max_date from media_costs_union_view"]),
+				    #"Измененный тип" = Table.TransformColumnTypes(max_date,{{"max_date", type date}})
+				in
+				    #"Измененный тип"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

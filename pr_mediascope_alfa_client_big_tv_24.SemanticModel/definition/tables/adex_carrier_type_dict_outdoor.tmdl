@@ -1,0 +1,44 @@
+table adex_carrier_type_dict_outdoor
+	lineageTag: 55ff5cd3-b801-4e12-ae98-491eb5e8ab22
+
+	column carrier_type_id
+		dataType: int64
+		formatString: 0
+		lineageTag: cc369cfe-8439-472a-9180-e4bf6f4112d7
+		summarizeBy: none
+		sourceColumn: carrier_type_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column media_type
+		dataType: string
+		isHidden
+		lineageTag: 052f12ad-b448-444c-80dd-8dbf91c2e6c5
+		summarizeBy: none
+		sourceColumn: media_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column carrierTypeName
+		dataType: string
+		lineageTag: ec83be1c-65df-4c22-8e15-d5066225445c
+		summarizeBy: none
+		sourceColumn: carrierTypeName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition adex_carrier_type_dict_outdoor = m
+		mode: import
+		queryGroup: 06_Media_costs\06_01_Справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select * from adex_carrier_type_dict_outdoor"])
+				in
+				    Источник
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

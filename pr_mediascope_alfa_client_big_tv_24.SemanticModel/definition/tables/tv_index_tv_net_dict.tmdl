@@ -1,0 +1,34 @@
+table tv_index_tv_net_dict
+	lineageTag: 8d9948a7-4937-42fc-b9a3-2a1c40024863
+
+	column tvNetId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 08e1dd55-3265-4c8f-bc9a-34911b8e5534
+		summarizeBy: none
+		sourceColumn: tvNetId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column tvNetName
+		dataType: string
+		lineageTag: d6bb9525-fbb0-4d02-9b0c-1b0e47bed03a
+		summarizeBy: none
+		sourceColumn: tvNetName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition tv_index_tv_net_dict = m
+		mode: import
+		queryGroup: 05_TV_Index\05_01_Справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select tvNetId, tvNetName from tv_index_tv_net_dict"])
+				in
+				    Источник
+
+	annotation PBI_ResultType = Table
+

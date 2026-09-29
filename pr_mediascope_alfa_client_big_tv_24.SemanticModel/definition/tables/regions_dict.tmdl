@@ -1,0 +1,37 @@
+table regions_dict
+	lineageTag: acbb4c89-e436-4dac-8d57-b0334793c389
+
+	column regionId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 833caa18-aab1-4864-bcee-644b788fe482
+		summarizeBy: none
+		sourceColumn: regionId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column regionName
+		dataType: string
+		lineageTag: 5a5fae68-6d87-4b49-8a35-525be2551c93
+		summarizeBy: none
+		sourceColumn: regionName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition regions_dict = m
+		mode: import
+		queryGroup: 03_Общие_справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select * from regions_view"]),
+				    #"Удаленные дубликаты" = Table.Distinct(Источник, {"regionId"})
+				in
+				    #"Удаленные дубликаты"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

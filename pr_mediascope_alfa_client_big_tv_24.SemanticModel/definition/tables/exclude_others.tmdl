@@ -1,0 +1,38 @@
+table exclude_others
+	isHidden
+	lineageTag: 8a3319b0-4f9d-49c6-bfe3-15bc2711ee98
+
+	column status
+		dataType: string
+		isHidden
+		lineageTag: b0b722e6-f1ab-4e0c-9252-f3444b1755ab
+		summarizeBy: none
+		sourceColumn: status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column статус
+		dataType: string
+		lineageTag: 3460c946-a831-48dd-bb0d-fcdf3f7bb05e
+		summarizeBy: none
+		sourceColumn: статус
+
+		annotation SummarizationSetBy = Automatic
+
+	partition exclude_others = m
+		mode: import
+		queryGroup: 02_01_Вспомогательные_таблицы
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45Wco1w9gl1cVXwD/FwDVLSUbow6cLCC1N1FC7MurDgwrwLcy5MVQBSCy8sujDhwuwLay7MBfKmKsXqRCs5+vjA1SvFxgIA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [status = _t, статус = _t])
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,88 @@
+table _Меры_05_Reg_buying
+	isHidden
+	lineageTag: e9e53f37-060d-409d-ac50-56432dba9209
+
+	measure 501_01_SalesRtgPer_Reg_buying =
+			
+			var cur_value = sum(reg_tv_buying[SalesRtgPer])
+			var result = if(or(ISBLANK(cur_value), cur_value=0), BLANK(), cur_value)
+			
+			return result
+		formatString: #,0.00
+		isHidden
+		lineageTag: 0c7c4c85-af6c-4efa-a1d4-4c31b3a1f012
+
+		changedProperty = IsHidden
+
+	measure 502_01_StandSalesRtgPer_Reg_buying =
+			
+			var cur_value = sum(reg_tv_buying[StandSalesRtgPer])
+			var result = if(or(ISBLANK(cur_value), cur_value=0), BLANK(), cur_value)
+			
+			return result
+		isHidden
+		lineageTag: e56c3a00-8db3-47e6-a825-abed6311325b
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 507_01_Quantity_Reg_buying =
+			
+			var cur_value = sum(reg_tv_buying[Quantity])
+			var result = if(or(ISBLANK(cur_value), cur_value=0), BLANK(), cur_value)
+			
+			return result
+		formatString: #,0
+		isHidden
+		lineageTag: 9d6983fa-0368-45ab-8f3f-2a6cec0ab3d6
+
+		changedProperty = IsHidden
+
+	measure 506_01_Costs_all_Reg_buying =
+			
+			var cur_value = sum(reg_tv_buying[ConsolidatedCostRUB])
+			var result = if(or(ISBLANK(cur_value), cur_value=0), BLANK(), cur_value)
+			
+			return result
+		formatString: #,0.00
+		isHidden
+		lineageTag: e4c5e9b7-ec97-4daf-870c-1f1995b2df3d
+
+		changedProperty = IsHidden
+
+	measure 505_01_Costs_disc_Reg_buying =
+			
+			var cur_value = sum(reg_tv_buying[ConsolidatedCostRUB_disc])
+			var result = if(or(ISBLANK(cur_value), cur_value=0), BLANK(), cur_value)
+			
+			return result
+		formatString: #,0.00
+		isHidden
+		lineageTag: 13795587-6ee9-4426-a0ca-8a97b0d879a2
+
+		changedProperty = IsHidden
+
+	column Столбец1
+		dataType: string
+		isHidden
+		lineageTag: 5a171ff0-9384-4c9a-985b-600d777e51e7
+		summarizeBy: none
+		sourceColumn: Столбец1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Меры_05_Reg_buying = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t])
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

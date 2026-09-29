@@ -1,0 +1,27 @@
+table tv_type_ooh_reg_dict
+	lineageTag: c969255a-f320-4dd5-a6a2-c107cae11fda
+
+	column tv_type_ooh_reg
+		dataType: string
+		isHidden
+		lineageTag: 434e6445-1dcb-4a18-aae4-06c9a4e34f93
+		summarizeBy: none
+		sourceColumn: tv_type_ooh_reg
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition tv_type_ooh_reg_dict = m
+		mode: import
+		queryGroup: 03_Общие_справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select * from tv_type_ooh_reg_view"])
+				in
+				    Источник
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

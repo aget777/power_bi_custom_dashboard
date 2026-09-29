@@ -1,0 +1,62 @@
+table _Меры_03_Buying
+	isHidden
+	lineageTag: 8606420e-a55b-45ca-b913-df31cf0b8be8
+
+	measure 306_01_Costs_all_Nat_buying = sum(nat_tv_buying[ConsolidatedCostRUB])
+		formatString: #,0.00
+		isHidden
+		lineageTag: ab871a3f-c198-4631-85f4-8acbdd39f881
+
+		changedProperty = IsHidden
+
+	measure 305_01_Costs_disc_Nat_buying = sum(nat_tv_buying[ConsolidatedCostRUB_disc])
+		formatString: #,0.00
+		isHidden
+		lineageTag: 0d3f372d-f655-4755-bd79-5fa4d17aea15
+
+		changedProperty = IsHidden
+
+	measure 307_01_Quantity_Nat_buying = sum(nat_tv_buying[Quantity])
+		formatString: #,0
+		isHidden
+		lineageTag: eead4e79-ce9f-4c80-8a5c-b8d6ca0eeb8d
+
+		changedProperty = IsHidden
+
+	measure 301_01_SalesRtgPer_Nat_buying = sum(nat_tv_buying[SalesRtgPer])
+		formatString: #,0.00
+		isHidden
+		lineageTag: 8018c082-0059-4998-b0cc-89ddfc5d5f29
+
+		changedProperty = IsHidden
+
+	measure 302_01_StandSalesRtgPer_Nat_buying = sum(nat_tv_buying[StandSalesRtgPer])
+		formatString: #,0.00
+		isHidden
+		lineageTag: e677271a-e9dc-466b-a8f8-6e85af8d6562
+
+		changedProperty = IsHidden
+
+	column Столбец1
+		dataType: string
+		isHidden
+		lineageTag: 6e13831e-3c7d-459f-9e7c-48789f7f373e
+		summarizeBy: none
+		sourceColumn: Столбец1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Меры_03_Buying = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t])
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

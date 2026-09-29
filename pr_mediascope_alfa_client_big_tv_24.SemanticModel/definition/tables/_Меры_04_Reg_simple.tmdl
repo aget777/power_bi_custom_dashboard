@@ -1,0 +1,87 @@
+table _Меры_04_Reg_simple
+	isHidden
+	lineageTag: 4ccb5b4a-cdc8-47ee-a2a4-ad55b965fc5c
+
+	measure 403_00_Rtg000_Reg_simple =
+			
+			var cur_value = sum(reg_tv_simple[Rtg000])
+			var result = if(or(ISBLANK(cur_value), cur_value=0), BLANK(), cur_value)
+			
+			return result
+		formatString: #,0.00
+		isHidden
+		lineageTag: 974c5052-28bd-4e02-99c8-7fa9cef32275
+
+		changedProperty = IsHidden
+
+	measure 401_01_RtgPer_Reg_simple =
+			
+			var cur_value = sum(reg_tv_simple[RtgPer])
+			var result = if(or(ISBLANK(cur_value), cur_value=0), BLANK(), cur_value)
+			
+			return result
+		formatString: #,0.00
+		isHidden
+		lineageTag: c397e5f8-25a7-4ecd-9bb8-42170a5e2ff4
+
+		changedProperty = IsHidden
+
+	measure 402_01_StandRtgPer_Reg_simple =
+			
+			var cur_value = sum(reg_tv_simple[StandRtgPer])
+			var result = if(or(ISBLANK(cur_value), cur_value=0), BLANK(), cur_value)
+			
+			return result
+		formatString: #,0.00
+		isHidden
+		lineageTag: d5fb9845-b39b-45e3-9503-79eb38af057d
+
+		changedProperty = IsHidden
+
+	measure 403_01_Rtg000_sample_Reg_simple =
+			
+			var cur_value = sum(reg_tv_simple[RtgPer_w])
+			var result = if(or(ISBLANK(cur_value), cur_value=0), BLANK(), cur_value)
+			
+			return result
+		formatString: #,0.00
+		isHidden
+		lineageTag: 0d1fb07e-121d-40be-8e72-0f3751887155
+
+		changedProperty = IsHidden
+
+	measure 404_01_W_Sample_Reg_simple =
+			
+			var cur_value = sum(reg_tv_simple[w_sample])
+			var result = if(or(ISBLANK(cur_value), cur_value=0), BLANK(), cur_value)
+			
+			return result
+		formatString: #,0
+		isHidden
+		lineageTag: 0fc3ce41-abad-4230-a284-ac1226dade56
+
+		changedProperty = IsHidden
+
+	column Столбец1
+		dataType: string
+		isHidden
+		lineageTag: 87cbe498-e95f-412e-a763-3d8f114ad95a
+		summarizeBy: none
+		sourceColumn: Столбец1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Меры_04_Reg_simple = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t])
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

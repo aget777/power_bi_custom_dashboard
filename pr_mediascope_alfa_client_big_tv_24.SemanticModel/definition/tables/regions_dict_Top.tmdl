@@ -1,0 +1,53 @@
+table regions_dict_Top
+	isHidden
+	lineageTag: eae69b2b-74c8-4517-8aeb-9bacaba2cfd3
+
+	column region_name_top
+		dataType: string
+		isHidden
+		lineageTag: 6bc10727-6018-4ebd-8a8c-2150eb4c00e0
+		summarizeBy: none
+		sourceColumn: region_name_top
+		sortByColumn: Id
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2c88b1cc-1408-4472-90bd-2d5035935779
+		summarizeBy: none
+		sourceColumn: Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition regions_dict_Top = m
+		mode: import
+		queryGroup: 02_02_Top_tables
+		source = ```
+				let
+				    Источник = Sql.Database(mssql_server, db_name, 
+				    [Query="select distinct regionName as region_name_top from regions_view"]),
+				    other_table = Table.FromRecords({
+				        [region_name_top="ОСТАЛЬНОЕ"]
+				    }),
+				    combine_tbl = Table.Combine({other_table, Источник}),
+				    #"Добавлен индекс" = Table.AddIndexColumn(combine_tbl, "Id", 1, 1, Int64.Type),
+				    #"Строки с примененным фильтром" = Table.SelectRows(#"Добавлен индекс", each [region_name_top] <> null and [region_name_top] <> "")
+				in
+				    #"Строки с примененным фильтром"
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

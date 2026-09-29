@@ -1,0 +1,79 @@
+table _Меры_30_Цвета_и_Кнопки
+	isHidden
+	lineageTag: 19305263-b80e-4949-be96-faed5ef8b55e
+
+	measure 3001_01_текст_Кнопка_абс = "123"
+		isHidden
+		lineageTag: 1e7c44fa-55d7-4f01-bea5-6cb6f6ff0e3b
+
+		changedProperty = IsHidden
+
+	measure 3001_02_текст_Кнопка_% = "%"
+		isHidden
+		lineageTag: 8131a364-8eee-40e3-96f4-03ec42b73f1a
+
+		changedProperty = IsHidden
+
+	measure 3002_01_текст_Кнопка_ТВ_каналы = "ТВ Каналы"
+		isHidden
+		displayFolder: 01_TV_index
+		lineageTag: ffa79cce-04c0-4e44-9397-975bafe157d6
+
+		changedProperty = IsHidden
+
+	measure 3002_02_текст_Кнопка_Бренд = "Бренд"
+		isHidden
+		lineageTag: 041deebf-e611-4092-bc68-f56ef6597ab4
+
+		changedProperty = IsHidden
+
+	measure 3002_03_текст_Кнопка_Доставка = "Сегмент 1"
+		isHidden
+		lineageTag: 616e0ed5-44de-46a4-9edd-5ff4b2487d42
+
+		changedProperty = IsHidden
+
+	measure 3002_04_текст_Кнопка_Тип_кампании = "Сегмент 2"
+		isHidden
+		lineageTag: 3a97bf93-604c-4e62-a0ed-5ef60ac10e92
+
+		changedProperty = IsHidden
+
+	measure 3002_05_текст_Кнопка_Продукт = "Сегмент 3"
+		isHidden
+		lineageTag: dac19fa3-6e08-45d7-9ff0-397dcf3820ef
+
+		changedProperty = IsHidden
+
+	measure 3002_06_текст_Кнопка_Медиа = "Медиа"
+		isHidden
+		lineageTag: 48be3947-b311-4fde-894b-2ccab32f765f
+
+		changedProperty = IsHidden
+
+	measure 3002_07_текст_Кнопка_Хронометраж = "Хронометраж"
+		lineageTag: 11278af6-0faa-461e-bf96-25e410673bc0
+
+	column Столбец1
+		dataType: string
+		isHidden
+		lineageTag: 7ee9ef3e-8d58-4fd4-ad47-f6a7b754428d
+		summarizeBy: none
+		sourceColumn: Столбец1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Меры_30_Цвета_и_Кнопки = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t])
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

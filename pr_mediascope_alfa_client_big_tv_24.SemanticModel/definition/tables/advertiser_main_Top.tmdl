@@ -1,0 +1,53 @@
+table advertiser_main_Top
+	isHidden
+	lineageTag: 6bdeaaa4-7730-4606-a8ac-66a3c022b967
+
+	column Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 500bfae4-ecb2-46e6-86cf-a97621271011
+		summarizeBy: none
+		sourceColumn: Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column advertiser_main_top
+		dataType: string
+		isHidden
+		lineageTag: 2235acf9-f932-4c93-ba4b-6a97b7929056
+		summarizeBy: none
+		sourceColumn: advertiser_main_top
+		sortByColumn: Id
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition advertiser_main_Top = m
+		mode: import
+		queryGroup: 02_02_Top_tables
+		source = ```
+				let
+				    Источник = Sql.Database(mssql_server, db_name, 
+				    [Query="select distinct advertiser_main advertiser_main_top from all_reports_ad_dict_view where cleaning_flag in (" & cleaning_flag & ")"]),
+				    other_table = Table.FromRecords({
+				        [advertiser_main_top="ОСТАЛЬНОЕ"]
+				    }),
+				    combine_tbl = Table.Combine({other_table, Источник}),
+				    #"Добавлен индекс" = Table.AddIndexColumn(combine_tbl, "Id", 1, 1, Int64.Type),
+				    #"Строки с примененным фильтром" = Table.SelectRows(#"Добавлен индекс", each [advertiser_main_top] <> null and [advertiser_main_top] <> "")
+				in
+				    #"Строки с примененным фильтром"
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

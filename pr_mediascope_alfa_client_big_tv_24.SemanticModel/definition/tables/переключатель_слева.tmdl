@@ -1,0 +1,51 @@
+table переключатель_слева
+	lineageTag: fb9425cd-a45a-4787-b554-90bc95a25791
+
+	column Показатель
+		dataType: string
+		lineageTag: e8abd618-779e-4794-a76c-5af8f539e81b
+		summarizeBy: none
+		sourceColumn: Показатель
+		sortByColumn: Id
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 18f79e92-4502-4951-acdf-c8362c872574
+		summarizeBy: count
+		sourceColumn: Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		isHidden
+		lineageTag: 70a60116-adac-4195-9cc7-73eb26af9b83
+		summarizeBy: none
+		sourceColumn: type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition переключатель_слева = m
+		mode: import
+		queryGroup: 02_01_Вспомогательные_таблицы
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCgkLUtJRSsvJTyxRitWJVgou0UMXCipJD0gtii9PzUzPKElNQZErjy9OzC3ISQUKZuZBhC5MvNh3YcuFbRe2Xmy62K2jcLHhYvOFjXpIKpzzi0sUgkKdkIQCSxPzSjIrkUTC8nNKc+HmxgIA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Показатель = _t, #"type" = _t]),
+				    #"Добавлен индекс" = Table.AddIndexColumn(Источник, "Id", 1, 1, Int64.Type)
+				in
+				    #"Добавлен индекс"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

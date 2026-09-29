@@ -1,0 +1,566 @@
+table _Меры_29_Текст_и_Даты
+	isHidden
+	lineageTag: 1f528719-43a5-4cc7-9a47-53342f6a1df0
+
+	measure 2901_02_00_текст_Обновление_pbi = "Последнее обновление Power BI: " & VALUES('last_update_power_bi'[last_update])
+		isHidden
+		displayFolder: 29_01_02_Обновление_текст
+		lineageTag: ee2388b4-8c99-47ba-966e-21b67fe66803
+
+		changedProperty = IsHidden
+
+	measure 2901_02_01_текст_upd_TV_index =
+			
+			"Данные ТВ индекс рейтинги загружены до: " & MAX('tv_index_max_date'[max_date])
+		isHidden
+		displayFolder: 29_01_02_Обновление_текст
+		lineageTag: 8d8f344a-69c8-4905-aa79-091d91f25148
+
+		changedProperty = IsHidden
+
+	measure 2901_02_02_текст_upd_Media_invest = ```
+			
+			"Данные Медиа расходы загружены за " 
+			& FORMAT(
+			    Max('media_costs_union'[researchDate]), 
+			    "mmmm YYYY")
+			```
+		isHidden
+		displayFolder: 29_01_02_Обновление_текст
+		lineageTag: 61065d65-1dfc-4a1e-a8d2-71ac46ccd06d
+
+		changedProperty = IsHidden
+
+	measure 2902_00_SelectedLink = SELECTEDVALUE(creatives_dict[creative_link])
+		isHidden
+		displayFolder: 29_02_HTML
+		lineageTag: c83422dc-5720-4674-b090-a6acb60390b2
+
+		changedProperty = IsHidden
+
+	measure 2902_03_Html_Video =
+			
+			"<video width='620' controls><source src='" & [2902_00_SelectedLink] -- width='100%'
+			& "' type='video/mp4' alt='Видео креатив'>"
+		isHidden
+		displayFolder: 29_02_HTML\01_Main_HTML
+		lineageTag: 41928598-c0db-4837-beb5-2f4567f0187e
+
+		changedProperty = IsHidden
+
+	measure 2902_02_Html_Audio = ```
+			
+			"<audio controls>
+			<source src='"& [2902_00_SelectedLink] 
+			&"' type='audio/mp3' alt='Аудио креатив'>
+			</audio>"
+			```
+		isHidden
+		displayFolder: 29_02_HTML\01_Main_HTML
+		lineageTag: a018ae09-fa75-4c5f-b803-f3258a490012
+
+		changedProperty = IsHidden
+
+	measure 2902_01_Html_Img = ```
+			
+			"
+			<html>
+			<head>
+			    <style>
+			        .container {
+			            width:620px;
+			            height: 350px;
+			        }
+			        img {
+			        max-width: 100%;
+			        max-height: 100%;
+			      }
+			    </style>
+			</head>
+			<body>
+			    <div class='container'>
+			<img src='" & [2902_00_SelectedLink]   --width='100%' height='100%' width='550' height='350' 
+			
+			& "' alt='Изображения креатива'>
+			</div>
+			</body>
+			</html>"
+			```
+		isHidden
+		displayFolder: 29_02_HTML\01_Main_HTML
+		lineageTag: e4b5afb5-b7c1-43ae-827a-5dbd42b47a7d
+
+		changedProperty = IsHidden
+
+	measure 2902_05_switch_creatives =
+			
+			var switch_creative =
+			If(HASONEVALUE('all_reports_ad_dict'[media_type]),
+			SWITCH(VALUES('all_reports_ad_dict'[media_type]),
+			"OD", [2902_01_Html_Img],
+			"PR", [2902_01_Html_Img],
+			"TV", [2902_03_Html_Video],
+			"RA", [2902_02_Html_Audio]))
+			
+			var result = if(
+			    ISBLANK([2902_00_SelectedLink]) && or(
+			    ISBLANK(CALCULATE(SELECTEDVALUE('all_reports_ad_dict'[media_type]), ALL('media_type_dict'))),
+			    SELECTEDVALUE('media_type_dict'[media_type])="TV"),
+			     [2902_04_02_NOT_Selected_DefaultImgLink],
+			     if(ISBLANK([2902_00_SelectedLink]) ||  [2902_00_SelectedLink]="", [2902_04_01_Selected_DefaultImgLink],
+			     switch_creative))
+			return result
+		isHidden
+		displayFolder: 29_02_HTML\01_Main_HTML
+		lineageTag: 29918bcd-2035-4a7f-a708-c47f2453522b
+
+		changedProperty = IsHidden
+
+	measure 2902_04_01_Selected_DefaultImgLink = ```
+			
+			/*var filter_table = filter(all('creatives_dict'),  
+			SEARCH(lower("tv"), Lower('creatives_dict'[media_key_id]), 1, 0) > 0)
+			var min_id = MINX(filter_table, 'creatives_dict'[media_key_id])
+			var img_link = CALCULATE(max('creatives_dict'[preview_link]), 
+			filter(filter_table, 'creatives_dict'[media_key_id]=min_id))*/
+			
+			var img_link = "https://static.igronik.ru/pbi/icreative/default_img/no_creative.jpg"
+			var result = "<img width='620' height='350' src='" & img_link 
+			& "' alt='Изображения креатива'>"
+			return result
+			```
+		isHidden
+		displayFolder: 29_02_HTML\01_Main_HTML
+		lineageTag: 769787e7-73ff-424d-a8c0-d809ede8047a
+
+		changedProperty = IsHidden
+
+	measure 2902_07_Cretive_ID = ```
+			SELECTEDVALUE('creatives_dict'[media_key_id])
+			/*if(ISBLANK([2902_00_SelectedLink]), 
+			[2902_06_DefaultImgID],
+			SELECTEDVALUE('creatives_dict'[media_key_id]))*/
+			```
+		isHidden
+		displayFolder: 29_02_HTML\01_Main_HTML
+		lineageTag: 9bc3a841-12bf-43e5-b8a7-d22b8b669262
+
+		changedProperty = IsHidden
+
+	measure 2902_06_DefaultImgID = ```
+			blank()
+			/*var filter_table = filter(all('creatives_dict'),  
+			SEARCH(lower("tv"), Lower('creatives_dict'[media_key_id]), 1, 0) > 0)
+			var min_id = MINX(filter_table, 'creatives_dict'[media_key_id])
+			return min_id*/
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 29_02_HTML\01_Main_HTML
+		lineageTag: 5fbbb511-215d-4a49-9a5e-880770649184
+
+		changedProperty = IsHidden
+
+	measure 2903_01_01_Тип_медиа_по_умолчанию = ```
+			
+			if(ISBLANK([2903_01_00_Выбранный_тип_медиа]), "TV", [2903_01_00_Выбранный_тип_медиа])
+			
+			```
+		isHidden
+		displayFolder: 29_03_Выбранные_показатели
+		lineageTag: f97adb5a-20ba-4633-8496-02a6739fff4a
+
+		changedProperty = IsHidden
+
+	measure 2901_03_00_текст_таблица_ИД_объявлений_TV_Index = ```
+			
+			"Аудитория: " & [2903_02_Выбранная_аудитория]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_02_Макс_дата_календарь] 
+			& " -- Показатель: " & [2903_00_01_Выбранный_показатель_слева]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\01_TV_Index
+		lineageTag: 8d1bd5a4-016b-4dec-b40c-5701febeabd7
+
+		changedProperty = IsHidden
+
+	measure 2901_01_01_Мин_текущая_дата = MIN('Календарь'[Дата])
+		formatString: General Date
+		isHidden
+		displayFolder: 29_01_01_Даты
+		lineageTag: 4e90bdab-6c03-41a6-9205-906465360096
+
+		changedProperty = IsHidden
+
+	measure 2901_01_02_Макс_дата_календарь = MAX('Календарь'[Дата])
+		formatString: General Date
+		isHidden
+		displayFolder: 29_01_01_Даты
+		lineageTag: 7f38d389-e59f-4248-8510-2b128f674262
+
+		changedProperty = IsHidden
+
+	measure 2903_00_01_Выбранный_показатель_слева = SELECTEDVALUE('переключатель_слева'[Показатель])
+		isHidden
+		displayFolder: 29_03_Выбранные_показатели
+		lineageTag: 8ab07699-b99a-4472-851d-8d1c4cfe0887
+
+		changedProperty = IsHidden
+
+	measure 2903_00_02_Выбранный_показатель_справа = SELECTEDVALUE('переключатель_справа'[Показатель])
+		isHidden
+		displayFolder: 29_03_Выбранные_показатели
+		lineageTag: 078eedbb-be0e-4f28-b993-af557de7e3dd
+
+		changedProperty = IsHidden
+
+	measure 2901_01_00_Разность_дат =
+			
+			var min_date = [2901_01_01_Мин_текущая_дата]
+			var max_date = [2901_01_02_Макс_дата_календарь]
+			var result = DATEDIFF(max_date, min_date, DAY) - 1
+			return result
+		formatString: 0
+		isHidden
+		displayFolder: 29_01_01_Даты
+		lineageTag: 7f39e368-6629-41b6-b5b1-5965116195f4
+
+		changedProperty = IsHidden
+
+	measure 2903_01_00_Выбранный_тип_медиа = SELECTEDVALUE('media_type_dict'[media_type_long])
+		isHidden
+		displayFolder: 29_03_Выбранные_показатели
+		lineageTag: 5ec87358-254a-4db5-95c4-b5353ce12714
+
+		changedProperty = IsHidden
+
+	measure 2903_02_Выбранная_аудитория = SELECTEDVALUE('nat_tv_prj_union_dict'[prj_name_rus])
+		isHidden
+		displayFolder: 29_03_Выбранные_показатели
+		lineageTag: 126a95be-987a-4228-90db-50e8bb7a15fe
+
+		changedProperty = IsHidden
+
+	measure 2903_03_Выбранный_ТОП = SELECTEDVALUE('выборТОП'[Top])
+		formatString: 0
+		isHidden
+		displayFolder: 29_03_Выбранные_показатели
+		lineageTag: 64c28aff-d88b-4bb0-ad01-3df69bc6fd3c
+
+		changedProperty = IsHidden
+
+	measure 2901_03_01_текст_гистограмма_tv_company_TV_Index = ```
+			
+			"ТВ Каналы "
+			& " -- Top " & [2903_03_Выбранный_ТОП]
+			&" -- Аудитория: " & [2903_02_Выбранная_аудитория]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_02_Макс_дата_календарь] 
+			& " -- Показатель: " & [2903_00_01_Выбранный_показатель_слева]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\01_TV_Index
+		lineageTag: 4eb48bf3-9eaa-495b-a58c-f3b3b5e0c29f
+
+		changedProperty = IsHidden
+
+	measure 2901_03_02_текст_гистограмма_brand_TV_Index = ```
+			
+			"Бренды "
+			& " -- Top " & [2903_03_Выбранный_ТОП]
+			&" -- Аудитория: " & [2903_02_Выбранная_аудитория]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_02_Макс_дата_календарь] 
+			& " -- Показатель: " & [2903_00_01_Выбранный_показатель_слева]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\01_TV_Index
+		lineageTag: 44ec613d-4d42-442a-a0a7-5c7832747fd1
+
+		changedProperty = IsHidden
+
+	measure 2901_03_03_текст_гистограмма_Доставка_TV_Index = ```
+			
+			"Сегмент 1 "
+			&" -- Аудитория: " & [2903_02_Выбранная_аудитория]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_02_Макс_дата_календарь] 
+			& " -- Показатель: " & [2903_00_01_Выбранный_показатель_слева]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\01_TV_Index
+		lineageTag: 4f2f7043-9de7-4d91-8d23-9f67b9889cb5
+
+		changedProperty = IsHidden
+
+	measure 2901_03_04_текст_гистограмма_Тип_кампании_TV_Index = ```
+			
+			"Сегмент 2 "
+			& " -- Top " & [2903_03_Выбранный_ТОП]
+			&" -- Аудитория: " & [2903_02_Выбранная_аудитория]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_02_Макс_дата_календарь] 
+			& " -- Показатель: " & [2903_00_01_Выбранный_показатель_слева]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\01_TV_Index
+		lineageTag: 799a7374-1b62-4f52-b00e-70162f6a25ce
+
+		changedProperty = IsHidden
+
+	measure 2901_03_05_текст_гистограмма_Продукт_TV_Index = ```
+			
+			"Продукт "
+			& " -- Top " & [2903_03_Выбранный_ТОП]
+			&" -- Аудитория: " & [2903_02_Выбранная_аудитория]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_02_Макс_дата_календарь] 
+			& " -- Показатель: " & [2903_00_01_Выбранный_показатель_слева]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\01_TV_Index
+		lineageTag: f95f4bdd-89af-44b7-9056-c2df15c36e27
+
+		changedProperty = IsHidden
+
+	measure 2901_03_10_текст_таблица_ИД_объявлений_Adex = ```
+			
+			"Медиа: " & [2903_04_Выбранные_медиа]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_04_Adex_end_of_month] 
+			& " -- Показатель: " & [2903_00_02_Выбранный_показатель_справа]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\02_Adex
+		lineageTag: 911c714b-31e2-4f0f-bd96-b9e764a899b8
+
+		changedProperty = IsHidden
+
+	measure 2903_04_Выбранные_медиа =
+			
+			CONCATENATEX('media_type_dict', 'media_type_dict'[media_type_rus],  ", ")
+		isHidden
+		displayFolder: 29_03_Выбранные_показатели
+		lineageTag: 5f16d949-6a02-4c0e-beb5-22418ce440bd
+
+		changedProperty = IsHidden
+
+	measure 2901_03_11_текст_гистограмма_Медиа_Adex = ```
+			
+			"Медиа: " & [2903_04_Выбранные_медиа]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_04_Adex_end_of_month]  
+			& " -- Показатель: " & [2903_00_02_Выбранный_показатель_справа]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\02_Adex
+		lineageTag: 81da89e5-e43d-427a-ad43-865c49258123
+
+		changedProperty = IsHidden
+
+	measure 2901_03_12_текст_гистограмма_brand_Adex = ```
+			
+			"Бренды "
+			& " -- Top " & [2903_03_Выбранный_ТОП]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_04_Adex_end_of_month] 
+			& " -- Показатель: " & [2903_00_02_Выбранный_показатель_справа]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\02_Adex
+		lineageTag: c331b957-8dcf-428b-ba74-a792a7855140
+
+		changedProperty = IsHidden
+
+	measure 2901_03_13_текст_гистограмма_Доставка_Adex = ```
+			
+			"Сегмент 1 "
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_04_Adex_end_of_month] 
+			& " -- Показатель: " & [2903_00_02_Выбранный_показатель_справа]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\02_Adex
+		lineageTag: d73d1604-1112-43a5-b88c-45eae1cd9d0e
+
+		changedProperty = IsHidden
+
+	measure 2901_03_14_текст_гистограмма_Тип_кампании_Adex = ```
+			
+			"Сегмент 2 "
+			& " -- Top " & [2903_03_Выбранный_ТОП]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_04_Adex_end_of_month] 
+			& " -- Показатель: " & [2903_00_02_Выбранный_показатель_справа]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\02_Adex
+		lineageTag: 83f9ac98-c858-4267-806f-0a4bc791956d
+
+		changedProperty = IsHidden
+
+	measure 2901_03_15_текст_гистограмма_Продукт_Adex = ```
+			
+			"Продукт "
+			& " -- Top " & [2903_03_Выбранный_ТОП]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_04_Adex_end_of_month] 
+			& " -- Показатель: " & [2903_00_02_Выбранный_показатель_справа]
+			```
+		isHidden
+		displayFolder: 29_01_03_Общие_заголовки\02_Adex
+		lineageTag: 891e2ed8-e77c-48fb-ab47-8cca4b710c6e
+
+		changedProperty = IsHidden
+
+	measure 2902_04_02_NOT_Selected_DefaultImgLink = ```
+			
+			/*var filter_table = filter(all('creatives_dict'),  
+			SEARCH(lower("tv"), Lower('creatives_dict'[media_key_id]), 1, 0) > 0)
+			var min_id = MINX(filter_table, 'creatives_dict'[media_key_id])
+			var img_link = CALCULATE(max('creatives_dict'[preview_link]), 
+			filter(filter_table, 'creatives_dict'[media_key_id]=min_id))*/
+			
+			var img_link = "https://static.igronik.ru/pbi/icreative/default_img/choose_creative.jpg"
+			var result = "<img width='620' height='350' src='" & img_link 
+			& "' alt='Изображения креатива'>"
+			return result
+			```
+		isHidden
+		displayFolder: 29_02_HTML\01_Main_HTML
+		lineageTag: 458a1e38-3cea-4d86-8b4e-0696c4ee2353
+
+		changedProperty = IsHidden
+
+	measure 2902_21_TV_preview = ```
+			if(
+			    ISBLANK([2902_00_SelectedLink]), 
+			    "https://static.igronik.ru/pbi/icreative/default_img/tv_preview.jpg", [2902_00_SelectedLink])
+			```
+		isHidden
+		displayFolder: 29_02_HTML\02_Preview
+		lineageTag: 838d50ec-efc4-4f01-bc59-d20aefd3cf33
+
+		changedProperty = IsHidden
+
+	measure 2902_22_Radio_preview = ```
+			if(
+			    ISBLANK([2902_00_SelectedLink]), 
+			    "https://static.igronik.ru/pbi/icreative/default_img/radio_preview.jpg", [2902_00_SelectedLink])
+			```
+		isHidden
+		displayFolder: 29_02_HTML\02_Preview
+		lineageTag: c8203d31-cfda-4237-9ab1-fced22b8a454
+
+		changedProperty = IsHidden
+
+	measure 2902_23_Outdoor_preview = ```
+			if(
+			    ISBLANK([2902_00_SelectedLink]), 
+			    "https://static.igronik.ru/pbi/icreative/default_img/outdoor_preview.jpg", [2902_00_SelectedLink])
+			```
+		isHidden
+		displayFolder: 29_02_HTML\02_Preview
+		lineageTag: 01aff9d6-5474-4a83-bfe6-e9e845398eb6
+
+		changedProperty = IsHidden
+
+	measure 2902_24_Press_preview = ```
+			if(
+			    ISBLANK([2902_00_SelectedLink]), 
+			    "https://static.igronik.ru/pbi/icreative/default_img/press_preview.jpg", [2902_00_SelectedLink])
+			```
+		isHidden
+		displayFolder: 29_02_HTML\02_Preview
+		lineageTag: 8bba61ba-4991-4064-ab0f-ac4b428369d2
+
+		changedProperty = IsHidden
+
+	measure 2902_25_switch_Preview_creatives =
+			
+			var switch_creative =
+			If(HASONEVALUE('media_type_dict'[media_type_long]),
+			SWITCH(VALUES('media_type_dict'[media_type_long]),
+			"OUTDOOR", [2902_23_Outdoor_preview],
+			"PRESS", [2902_24_Press_preview],
+			"TV", [2902_21_TV_preview],
+			"RADIO", [2902_22_Radio_preview]))
+			
+			return switch_creative
+		isHidden
+		displayFolder: 29_02_HTML\02_Preview
+		lineageTag: 3c604962-7fee-484c-be1d-96d6385ebeb3
+
+		changedProperty = IsHidden
+
+	measure 2901_01_03_Макс_дата_Adex = CALCULATE(Max('media_costs_union'[researchDate]), ALL('Календарь'))
+		formatString: General Date
+		isHidden
+		displayFolder: 29_01_01_Даты
+		lineageTag: 81f51e99-a139-492d-878d-f4b5c99f2a70
+
+		changedProperty = IsHidden
+
+	measure 2901_01_05_adex_calendar_filter =
+			
+			var end_of_month = CALCULATE([2901_01_04_Adex_end_of_month], ALL('media_costs_union'), all('Календарь'))
+			var result =if(SELECTEDVALUE('Календарь'[Дата]) <= end_of_month, "Y", "N")
+			return
+			result
+			/*if(SELECTEDVALUE('Календарь'[Дата]) <=
+			EDATE(CALCULATE(MAX('media_costs_union'[researchDate]), ALL('media_costs_union'), all('Календарь')), 1)-1, "Y", "N")*/
+		isHidden
+		displayFolder: 29_01_01_Даты
+		lineageTag: 1e39203b-9dec-4578-8623-77e49c141951
+
+		changedProperty = IsHidden
+
+	measure 2901_01_04_Adex_end_of_month =
+			
+			EDATE(MAX('media_costs_union'[researchDate]), 1)-1
+		formatString: Short Date
+		isHidden
+		displayFolder: 29_01_01_Даты
+		lineageTag: d772af56-8bea-4af9-9217-90b15dbfede0
+
+		changedProperty = IsHidden
+
+	measure 2901_02_03_текст_upd_Reg_tv =
+			
+			"Данные ТВ индекс рейтинги загружены до: " & MAX('reg_tv_simple'[researchDate])/*MAX('tv_index_max_date'[max_date])*/
+		isHidden
+		displayFolder: 29_01_02_Обновление_текст
+		lineageTag: a1336819-d34c-4817-a0fe-8eafac990420
+
+		changedProperty = IsHidden
+
+	measure 2901_02_04_текст_upd_Big_tv =
+			
+			"Данные Big TV рейтинги загружены до: " &MAX('big_tv_simple'[researchDate])/*MAX('tv_index_max_date'[max_date])*/
+		isHidden
+		displayFolder: 29_01_02_Обновление_текст
+		lineageTag: 46620e93-23b7-4bad-a3c4-6dd64c801262
+
+		changedProperty = IsHidden
+
+	measure 2901_02_05_текст_upd_Nat_Big_tv =
+			
+			"Данные Нац Биг ТВ рейтинги загружены до: " & MAX('big_tv_simple'[researchDate])/*MAX('tv_index_max_date'[max_date])*/
+		isHidden
+		displayFolder: 29_01_02_Обновление_текст
+		lineageTag: f34fa33d-3a9c-4800-9aa8-84505850c323
+
+		changedProperty = IsHidden
+
+	column Столбец1
+		dataType: string
+		isHidden
+		lineageTag: b0e6617e-28cf-4e1a-8eb3-45af59f0e34c
+		summarizeBy: none
+		sourceColumn: Столбец1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Меры_29_Текст_и_Даты = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t])
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

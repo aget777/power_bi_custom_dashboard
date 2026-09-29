@@ -1,0 +1,194 @@
+expression mssql_server = "REGRU-54856\MSSQLSERVER01" meta [IsParameterQuery=true, List={"REGRU-54856\MSSQLSERVER01", "89.108.95.23:1533"}, DefaultValue="REGRU-54856\MSSQLSERVER01", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: e0764eed-d38c-4a50-83d1-2da1f59f747a
+	queryGroup: 00_Параметры_подключения
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Text
+
+expression db_name = "mediascope_alfa_big_v24" meta [IsParameterQuery=true, List={"mediascope_alfa_big_v21"}, DefaultValue="mediascope_alfa_big_v21", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: dde8e136-7a1e-43f9-b93a-e690435523da
+	queryGroup: 00_Параметры_подключения
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Навигация
+
+expression Функция = ```
+		let fnDateTableRus = (#"Дата начала" as date,optional #"Культура" as nullable text) as table =>
+		  let
+		    DayCount = Duration.Days(Duration.From(DateTime.Date(Date.From(end_date_report)) - #"Дата начала"))+1,
+		    Source = List.Dates(#"Дата начала",DayCount,#duration(1,0,0,0)),
+		    TableFromList = Table.FromList(Source, Splitter.SplitByNothing()),    
+		    ChangedType = Table.TransformColumnTypes(TableFromList,{{"Column1", type date}}),
+		    RenamedColumns = Table.RenameColumns(ChangedType,{{"Column1", "Дата"}}),
+		    InsertYear = Table.AddColumn(RenamedColumns, "Год", each Date.Year([Дата]),type text),
+		    InsertQuarterNum = Table.AddColumn(InsertYear, "Номер квартала", each Date.QuarterOfYear([Дата])),
+		    InsertQuarter = Table.AddColumn(InsertQuarterNum, "Квартал", each "Кв." & Number.ToText([Номер квартала])),
+		    InsertMonth = Table.AddColumn(InsertQuarter, "Номер месяца", each Date.Month([Дата]), Int64.Type),
+		    InsertStartOfMonth = Table.AddColumn(InsertMonth, "Начало месяца", each Date.StartOfMonth([Дата]), type date),
+		 InsertEndOfMonth = Table.AddColumn(InsertStartOfMonth , "Конец месяца", each Date.EndOfMonth([Дата]), type date),
+		    InsertDay = Table.AddColumn(InsertEndOfMonth, "День месяца", each Date.Day([Дата])),
+		    InsertDayInt = Table.AddColumn(InsertDay, "Код даты", each [Год] * 10000 + [Номер месяца] * 100 + [День месяца]),
+		    InsertMonthName = Table.AddColumn(InsertDayInt, "Месяц", each Date.ToText([Дата], "MMMM", #"Культура"), type text),
+		    InsertShortMonthName = Table.AddColumn(InsertMonthName, "Мес.", each Date.ToText([Дата], "MMM", #"Культура"), type text),
+		    InsertCalendarMonth = Table.AddColumn(InsertShortMonthName, "Месяц года", each (try([#"Мес."]) otherwise [Месяц]) & " " & Number.ToText([Год])),
+		    InsertCalendarQtr = Table.AddColumn(InsertCalendarMonth, "Квартал года", each "Кв." & Number.ToText([Номер квартала]) & "-" & Number.ToText([Год])),
+		    InsertDayWeek = Table.AddColumn(InsertCalendarQtr, "Номер дня недели", each Date.DayOfWeek([Дата],Day.Monday)),
+		    InsertDayName = Table.AddColumn(InsertDayWeek, "День недели", each Date.ToText([Дата], "dddd", #"Культура"), type text),
+		    InsertShortDayName = Table.AddColumn(InsertDayName, "День", each Date.ToText([Дата], "ddd", #"Культура"), type text),
+		    InsertWeekEnding = Table.AddColumn(InsertShortDayName, "Конец недели", each Date.EndOfWeek([Дата]), type date),
+		    InsertWeekStartDate = Table.AddColumn(InsertWeekEnding, "Начало недели", each Date.StartOfWeek([Дата],1), type date),
+		    InsertWeekNumber= Table.AddColumn(InsertWeekStartDate, "Номер недели", each Date.WeekOfYear([Дата])),
+		    InsertMonthnYear = Table.AddColumn(InsertWeekNumber,"Код месяца года", each [Год] * 10000 + [Номер месяца] * 100),
+		    InsertQuarternYear = Table.AddColumn(InsertMonthnYear,"Код квартала года", each [Год] * 10000 + [Номер квартала] * 100),
+		    ChangedType1 = Table.TransformColumnTypes(InsertQuarternYear,{{"Код квартала года", Int64.Type},{"Номер недели", Int64.Type},{"Квартал", type text},{"Год", type text},{"Код месяца года", Int64.Type}, {"Код даты", Int64.Type}, {"День месяца", Int64.Type}, {"Номер квартала", Int64.Type}, {"Месяц года", type text}, {"Квартал года", type text}, {"Номер дня недели", Int64.Type}})
+		 
+		    in
+		    ChangedType1
+		in
+		    fnDateTableRus
+		```
+	lineageTag: 6296484c-6e6b-4a4a-8ee4-77b2093bd8fe
+	queryGroup: 01_Calendar
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Function
+
+expression start_date =
+		let
+		    media_costs_union_date = Table.TransformColumnTypes(
+		                            Sql.Database(mssql_server, db_name, [Query="select min(researchDate) as all_media_costs_min_date from media_costs_union_view"]),
+		                            {{"all_media_costs_min_date", type date}})[all_media_costs_min_date]{0},
+		    nat_tv_simple_date = Table.TransformColumnTypes(
+		                            Sql.Database(mssql_server, db_name, [Query="select min(researchDate) as nat_tv_simple_min_date from nat_tv_simple"]),
+		                            {{"nat_tv_simple_min_date", type date}})[nat_tv_simple_min_date]{0},
+		    reg_tv_simple_date = Table.TransformColumnTypes(
+		                            Sql.Database(mssql_server, db_name, [Query="select min(researchDate) as reg_tv_simple_min_date from reg_tv_simple"]),
+		                            {{"reg_tv_simple_min_date", type date}})[reg_tv_simple_min_date]{0},
+		
+		    big_tv_simple_date = Table.TransformColumnTypes(
+		                            Sql.Database(mssql_server, db_name, [Query="select min(researchDate) as big_tv_simple_min_date from big_tv_simple"]),
+		                            {{"big_tv_simple_min_date", type date}})[big_tv_simple_min_date]{0},
+		
+		    calendar_min_date = List.Min({media_costs_union_date, nat_tv_simple_date, reg_tv_simple_date, big_tv_simple_date}),
+		    tmp = Date.From("01.01.2026")
+		
+		in
+		    tmp
+	lineageTag: 44680a03-af6c-4573-a0c0-e0afd1469bfa
+	queryGroup: 01_Calendar
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Date
+
+expression cleaning_flag = "1" meta [IsParameterQuery=true, List={"0", "1", "2", "0, 1", "0, 1, 2"}, DefaultValue="1", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: f8a1f7bc-5a50-41a1-bb73-ea75e0d7c0e2
+	queryGroup: 00_Параметры_подключения
+
+	annotation PBI_ResultType = Text
+
+expression end_date = ```
+		let
+		    source = end_date_report
+		
+		in
+		    source
+		/*let
+		cur_date = DateTime.LocalNow(),
+		day_of_week =Date.DayOfWeek(cur_date),
+		
+		
+		days_count = if day_of_week=0 then -8 
+		            else if day_of_week=1 then -9 
+		            else if day_of_week=2 then -10
+		            else if day_of_week=3 then -11
+		            else if day_of_week=4 then -12
+		            else if day_of_week=5 then -13
+		            else  -14,
+		
+		last_date_update = Date.From(Date.AddDays(cur_date, days_count))
+		
+		in
+		    last_date_update*/
+		```
+	lineageTag: 50619f5d-58a1-442b-98b1-f06013325a99
+	queryGroup: 01_Calendar
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Date
+
+expression db_icreative = "icreative" meta [IsParameterQuery=true, List={"icreative"}, DefaultValue="icreative", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 216adf42-d352-46bb-8eaa-7ebebc8d8479
+	queryGroup: 00_Параметры_подключения
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Text
+
+expression end_date_TV_index_filter = ```
+		let
+		Источник =Date.ToText(end_date, 
+		    [Format="yyyy-MM-dd", Culture="en-EN"]
+		    )
+		
+		in
+		    Источник
+		```
+	lineageTag: bd657b78-558c-420e-9958-429a1edf522e
+	queryGroup: 01_Calendar
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Text
+
+expression end_date_Adex_filter_DB = ```
+		let
+		cur_date = DateTime.LocalNow(),
+		cur_day_num = Date.Day(cur_date),
+		
+		/* month_count = if 1 < cur_day_num and  cur_day_num <= 5 then -3 else -2, */
+		month_count = if cur_day_num <= 5 then -3 else -2,
+		
+		last_n_months = Date.From(Date.AddMonths(cur_date, month_count)), 
+		end_date = Date.ToText(
+		    #date(Date.Year(last_n_months), Date.Month(last_n_months), 1), 
+		    [Format="yyyy-MM-dd", Culture="en-EN"]
+		    )
+		
+		
+		in
+		    end_date
+		```
+	lineageTag: 6aae7f00-2867-42e7-b934-5bf66e0d3805
+	queryGroup: 01_Calendar
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Text
+
+expression end_date_report =
+		let
+		    nat_tv_simple_date = Table.TransformColumnTypes(
+		                            Sql.Database(mssql_server, db_name, [Query="select max(researchDate) as nat_tv_simple_min_date from nat_tv_simple"]),
+		                             {{"nat_tv_simple_min_date", type date}})[nat_tv_simple_min_date]{0},
+		    reg_tv_simple_date = Table.TransformColumnTypes(
+		                            Sql.Database(mssql_server, db_name, [Query="select max(researchDate) as reg_tv_simple_min_date from reg_tv_simple"]),
+		                            {{"reg_tv_simple_min_date", type date}})[reg_tv_simple_min_date]{0},
+		    big_tv_simple_date = Table.TransformColumnTypes(
+		                            Sql.Database(mssql_server, db_name, [Query="select max(researchDate) as big_tv_simple_min_date from big_tv_simple"]),
+		                            {{"big_tv_simple_min_date", type date}})[big_tv_simple_min_date]{0},
+		    calendar_max_date = List.Max({nat_tv_simple_date, reg_tv_simple_date, big_tv_simple_date})
+		
+		in
+		    calendar_max_date
+	lineageTag: 083a18de-2b14-44a2-906b-e7ba4ca8ea2b
+	queryGroup: 01_Calendar
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Date
+

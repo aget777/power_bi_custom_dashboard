@@ -1,0 +1,43 @@
+table adex_distribution_dict
+	lineageTag: 9c5cc946-d74b-4dd4-a6b0-150527907497
+
+	column adDistributionType
+		dataType: string
+		isHidden
+		lineageTag: c05d9db4-88f9-4daf-9cdc-82b5d57e681d
+		summarizeBy: none
+		sourceColumn: adDistributionType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 45630cfc-a2b9-49d7-a743-22664b61bbb3
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ename
+		dataType: string
+		lineageTag: cc03bf25-ebed-4451-bfb6-9cfcc1bb3589
+		summarizeBy: none
+		sourceColumn: ename
+
+		annotation SummarizationSetBy = Automatic
+
+	partition adex_distribution_dict = m
+		mode: import
+		queryGroup: 06_Media_costs\06_01_Справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select * from distribution_view"])
+				in
+				    Источник
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

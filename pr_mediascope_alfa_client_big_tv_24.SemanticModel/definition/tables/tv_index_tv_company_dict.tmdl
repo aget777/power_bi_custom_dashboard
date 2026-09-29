@@ -1,0 +1,46 @@
+table tv_index_tv_company_dict
+	lineageTag: d8bc5f16-161a-4cc5-85e5-e9e896871884
+
+	column tvCompanyId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 41469512-d07b-4411-b94b-fc710be39cf0
+		summarizeBy: none
+		sourceColumn: tvCompanyId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column tvCompanyName
+		dataType: string
+		lineageTag: 056e39d7-3790-48f2-bec9-c069267ab52b
+		summarizeBy: none
+		sourceColumn: tvCompanyName
+
+		annotation SummarizationSetBy = Automatic
+
+	column tvNetId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: aab587a9-62e3-4633-ad53-363079af8cf5
+		summarizeBy: none
+		sourceColumn: tvNetId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition tv_index_tv_company_dict = m
+		mode: import
+		queryGroup: 05_TV_Index\05_01_Справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select tvCompanyId, tvCompanyName, tvNetId from tv_index_tv_company_dict"])
+				in
+				    Источник
+
+	annotation PBI_ResultType = Table
+

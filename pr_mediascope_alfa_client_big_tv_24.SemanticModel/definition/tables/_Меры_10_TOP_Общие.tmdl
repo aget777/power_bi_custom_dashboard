@@ -1,0 +1,1028 @@
+table _Меры_10_TOP_Общие
+	isHidden
+	lineageTag: 5d5ede2c-4d00-429f-8241-713ce29de592
+
+	measure 430_00_общее_Бренд_tv_ind = CALCULATE([400_00_12_Nat_Big_switch_left], ALL('brand_main_Top'))
+		isHidden
+		displayFolder: 03_Brand\01_TV_index
+		lineageTag: 12bdba99-49f9-40b1-a9c7-092a424dfd3e
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 431_01_Ранг_brand_tv_ind = ```
+			
+			if(
+			    ISINSCOPE('brand_main_Top'[brand_main_Top]),
+			    RANKX(
+			        ALL('brand_main_Top'), 
+			        [400_00_12_Nat_Big_switch_left])
+			        )
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 03_Brand\01_TV_index
+		lineageTag: 305de62c-7b1e-4fff-83eb-1c8c5bf46aff
+
+		changedProperty = IsHidden
+
+	measure 432_01_Позиции_brand_в_топе_tv_ind = ```
+			
+			if(
+			    ISINSCOPE('brand_main_Top'[brand_main_Top]), 
+			        if([431_01_Ранг_brand_tv_ind] <= SELECTEDVALUE('выборТОП'[Top]), 
+			        [400_00_12_Nat_Big_switch_left],
+			     BLANK()), 
+			BLANK())
+			```
+		isHidden
+		displayFolder: 03_Brand\01_TV_index
+		lineageTag: de23843d-4e5b-4be4-a172-1ed610228e16
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 432_02_Позиции_brand_прочее_tv_ind = ```
+			
+			if(
+			    Lower(SELECTEDVALUE('brand_main_Top'[brand_main_Top]))="ОСТАЛЬНОЕ",
+			    CALCULATE([400_00_12_Nat_Big_switch_left], FILTER(ALL('brand_main_Top'), 
+			    RANKX(ALL('brand_main_Top'), [400_00_12_Nat_Big_switch_left]) > SELECTEDVALUE('выборТОП'[Top]))),
+			 BLANK())
+			```
+		isHidden
+		displayFolder: 03_Brand\01_TV_index
+		lineageTag: 1c5527ed-530e-4c2f-93d7-50196c060541
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 432_03_Позиции_brand_в_топе_LY_tv_ind = CALCULATE([432_01_Позиции_brand_в_топе_tv_ind], DATEADD('Календарь'[Дата],-1,YEAR))
+		isHidden
+		displayFolder: 03_Brand\01_TV_index
+		lineageTag: 164fa267-2c76-4988-a094-f3e2d5427142
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 433_01_Brand_total_tv_ind = ```
+			
+			if(ALLSELECTED('exclude_others'[статус])="ВСЕ",
+			if(
+			    [431_01_Ранг_brand_tv_ind] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [400_00_12_Nat_Big_switch_left], [432_02_Позиции_brand_прочее_tv_ind]), [434_01_02_brand_tv_Top_exclude_OTHERS])
+			/*if(
+			    [431_01_Ранг_brand_tv_ind] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [432_01_Позиции_brand_в_топе_tv_ind], [432_02_Позиции_brand_прочее_tv_ind])*/
+			```
+		isHidden
+		displayFolder: 03_Brand\01_TV_index
+		lineageTag: 319667f2-f468-445a-9d18-627811d9f553
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 433_02_Brand_total_LY_tv_ind = CALCULATE([433_01_Brand_total_tv_ind], DATEADD('Календарь'[Дата],-1,YEAR))
+		isHidden
+		displayFolder: 03_Brand\01_TV_index
+		lineageTag: 16d962af-0045-4711-8169-7e209bc6fac7
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 440_00_общее_Advertiser_Top = CALCULATE([400_00_12_Nat_Big_switch_left], ALL('advertiser_main_Top'))
+		isHidden
+		displayFolder: 04_Advertiser
+		lineageTag: a8431f67-33f0-4c44-8b92-24c2971e9de3
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 441_01_Ранг_Advertiser_Top = ```
+			
+			if(
+			    ISINSCOPE('advertiser_main_Top'[advertiser_main_Top]),
+			    RANKX(ALL('advertiser_main_Top'), 
+			    [400_00_12_Nat_Big_switch_left])
+			)
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 04_Advertiser
+		lineageTag: 2bd71dde-ab31-4dde-9f83-4c1aa2aef5bf
+
+		changedProperty = IsHidden
+
+	measure 442_01_Позиции_advertiser_в_топе_Top = ```
+			
+			if(
+			    ISINSCOPE('advertiser_main_Top'[advertiser_main_Top]), 
+			    if([441_01_Ранг_Advertiser_Top] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [400_00_12_Nat_Big_switch_left], 
+			    BLANK()), 
+			BLANK())
+			```
+		isHidden
+		displayFolder: 04_Advertiser
+		lineageTag: 956328a4-f3f8-4406-932c-14dd7c535b95
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 442_02_Позиции_Advertiser_прочее_Top = ```
+			
+			if(
+			    Lower(SELECTEDVALUE('advertiser_main_Top'[advertiser_main_Top]))="ОСТАЛЬНОЕ",
+			    CALCULATE([400_00_12_Nat_Big_switch_left], FILTER(ALL('advertiser_main_Top'), 
+			        RANKX(ALL('advertiser_main_Top'), 
+			        [400_00_12_Nat_Big_switch_left]) > SELECTEDVALUE('выборТОП'[Top]))),
+			    BLANK())
+			```
+		isHidden
+		displayFolder: 04_Advertiser
+		lineageTag: e43fde6d-90bb-4eb8-85d0-98251caa89b8
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 443_01_Advertiser_total_Top = ```
+			
+			if([441_01_Ранг_Advertiser_Top] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [442_01_Позиции_advertiser_в_топе_Top], 
+			    [442_02_Позиции_Advertiser_прочее_Top])
+			```
+		isHidden
+		displayFolder: 04_Advertiser
+		lineageTag: 8e9341f2-99d3-4f46-b1a5-1d91f41fd9e4
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 450_00_общее_TV_company_Top = CALCULATE([400_00_12_Nat_Big_switch_left], ALL('tv_index_tv_company_Top'))
+		isHidden
+		displayFolder: 01_TV_Company_TV_Index\01_TV_index
+		lineageTag: 8b875e17-0d3f-4349-8d6a-c3e66b7e9f11
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 451_01_Ранг_TV_company_Top = ```
+			
+			if(
+			    ISINSCOPE('tv_index_tv_company_Top'[tv_company_top]),
+			    RANKX(ALL('tv_index_tv_company_Top'), 
+			    [400_00_12_Nat_Big_switch_left])
+			)
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 01_TV_Company_TV_Index\01_TV_index
+		lineageTag: 7582390c-77dd-4bd5-81b6-808b863bc8e0
+
+		changedProperty = IsHidden
+
+	measure 452_01_Позиции_TV_company_в_топе_Top = ```
+			
+			if(ISINSCOPE('tv_index_tv_company_Top'[tv_company_top]), 
+			    if([451_01_Ранг_TV_company_Top] <= [2903_03_Выбранный_ТОП], 
+			    [400_00_12_Nat_Big_switch_left], 
+			    BLANK()), 
+			BLANK())
+			```
+		isHidden
+		displayFolder: 01_TV_Company_TV_Index\01_TV_index
+		lineageTag: e83c0ff2-9b03-483d-afdd-26f26f2e3078
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 452_02_Позиции_TV_company_прочее_Top = ```
+			
+			if(
+			    Lower(SELECTEDVALUE('tv_index_tv_company_Top'[tv_company_top]))="ОСТАЛЬНОЕ",
+			    CALCULATE([400_00_12_Nat_Big_switch_left], FILTER(ALL('tv_index_tv_company_Top'), 
+			        RANKX(ALL('tv_index_tv_company_Top'), 
+			        [400_00_12_Nat_Big_switch_left]) > [2903_03_Выбранный_ТОП])),
+			    BLANK())
+			```
+		isHidden
+		displayFolder: 01_TV_Company_TV_Index\01_TV_index
+		lineageTag: 41563f62-32e1-4ebc-af40-22ee054307ea
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 453_01_TV_company_total_Top = ```
+			
+			if(ALLSELECTED('exclude_others'[статус])="ВСЕ",
+			if(
+			    [451_01_Ранг_TV_company_Top] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [400_00_12_Nat_Big_switch_left], [452_02_Позиции_TV_company_прочее_Top]), [454_01_02_TV_company_Top_exclude_OTHERS])
+			
+			/*if([451_01_Ранг_TV_company_Top] <= [2903_03_Выбранный_ТОП], 
+			    [452_01_Позиции_TV_company_в_топе_Top], 
+			    [452_02_Позиции_TV_company_прочее_Top])*/
+			```
+		isHidden
+		displayFolder: 01_TV_Company_TV_Index\01_TV_index
+		lineageTag: b74a6461-1403-4588-bbe1-a654eb5a69f8
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 420_00_общее_Бренд_adex = CALCULATE([400_00_01_02_Adex_switch_right], ALL('brand_main_Top'))
+		formatString: 0
+		isHidden
+		displayFolder: 03_Brand\02_Adex
+		lineageTag: 8c377db3-9da0-4645-99c1-64b03f68857a
+
+		changedProperty = IsHidden
+
+	measure 421_01_Ранг_brand_adex = ```
+			
+			if(
+			    ISINSCOPE('brand_main_Top'[brand_main_Top]),
+			    RANKX(
+			        ALL('brand_main_Top'), 
+			        [400_00_01_02_Adex_switch_right])
+			        )
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 03_Brand\02_Adex
+		lineageTag: df7ee1c5-71fb-40b5-8cdf-fb496238ebfb
+
+		changedProperty = IsHidden
+
+	measure 422_01_Позиции_brand_в_топе_adex = ```
+			
+			if(
+			    ISINSCOPE('brand_main_Top'[brand_main_Top]), 
+			        if([421_01_Ранг_brand_adex] <= SELECTEDVALUE('выборТОП'[Top]), 
+			        [400_00_01_02_Adex_switch_right],
+			     BLANK()), 
+			BLANK())
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 03_Brand\02_Adex
+		lineageTag: 9d606a6c-4ed3-4988-9643-928c910d997c
+
+		changedProperty = IsHidden
+
+	measure 422_02_Позиции_brand_прочее_adex = ```
+			
+			if(
+			    Lower(SELECTEDVALUE('brand_main_Top'[brand_main_Top]))="ОСТАЛЬНОЕ",
+			    CALCULATE([400_00_01_02_Adex_switch_right], FILTER(ALL('brand_main_Top'), 
+			    RANKX(ALL('brand_main_Top'), [400_00_01_02_Adex_switch_right]) > SELECTEDVALUE('выборТОП'[Top]))),
+			 BLANK())
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 03_Brand\02_Adex
+		lineageTag: 78cad6e0-f7c5-402d-b47e-2111defddaab
+
+		changedProperty = IsHidden
+
+	measure 423_01_Brand_total_adex = ```
+			
+			if(ALLSELECTED('exclude_others'[статус])="ВСЕ",
+			if(
+			    [421_01_Ранг_brand_adex] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [400_00_01_02_Adex_switch_right], [422_02_Позиции_brand_прочее_adex]), [424_01_02_Adex_Brand_Top_exclude_OTHERS])
+			/*if(
+			    [421_01_Ранг_brand_adex] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [422_01_Позиции_brand_в_топе_adex], [422_02_Позиции_brand_прочее_adex])*/
+			```
+		formatString: #,0
+		isHidden
+		displayFolder: 03_Brand\02_Adex
+		lineageTag: 003b9512-6611-4a16-a993-57d8f7532f15
+
+		changedProperty = IsHidden
+
+	measure 423_02_Brand_total_LY_adex = CALCULATE([423_01_Brand_total_adex], DATEADD('Календарь'[Дата],-1,YEAR))
+		formatString: 0
+		isHidden
+		displayFolder: 03_Brand\02_Adex
+		lineageTag: 420e18f8-e441-49dd-a5ff-3dd47cf1036f
+
+		changedProperty = IsHidden
+
+	measure 480_00_общее_Category_7_adex = CALCULATE([400_00_01_02_Adex_switch_right], ALL('category_7_Top'))
+		formatString: 0
+		isHidden
+		displayFolder: 05_Category_7\02_Adex
+		lineageTag: 1b95a5e0-b504-4016-9962-769596016e6a
+
+		changedProperty = IsHidden
+
+	measure 481_01_Ранг_Category_7_adex = ```
+			
+			if(
+			    ISINSCOPE('category_7_Top'[category_7_main_Top]),
+			    RANKX(
+			        ALL('category_7_Top'), 
+			        [400_00_01_02_Adex_switch_right])
+			        )
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 05_Category_7\02_Adex
+		lineageTag: aaca1b4f-045e-41ee-ad04-94a044e981f6
+
+		changedProperty = IsHidden
+
+	measure 482_01_Позиции_Category_7_в_топе_adex = ```
+			
+			if(
+			    ISINSCOPE('category_7_Top'[category_7_main_Top]), 
+			        if([481_01_Ранг_Category_7_adex] <= SELECTEDVALUE('выборТОП'[Top]), 
+			        [400_00_01_02_Adex_switch_right],
+			     BLANK()), 
+			BLANK())
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 05_Category_7\02_Adex
+		lineageTag: d41dcdab-35ce-4ea1-bc69-099d7fef34c6
+
+		changedProperty = IsHidden
+
+	measure 482_02_Позиции_Category_7_прочее_adex = ```
+			
+			if(
+			    Lower(SELECTEDVALUE('category_7_Top'[category_7_main_Top]))="ОСТАЛЬНОЕ",
+			    CALCULATE([400_00_01_02_Adex_switch_right], FILTER(ALL('category_7_Top'), 
+			    RANKX(ALL('category_7_Top'), [400_00_01_02_Adex_switch_right]) > SELECTEDVALUE('выборТОП'[Top]))),
+			 BLANK())
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 05_Category_7\02_Adex
+		lineageTag: c99412ac-6f27-4843-b357-eb3688d3e9cf
+
+		changedProperty = IsHidden
+
+	measure 483_01_Category_7_total_adex = ```
+			
+			if(ALLSELECTED('exclude_others'[статус])="ВСЕ",
+			if(
+			    [481_01_Ранг_Category_7_adex] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [400_00_01_02_Adex_switch_right], [482_02_Позиции_Category_7_прочее_adex]), [484_01_02_Adex_Category_7_Top_exclude_OTHERS])
+			/*
+			if(
+			    [481_01_Ранг_Category_7_adex] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [482_01_Позиции_Category_7_в_топе_adex], [482_02_Позиции_Category_7_прочее_adex])*/
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 05_Category_7\02_Adex
+		lineageTag: bba66268-fe28-44e7-be1c-14e57c0fa061
+
+		changedProperty = IsHidden
+
+	measure 483_02_Category_7_total_LY_adex = CALCULATE([483_01_Category_7_total_adex], DATEADD('Календарь'[Дата],-1,YEAR))
+		formatString: 0
+		isHidden
+		displayFolder: 05_Category_7\02_Adex
+		lineageTag: 8380acbf-5703-45f2-a4d3-05683b2bc68e
+
+		changedProperty = IsHidden
+
+	measure 470_00_общее_Category_7_tv_ind = CALCULATE([400_00_12_Nat_Big_switch_left], ALL('category_7_Top'))
+		isHidden
+		displayFolder: 05_Category_7\01_TV_index
+		lineageTag: d7cc12a7-7faf-499e-b1c8-f9bddbaa0174
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 471_01_Ранг_Category_7_tv_ind = ```
+			
+			if(
+			    ISINSCOPE('category_7_Top'[category_7_main_Top]),
+			    RANKX(
+			        ALL('category_7_Top'), 
+			        [400_00_12_Nat_Big_switch_left])
+			        )
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 05_Category_7\01_TV_index
+		lineageTag: 1f9b642f-182d-4145-9372-275f63a13dab
+
+		changedProperty = IsHidden
+
+	measure 472_01_Позиции_Category_7_в_топе_tv_ind = ```
+			
+			if(
+			    ISINSCOPE('category_7_Top'[category_7_main_Top]), 
+			        if([471_01_Ранг_Category_7_tv_ind] <= SELECTEDVALUE('выборТОП'[Top]), 
+			        [400_00_12_Nat_Big_switch_left],
+			     BLANK()), 
+			BLANK())
+			```
+		isHidden
+		displayFolder: 05_Category_7\01_TV_index
+		lineageTag: a5c359b5-1d16-471f-bd38-904869b2d96c
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 472_02_Позиции_Category_7_прочее_tv_ind = ```
+			
+			if(
+			    Lower(SELECTEDVALUE('category_7_Top'[category_7_main_Top]))="ОСТАЛЬНОЕ",
+			    CALCULATE([400_00_12_Nat_Big_switch_left], FILTER(ALL('category_7_Top'), 
+			    RANKX(ALL('category_7_Top'), [400_00_12_Nat_Big_switch_left]) > SELECTEDVALUE('выборТОП'[Top]))),
+			 BLANK())
+			```
+		isHidden
+		displayFolder: 05_Category_7\01_TV_index
+		lineageTag: 2f9404cc-eaa3-4d44-9523-5f17a5d2c0ba
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 473_01_Category_7_total_tv_ind = ```
+			
+			if(ALLSELECTED('exclude_others'[статус])="ВСЕ",
+			if(
+			    [471_01_Ранг_Category_7_tv_ind] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [400_00_12_Nat_Big_switch_left], [472_02_Позиции_Category_7_прочее_tv_ind]), [474_01_02_TV_Category_7_Top_exclude_OTHERS])
+			
+			/*if(
+			    [471_01_Ранг_Category_7_tv_ind] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [472_01_Позиции_Category_7_в_топе_tv_ind], [472_02_Позиции_Category_7_прочее_tv_ind])*/
+			```
+		isHidden
+		displayFolder: 05_Category_7\01_TV_index
+		lineageTag: 9721d520-a5c3-4dbe-b8d6-08839c5b3ca2
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 473_02_Category_7_total_LY_tv_ind = CALCULATE([473_01_Category_7_total_tv_ind], DATEADD('Календарь'[Дата],-1,YEAR))
+		isHidden
+		displayFolder: 05_Category_7\01_TV_index
+		lineageTag: 09bbd4e0-e4a7-4d7f-af31-6a9349f8ed0c
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 424_01_02_Adex_Brand_Top_exclude_OTHERS = ```
+			
+			var selected_top = SELECTEDVALUE('выборТОП'[Top])
+			var racking = values('brand_main_Top'[brand_main_top])
+			var result = CALCULATE(
+			    [400_00_01_02_Adex_switch_right], 
+			    TOPN(selected_top, ALLSELECTED('brand_main_Top'), [400_00_01_02_Adex_switch_right],DESC),
+			    racking)
+			
+			return result
+			```
+		isHidden
+		displayFolder: 03_Brand\02_Adex
+		lineageTag: 11adf3b7-f7e6-4908-b00c-cf9446a669bd
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 484_01_02_Adex_Category_7_Top_exclude_OTHERS = ```
+			
+			var selected_top = SELECTEDVALUE('выборТОП'[Top])
+			var racking = values('category_7_Top'[category_7_main_Top])
+			var result = CALCULATE(
+			    [400_00_01_02_Adex_switch_right], 
+			    TOPN(selected_top, ALLSELECTED('category_7_Top'), [400_00_01_02_Adex_switch_right],DESC),
+			    racking)
+			
+			return result
+			```
+		isHidden
+		displayFolder: 05_Category_7\02_Adex
+		lineageTag: 99ebe567-41a5-42b1-a6eb-2947ed60765a
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 500_00_общее_Category_6_adex = CALCULATE([400_00_01_02_Adex_switch_right], ALL('category_6_Top'))
+		isHidden
+		displayFolder: 06_Category_6\02_Adex
+		lineageTag: 1ac20f0f-0f95-4333-9b87-c75df58657e5
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 501_01_Ранг_Category_6_adex = ```
+			
+			if(
+			    ISINSCOPE('category_6_Top'[category_6_main_Top]),
+			    RANKX(
+			        ALL('category_6_Top'), 
+			        [400_00_01_02_Adex_switch_right])
+			        )
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 06_Category_6\02_Adex
+		lineageTag: 4899349c-dc3f-4f38-8af6-5d6d8af3bcac
+
+		changedProperty = IsHidden
+
+	measure 502_01_Позиции_Category_6_в_топе_adex = ```
+			
+			if(
+			    ISINSCOPE('category_6_Top'[category_6_main_Top]), 
+			        if([501_01_Ранг_Category_6_adex] <= SELECTEDVALUE('выборТОП'[Top]), 
+			        [400_00_01_02_Adex_switch_right],
+			     BLANK()), 
+			BLANK())
+			```
+		isHidden
+		displayFolder: 06_Category_6\02_Adex
+		lineageTag: 2ae995c1-778b-42c1-86e6-5a7f887efa7b
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 502_02_Позиции_Category_6_прочее_adex = ```
+			
+			if(
+			    Lower(SELECTEDVALUE('category_6_Top'[category_6_main_Top]))="ОСТАЛЬНОЕ",
+			    CALCULATE([400_00_01_02_Adex_switch_right], FILTER(ALL('category_6_Top'), 
+			    RANKX(ALL('category_6_Top'), [400_00_01_02_Adex_switch_right]) > SELECTEDVALUE('выборТОП'[Top]))),
+			 BLANK())
+			```
+		isHidden
+		displayFolder: 06_Category_6\02_Adex
+		lineageTag: cf0529f6-679c-425e-b5aa-3a0a877179b6
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 504_01_02_Adex_Category_6_Top_exclude_OTHERS = ```
+			
+			var selected_top = SELECTEDVALUE('выборТОП'[Top])
+			var racking = values('category_6_Top'[category_6_main_Top])
+			var result = CALCULATE(
+			    [400_00_01_02_Adex_switch_right], 
+			    TOPN(selected_top, ALLSELECTED('category_6_Top'), [400_00_01_02_Adex_switch_right],DESC),
+			    racking)
+			
+			return result
+			```
+		isHidden
+		displayFolder: 06_Category_6\02_Adex
+		lineageTag: c3949e01-128e-4834-88ab-509c6a2867df
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 503_01_Category_6_total_adex = ```
+			
+			if(ALLSELECTED('exclude_others'[статус])="ВСЕ",
+			if(
+			    [501_01_Ранг_Category_6_adex] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [400_00_01_02_Adex_switch_right], [502_02_Позиции_Category_6_прочее_adex]), [504_01_02_Adex_Category_6_Top_exclude_OTHERS])
+			/*
+			if(
+			    [481_01_Ранг_Category_7_adex] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [482_01_Позиции_Category_7_в_топе_adex], [482_02_Позиции_Category_7_прочее_adex])*/
+			```
+		isHidden
+		displayFolder: 06_Category_6\02_Adex
+		lineageTag: e18c3bb7-1ae8-4a5c-97a3-5f3533a91e3b
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 454_01_02_TV_company_Top_exclude_OTHERS = ```
+			
+			var selected_top = SELECTEDVALUE('выборТОП'[Top])
+			var racking = values('tv_index_tv_company_Top'[tv_company_top])
+			var result = CALCULATE(
+			    [400_00_12_Nat_Big_switch_left], 
+			    TOPN(selected_top, ALLSELECTED('tv_index_tv_company_Top'), [400_00_12_Nat_Big_switch_left],DESC),
+			    racking)
+			
+			return result
+			```
+		isHidden
+		displayFolder: 01_TV_Company_TV_Index\01_TV_index
+		lineageTag: 9d99c5fd-da5e-4290-b149-d64f5641373e
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 434_01_02_brand_tv_Top_exclude_OTHERS = ```
+			
+			var selected_top = SELECTEDVALUE('выборТОП'[Top])
+			var racking = values('brand_main_Top'[brand_main_Top])
+			var result = CALCULATE(
+			    [400_00_12_Nat_Big_switch_left], 
+			    TOPN(selected_top, ALLSELECTED('brand_main_Top'), [400_00_12_Nat_Big_switch_left],DESC),
+			    racking)
+			
+			return result
+			
+			```
+		isHidden
+		displayFolder: 03_Brand\01_TV_index
+		lineageTag: f84d8831-4cdf-4ba8-abcc-036f48907190
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 490_00_общее_Category_6_tv_ind = CALCULATE([400_00_12_Nat_Big_switch_left], ALL('category_6_Top'))
+		isHidden
+		displayFolder: 06_Category_6\01_TV_index
+		lineageTag: 186ce10d-d199-47f6-be0c-f9387ac9c928
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 491_01_Ранг_Category_6_tv_ind = ```
+			
+			if(
+			    ISINSCOPE('category_6_Top'[category_6_main_Top]),
+			    RANKX(
+			        ALL('category_6_Top'), 
+			        [400_00_12_Nat_Big_switch_left])
+			        )
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 06_Category_6\01_TV_index
+		lineageTag: b38d4dcf-1bf1-412f-ae62-8a4ebb271fb1
+
+		changedProperty = IsHidden
+
+	measure 492_01_Позиции_Category_6_в_топе_tv_ind = ```
+			
+			if(
+			    ISINSCOPE('category_6_Top'[category_6_main_Top]), 
+			        if([491_01_Ранг_Category_6_tv_ind] <= SELECTEDVALUE('выборТОП'[Top]), 
+			        [400_00_12_Nat_Big_switch_left],
+			     BLANK()), 
+			BLANK())
+			```
+		isHidden
+		displayFolder: 06_Category_6\01_TV_index
+		lineageTag: 3d4ad62f-9c00-45c1-9e8d-8a24b694e99e
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 492_02_Позиции_Category_6_прочее_tv_ind = ```
+			
+			if(
+			    Lower(SELECTEDVALUE('category_6_Top'[category_6_main_Top]))="ОСТАЛЬНОЕ",
+			    CALCULATE([400_00_12_Nat_Big_switch_left], FILTER(ALL('category_6_Top'), 
+			    RANKX(ALL('category_6_Top'), [400_00_12_Nat_Big_switch_left]) > SELECTEDVALUE('выборТОП'[Top]))),
+			 BLANK())
+			```
+		isHidden
+		displayFolder: 06_Category_6\01_TV_index
+		lineageTag: eda145e8-e546-4c22-87d1-58fc011115b9
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 494_01_02_TV_Category_6_Top_exclude_OTHERS = ```
+			
+			var selected_top = SELECTEDVALUE('выборТОП'[Top])
+			var racking = values('category_6_Top'[category_6_main_Top])
+			var result = CALCULATE(
+			    [400_00_12_Nat_Big_switch_left], 
+			    TOPN(selected_top, ALLSELECTED('category_6_Top'), [400_00_12_Nat_Big_switch_left],DESC),
+			    racking)
+			
+			return result
+			```
+		isHidden
+		displayFolder: 06_Category_6\01_TV_index
+		lineageTag: 91cf5e51-dfd6-416e-92c2-d20db38cb939
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 493_01_Category_6_total_tv_ind = ```
+			
+			if(ALLSELECTED('exclude_others'[статус])="ВСЕ",
+			if(
+			    [491_01_Ранг_Category_6_tv_ind] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [400_00_12_Nat_Big_switch_left], [492_02_Позиции_Category_6_прочее_tv_ind]), [494_01_02_TV_Category_6_Top_exclude_OTHERS])
+			/*
+			if(
+			    [481_01_Ранг_Category_7_adex] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [482_01_Позиции_Category_7_в_топе_adex], [482_02_Позиции_Category_7_прочее_adex])*/
+			```
+		isHidden
+		displayFolder: 06_Category_6\01_TV_index
+		lineageTag: 8e1413b4-0704-47fa-8c3d-d12789ac0383
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 474_01_02_TV_Category_7_Top_exclude_OTHERS = ```
+			
+			var selected_top = SELECTEDVALUE('выборТОП'[Top])
+			var racking = values('category_7_Top'[category_7_main_Top])
+			var result = CALCULATE(
+			    [400_00_12_Nat_Big_switch_left], 
+			    TOPN(selected_top, ALLSELECTED('category_7_Top'), [400_00_12_Nat_Big_switch_left],DESC),
+			    racking)
+			
+			return result
+			```
+		isHidden
+		displayFolder: 05_Category_7\01_TV_index
+		lineageTag: 73a3b466-6891-44f0-91f7-8d1fd879805f
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 750_00_общее_Reg_company_Top = CALCULATE([400_00_04_Reg_tv_switch_left], ALL('tv_index_tv_company_Top'))
+		isHidden
+		displayFolder: 01_TV_Company_TV_Index\03_Reg_tv
+		lineageTag: d05d8fd1-347c-4973-9f77-5a678a4bf847
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 751_01_Ранг_Reg_company_Top = ```
+			
+			if(
+			    ISINSCOPE('tv_index_tv_company_Top'[tv_company_top]),
+			    RANKX(ALL('tv_index_tv_company_Top'), 
+			    [400_00_04_Reg_tv_switch_left])
+			)
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 01_TV_Company_TV_Index\03_Reg_tv
+		lineageTag: f06013f4-9704-448e-b994-d381a46baa4e
+
+		changedProperty = IsHidden
+
+	measure 752_01_Позиции_Reg_company_в_топе_Top = ```
+			
+			if(ISINSCOPE('tv_index_tv_company_Top'[tv_company_top]), 
+			    if([751_01_Ранг_Reg_company_Top] <= [2903_03_Выбранный_ТОП], 
+			    [400_00_04_Reg_tv_switch_left], 
+			    BLANK()), 
+			BLANK())
+			```
+		isHidden
+		displayFolder: 01_TV_Company_TV_Index\03_Reg_tv
+		lineageTag: 9a5bbf85-eeca-483e-80d7-4b76653595dd
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 752_02_Позиции_Reg_company_прочее_Top = ```
+			
+			if(
+			    Lower(SELECTEDVALUE('tv_index_tv_company_Top'[tv_company_top]))="ОСТАЛЬНОЕ",
+			    CALCULATE([400_00_04_Reg_tv_switch_left], FILTER(ALL('tv_index_tv_company_Top'), 
+			        RANKX(ALL('tv_index_tv_company_Top'), 
+			        [400_00_04_Reg_tv_switch_left]) > [2903_03_Выбранный_ТОП])),
+			    BLANK())
+			```
+		isHidden
+		displayFolder: 01_TV_Company_TV_Index\03_Reg_tv
+		lineageTag: 8bbafea4-cdff-4c64-9c26-a27fa0e89abc
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 753_01_Reg_TV_company_total_Top = ```
+			
+			if([751_01_Ранг_Reg_company_Top] <= [2903_03_Выбранный_ТОП], 
+			    [752_01_Позиции_Reg_company_в_топе_Top], 
+			    [752_02_Позиции_Reg_company_прочее_Top])
+			```
+		isHidden
+		displayFolder: 01_TV_Company_TV_Index\03_Reg_tv
+		lineageTag: 003b03b3-9b42-4e3c-9f5c-1480ee441c20
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 730_00_общее_Бренд_Reg = CALCULATE([400_00_04_Reg_tv_switch_left], ALL('brand_main_Top'))
+		isHidden
+		displayFolder: 03_Brand\03_Reg
+		lineageTag: 7299cafa-4e46-4307-a65d-74a6b78e2cfe
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 731_01_Ранг_brand_Reg = ```
+			
+			if(
+			    ISINSCOPE('brand_main_Top'[brand_main_Top]),
+			    RANKX(
+			        ALL('brand_main_Top'), 
+			        [400_00_04_Reg_tv_switch_left])
+			        )
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 03_Brand\03_Reg
+		lineageTag: f2ab57dc-fdc7-4581-acc9-08dafe4ecd8a
+
+		changedProperty = IsHidden
+
+	measure 732_01_Позиции_brand_в_топе_Reg = ```
+			
+			if(
+			    ISINSCOPE('brand_main_Top'[brand_main_Top]), 
+			        if([731_01_Ранг_brand_Reg] <= SELECTEDVALUE('выборТОП'[Top]), 
+			        [400_00_04_Reg_tv_switch_left],
+			     BLANK()), 
+			BLANK())
+			```
+		isHidden
+		displayFolder: 03_Brand\03_Reg
+		lineageTag: d9424d5b-d257-4f5f-9ad5-276b71146e81
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 732_02_Позиции_brand_прочее_Reg = ```
+			
+			if(
+			    Lower(SELECTEDVALUE('brand_main_Top'[brand_main_Top]))="ОСТАЛЬНОЕ",
+			    CALCULATE([400_00_04_Reg_tv_switch_left], FILTER(ALL('brand_main_Top'), 
+			    RANKX(ALL('brand_main_Top'), [400_00_04_Reg_tv_switch_left]) > SELECTEDVALUE('выборТОП'[Top]))),
+			 BLANK())
+			```
+		isHidden
+		displayFolder: 03_Brand\03_Reg
+		lineageTag: 61189f4f-965f-4fd7-a13a-0cb954f496f4
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 732_03_Позиции_brand_в_топе_LY_Reg = CALCULATE([732_01_Позиции_brand_в_топе_Reg], DATEADD('Календарь'[Дата],-1,YEAR))
+		isHidden
+		displayFolder: 03_Brand\03_Reg
+		lineageTag: 57c36d57-62ac-48ad-b945-3f8b18f4d368
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 733_01_Brand_total_Reg = ```
+			
+			if(
+			    [731_01_Ранг_brand_Reg] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [732_01_Позиции_brand_в_топе_Reg], [732_02_Позиции_brand_прочее_Reg])
+			```
+		isHidden
+		displayFolder: 03_Brand\03_Reg
+		lineageTag: 124399da-2c28-4a7f-ad90-b923e78202bf
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 540_00_общее_Regions_Top = CALCULATE([400_00_04_Reg_tv_switch_left], ALL('regions_dict_Top'))
+		isHidden
+		displayFolder: 07_Regions
+		lineageTag: 8d818c7c-e72a-4031-993c-c64bfea5b7b8
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 541_01_Ранг_Regions_Top = ```
+			
+			if(
+			    ISINSCOPE('regions_dict_Top'[region_name_top]),
+			    RANKX(ALL('regions_dict_Top'), 
+			    [400_00_04_Reg_tv_switch_left])
+			)
+			```
+		formatString: 0
+		isHidden
+		displayFolder: 07_Regions
+		lineageTag: 50c33094-176f-475d-b1f3-181388eed9b5
+
+		changedProperty = IsHidden
+
+	measure 542_01_Позиции_regions_в_топе_Top = ```
+			
+			if(
+			    ISINSCOPE('regions_dict_Top'[region_name_top]), 
+			    if([541_01_Ранг_Regions_Top] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [400_00_04_Reg_tv_switch_left], 
+			    BLANK()), 
+			BLANK())
+			```
+		isHidden
+		displayFolder: 07_Regions
+		lineageTag: 32267ca5-98b5-4e8c-b8b2-180aaccafd95
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 542_02_Позиции_Regions_прочее_Top = ```
+			
+			if(
+			    Lower(SELECTEDVALUE('regions_dict_Top'[region_name_top]))="ОСТАЛЬНОЕ",
+			    CALCULATE([400_00_04_Reg_tv_switch_left], FILTER(ALL('regions_dict_Top'), 
+			        RANKX(ALL('regions_dict_Top'), 
+			        [400_00_04_Reg_tv_switch_left]) > SELECTEDVALUE('выборТОП'[Top]))),
+			    BLANK())
+			```
+		isHidden
+		displayFolder: 07_Regions
+		lineageTag: a805c801-2148-4602-9fcc-afdd4715983e
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 543_01_Regions_total_Top = ```
+			
+			if([541_01_Ранг_Regions_Top] <= SELECTEDVALUE('выборТОП'[Top]), 
+			    [542_01_Позиции_regions_в_топе_Top], 
+			    [542_02_Позиции_Regions_прочее_Top])
+			```
+		isHidden
+		displayFolder: 07_Regions
+		lineageTag: 453796b5-bfb9-4349-8b1b-87944a39f2af
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Столбец1
+		dataType: string
+		isHidden
+		lineageTag: 0fbf13f7-c33d-44ef-9fe4-a335d7a02210
+		summarizeBy: none
+		sourceColumn: Столбец1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Меры_10_TOP_Общие = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t])
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

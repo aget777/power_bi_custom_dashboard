@@ -1,0 +1,41 @@
+table сравнениеПериодов
+	isHidden
+	lineageTag: 288396de-1051-4b07-a5be-577786c28868
+
+	column Период
+		dataType: string
+		isHidden
+		lineageTag: 31c07a12-3e42-47b7-81c2-25910025aaa9
+		summarizeBy: none
+		sourceColumn: Период
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 190ffb1a-c3e7-40ce-babc-cf268f5ea9bd
+		summarizeBy: count
+		sourceColumn: Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition сравнениеПериодов = m
+		mode: import
+		queryGroup: 02_01_Вспомогательные_таблицы
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WurDowtYLuy42X+y8sOPCToUL+y9svdgAZO67sEUpVgcoPx/I3Xphy8VuIMauKhYA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Период = _t]),
+				    #"Добавлен индекс" = Table.AddIndexColumn(Источник, "Id", 1, 1, Int64.Type)
+				in
+				    #"Добавлен индекс"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

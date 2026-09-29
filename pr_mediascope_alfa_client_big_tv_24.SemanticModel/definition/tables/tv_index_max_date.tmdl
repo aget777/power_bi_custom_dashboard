@@ -1,0 +1,35 @@
+table tv_index_max_date
+	isHidden
+	lineageTag: e56d0cf8-1efd-4161-86c9-6b64e6c28458
+
+	column max_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e43b71dc-7d4e-444e-a734-93c2b9d7cc8b
+		summarizeBy: none
+		sourceColumn: max_date
+
+		variation Изменение
+			isDefault
+			relationship: 9be9b4ac-6c9c-47a5-9acd-69ba96bf02ad
+			defaultHierarchy: LocalDateTable_6b806d9b-c06d-468a-856e-aa2bb6e91659.'Иерархия дат'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition tv_index_max_date = m
+		mode: import
+		queryGroup: 01_Calendar
+		source =
+				let
+				    tv_index_max_date = Table.FromValue(end_date_report, [DefaultColumnName = "max_date"])
+				in
+				    tv_index_max_date
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

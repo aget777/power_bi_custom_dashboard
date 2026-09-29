@@ -1,0 +1,22 @@
+table adPrimeTimeStatusName_dict
+	lineageTag: b1ccee62-a908-4485-9ea9-23ccd18c1971
+
+	column adPrimeTimeStatusName
+		dataType: string
+		lineageTag: 922ed7b2-21ef-4501-93f6-3054ed02b6f5
+		summarizeBy: none
+		sourceColumn: adPrimeTimeStatusName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition adPrimeTimeStatusName_dict = m
+		mode: import
+		queryGroup: 05_TV_Index\05_01_Справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select distinct adPrimeTimeStatusName from nat_tv_simple"])
+				in
+				    Источник
+
+	annotation PBI_ResultType = Table
+

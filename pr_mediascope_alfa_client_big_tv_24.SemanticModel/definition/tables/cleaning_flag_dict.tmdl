@@ -1,0 +1,44 @@
+table cleaning_flag_dict
+	isHidden
+	lineageTag: 3ec0b7b9-1322-46fd-85a6-0798a5caa68b
+
+	column flag_name
+		dataType: string
+		isHidden
+		lineageTag: a529cc57-e771-4f89-8e3c-907d166d3897
+		summarizeBy: none
+		sourceColumn: flag_name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f271a880-1692-4bfd-bfcd-97c5eb66645a
+		summarizeBy: none
+		sourceColumn: Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition cleaning_flag_dict = m
+		mode: import
+		queryGroup: 02_01_Вспомогательные_таблицы
+		source = ```
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WurD4wpYLGy7svrD1wt4L+5RidYBC8y62X9hxsRNZaO6FfRc2AfFWpdhYAA==", 
+				    BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [flag_name = _t]),
+				    #"Измененный тип" = Table.TransformColumnTypes(Источник,{{"flag_name", type text}}),
+				    #"Добавлен индекс" = Table.AddIndexColumn(#"Измененный тип", "Id", 0, 1, Int64.Type)
+				in
+				    #"Добавлен индекс"
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

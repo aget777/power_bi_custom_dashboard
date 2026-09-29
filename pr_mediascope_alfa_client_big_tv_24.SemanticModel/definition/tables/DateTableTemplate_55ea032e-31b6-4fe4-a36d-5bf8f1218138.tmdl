@@ -1,0 +1,113 @@
+table DateTableTemplate_55ea032e-31b6-4fe4-a36d-5bf8f1218138
+	isHidden
+	isPrivate
+	lineageTag: 3574b14d-b625-4923-8261-7053d19048c1
+
+	column Date
+		dataType: dateTime
+		isHidden
+		lineageTag: 8ce67f65-238d-4507-b785-b1a32b6918b8
+		dataCategory: PaddedDateTableDates
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = User
+
+	column Год = YEAR([Date])
+		dataType: int64
+		isHidden
+		lineageTag: e9ffeb2c-fba5-413e-9e91-f499866504ae
+		dataCategory: Years
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Year
+
+	column №Месяца = MONTH([Date])
+		dataType: int64
+		isHidden
+		lineageTag: bcf56a49-97f4-4946-aa93-105743cd1be9
+		dataCategory: MonthOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = MonthNumber
+
+	column Месяц = FORMAT([Date], "MMMM")
+		dataType: string
+		isHidden
+		lineageTag: 112b55ea-5076-4b84-99a0-9acb442cecd9
+		dataCategory: Months
+		summarizeBy: none
+		sortByColumn: №Месяца
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Month
+
+	column №Квартала = INT(([№Месяца] + 2) / 3)
+		dataType: int64
+		isHidden
+		lineageTag: 44cdc271-b75e-44b1-8bbc-52fa62f4784c
+		dataCategory: QuarterOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = QuarterNumber
+
+	column Квартал = "Кв. " & [№Квартала]
+		dataType: string
+		isHidden
+		lineageTag: 9166e69d-bcad-442d-93a2-d8a8f672850b
+		dataCategory: Quarters
+		summarizeBy: none
+		sortByColumn: №Квартала
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Quarter
+
+	column День = DAY([Date])
+		dataType: int64
+		isHidden
+		lineageTag: 29665de0-80ac-4c5b-b461-ac4c5d76f5bb
+		dataCategory: DayOfMonth
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Day
+
+	hierarchy 'Иерархия дат'
+		lineageTag: a451f55e-6200-43b6-b0ea-ab3e653af28a
+
+		level Год
+			lineageTag: 16ba821b-12c4-4dae-9043-046f36c6b29a
+			column: Год
+
+		level Квартал
+			lineageTag: 9e98a6c0-bf65-4654-9418-ee150a834f27
+			column: Квартал
+
+		level Месяц
+			lineageTag: f497247a-4dc3-405b-8dcd-8a7e1089df24
+			column: Месяц
+
+		level День
+			lineageTag: 2987f566-81d4-4125-a718-01a51680fbb9
+			column: День
+
+		annotation TemplateId = DateHierarchy
+
+	partition DateTableTemplate_55ea032e-31b6-4fe4-a36d-5bf8f1218138 = calculated
+		mode: import
+		source = Calendar(Date(2015,1,1), Date(2015,1,1))
+
+	annotation __PBI_TemplateDateTable = true
+
+	annotation DefaultItem = DateHierarchy
+

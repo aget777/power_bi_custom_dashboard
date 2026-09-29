@@ -1,0 +1,319 @@
+table Календарь
+	lineageTag: 30b5d778-3ab0-4f03-a126-44cc9468189d
+
+	column Дата
+		dataType: dateTime
+		formatString: dd.mm.yy
+		lineageTag: 76052f84-1ca3-4a29-afd3-51deb4f5ebde
+		summarizeBy: none
+		sourceColumn: Дата
+
+		variation Изменение
+			isDefault
+			relationship: 90184e6f-fba0-4403-a7e4-06bf22a1591c
+			defaultHierarchy: LocalDateTable_97719cbe-20b6-420e-bdec-c87433628163.'Иерархия дат'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Год
+		dataType: string
+		lineageTag: 7a8f27ea-8ee3-4721-b4ad-f6b1e31751cf
+		summarizeBy: none
+		sourceColumn: Год
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Номер квартала'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8b5e00ef-6d38-449e-893e-d45734918ca1
+		summarizeBy: sum
+		sourceColumn: Номер квартала
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Квартал
+		dataType: string
+		isHidden
+		lineageTag: 50e94c50-6a66-4b53-b236-552d0f571671
+		summarizeBy: none
+		sourceColumn: Квартал
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Номер месяца'
+		dataType: int64
+		formatString: 0
+		lineageTag: bab1c984-9113-4328-a596-1f6719d959ee
+		summarizeBy: sum
+		sourceColumn: Номер месяца
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Начало месяца'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d16603dd-b127-4f9c-a149-b268e387d95c
+		summarizeBy: none
+		sourceColumn: Начало месяца
+
+		variation Изменение
+			isDefault
+			relationship: c71e2ae5-b744-4cea-86cc-561204ded215
+			defaultHierarchy: LocalDateTable_7df3c77d-8e28-464b-b3c0-007dd29a9bb6.'Иерархия дат'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Конец месяца'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: fe455747-06e2-450b-9cf9-0d756f26178c
+		summarizeBy: none
+		sourceColumn: Конец месяца
+
+		variation Изменение
+			isDefault
+			relationship: 6dbb9510-0384-459b-9787-2088ed9b9c69
+			defaultHierarchy: LocalDateTable_e74b1dd4-b662-464c-935d-b5fdee10f2d2.'Иерархия дат'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'День месяца'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 34a21ece-2414-4f64-a951-c099fbd456f9
+		summarizeBy: sum
+		sourceColumn: День месяца
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Код даты'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 547a1618-7f1b-4784-aed6-1c99a4ee355b
+		summarizeBy: sum
+		sourceColumn: Код даты
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Месяц
+		dataType: string
+		isHidden
+		lineageTag: a53dbb23-6a85-42a4-8e92-ebeac749f7a6
+		summarizeBy: none
+		sourceColumn: Месяц
+		sortByColumn: 'Номер месяца'
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Мес.'
+		dataType: string
+		isHidden
+		lineageTag: c203ab13-addb-4e62-aa96-fee94190f587
+		summarizeBy: none
+		sourceColumn: Мес.
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Месяц года'
+		dataType: string
+		lineageTag: 47eb56a9-2104-43c0-be63-2c0a517be64f
+		summarizeBy: none
+		sourceColumn: Месяц года
+		sortByColumn: 'Начало месяца'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Квартал года'
+		dataType: string
+		lineageTag: 52015583-abc3-4244-8fcf-364af3e0a27f
+		summarizeBy: none
+		sourceColumn: Квартал года
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Номер дня недели'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5c87ba52-6eec-469b-b639-3cac477b8632
+		summarizeBy: sum
+		sourceColumn: Номер дня недели
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'День недели'
+		dataType: string
+		isHidden
+		lineageTag: 0304c543-50bc-46b8-a4f4-787bcea1de36
+		summarizeBy: none
+		sourceColumn: День недели
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column День
+		dataType: string
+		isHidden
+		lineageTag: d0630efa-755f-49ed-aeae-26668e427ace
+		summarizeBy: none
+		sourceColumn: День
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Конец недели'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 1f53aa3e-0494-42d0-beee-015fd6ec560e
+		summarizeBy: none
+		sourceColumn: Конец недели
+
+		variation Изменение
+			isDefault
+			relationship: d39d1629-dff3-4e18-b920-9c4ff8a8330e
+			defaultHierarchy: LocalDateTable_4a3806d9-f471-46a5-99ed-6f832dd03b77.'Иерархия дат'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Начало недели'
+		dataType: dateTime
+		formatString: dd.mm.yy
+		lineageTag: c5998e1b-458a-4895-9e36-40b3750b87ee
+		summarizeBy: none
+		sourceColumn: Начало недели
+
+		variation Изменение
+			isDefault
+			relationship: 94ac6244-c426-40a2-aa8e-c6df9390cef6
+			defaultHierarchy: LocalDateTable_4bb61121-6fc4-47bc-95d9-ba7eeacbd70d.'Иерархия дат'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Номер недели'
+		dataType: int64
+		formatString: 0
+		lineageTag: 54d36a10-3704-4d10-b896-0ad0f9d5053b
+		summarizeBy: sum
+		sourceColumn: Номер недели
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Код месяца года'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b5d6f2b4-5538-4d7d-bdad-beb525700177
+		summarizeBy: sum
+		sourceColumn: Код месяца года
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Код квартала года'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d636d1c6-e103-4165-a2b2-0e3dd08da7db
+		summarizeBy: sum
+		sourceColumn: Код квартала года
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adex_flag
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 910a749f-c92e-45bc-b2dc-dc844de226bc
+		summarizeBy: sum
+		sourceColumn: adex_flag
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_week_flag
+		dataType: string
+		lineageTag: 5e243379-0e7d-43f1-ab06-9251fd918dba
+		summarizeBy: none
+		sourceColumn: last_week_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Календарь = m
+		mode: import
+		queryGroup: 01_Calendar
+		source = ```
+				let
+				    Источник = Функция(start_date, null),
+				    #"Добавлен пользовательский объект" = Table.AddColumn(Источник, "adex_end_date", each end_date_Adex_filter_DB),
+				    #"Измененный тип" = Table.TransformColumnTypes(#"Добавлен пользовательский объект",{{"adex_end_date", type date}}),
+				    #"Добавлен пользовательский объект1" = Table.AddColumn(#"Измененный тип", "adex_flag", each if [adex_end_date] > [Дата] then 0 else 1),
+				    #"Удаленные столбцы" = Table.RemoveColumns(#"Добавлен пользовательский объект1",{"adex_end_date"}),
+				    change_first_start_of_week = Table.ReplaceValue(#"Удаленные столбцы",
+				    each [Начало недели],
+				    each if [Начало недели] < start_date then start_date
+				    else [Начало недели], 
+				    Replacer.ReplaceValue, {"Начало недели"}
+				    ),
+				    #"Измененный тип1" = Table.TransformColumnTypes(
+				        change_first_start_of_week,
+				        {{"adex_flag", Int64.Type}, {"Начало недели", type date}}),
+				    #"Добавлен пользовательский объект2" = Table.AddColumn(#"Измененный тип1", "last_week_flag", each if List.Max(#"Измененный тип1"[Начало недели]) =[Начало недели] then "да" else "нет")
+				in
+				    #"Добавлен пользовательский объект2"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

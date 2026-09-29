@@ -1,0 +1,65 @@
+table creatives_dict
+	lineageTag: 7fc62432-ffb6-415d-aad8-c3d5f51c8c52
+
+	column media_key_id
+		dataType: string
+		lineageTag: 675f33fe-9a07-4d1c-ba6c-bb1eae285e61
+		summarizeBy: none
+		sourceColumn: media_key_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column creative_link
+		dataType: string
+		lineageTag: 91210d53-4764-41d1-bf27-7c27c93a123f
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: creative_link
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column preview_link
+		dataType: string
+		isHidden
+		lineageTag: 6367afa9-aa5e-4c54-845e-61ed69bf600f
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: preview_link
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dd390bd8-e1cc-43d0-a988-82b0d8f8f101
+		summarizeBy: count
+		sourceColumn: adId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition creatives_dict = m
+		mode: import
+		queryGroup: 02_01_Вспомогательные_таблицы
+		source = ```
+				let
+				    Источник = Sql.Database(mssql_server, db_icreative, 
+				    [Query="select media_key_id, adId, creative_link, preview_link from icreative_links"])
+				in
+				    Источник
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

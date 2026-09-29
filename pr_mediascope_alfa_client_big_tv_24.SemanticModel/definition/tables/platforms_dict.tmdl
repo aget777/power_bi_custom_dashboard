@@ -1,0 +1,46 @@
+table platforms_dict
+	isHidden
+	lineageTag: 40bddff2-91c9-4472-8743-2d2485d4c893
+
+	column platform
+		dataType: string
+		isHidden
+		lineageTag: df51d1dc-b88c-4cff-af9b-571ea361061e
+		summarizeBy: none
+		sourceColumn: platform
+		sortByColumn: platformId
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column platformId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b375886c-918a-4713-bcb1-2c000cead7aa
+		summarizeBy: none
+		sourceColumn: platformId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition platforms_dict = m
+		mode: import
+		queryGroup: 08_Big_tv\08_01_Справочники
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WcvTxUYrViVYKCQNTLqnF2SX5BWC2b35SZk6qUmwsAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [platform = _t]),
+				    #"Добавлен индекс" = Table.AddIndexColumn(Источник, "platformId", 0, 1, Int64.Type)
+				in
+				    #"Добавлен индекс"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

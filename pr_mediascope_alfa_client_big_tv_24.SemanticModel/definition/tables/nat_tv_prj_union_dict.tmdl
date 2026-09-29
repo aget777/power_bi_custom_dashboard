@@ -1,0 +1,47 @@
+table nat_tv_prj_union_dict
+	lineageTag: e29a491e-5703-4c40-b5dc-eaee39ab5055
+
+	column prj_name
+		dataType: string
+		lineageTag: e2a6e4f2-8ff7-41d4-a58f-0dbf46663db7
+		summarizeBy: none
+		sourceColumn: prj_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column prj_name_rus
+		dataType: string
+		lineageTag: cd9dd369-a08d-42c0-b46a-4cc3fa953ad9
+		summarizeBy: none
+		sourceColumn: prj_name_rus
+
+		annotation SummarizationSetBy = Automatic
+
+	partition nat_tv_prj_union_dict = m
+		mode: import
+		queryGroup: 05_TV_Index\05_01_Справочники
+		source = ```
+				let
+				    prj_simple = Sql.Database(mssql_server, db_name, [Query="select distinct prj_name from nat_tv_simple"]),
+				    prj_buying = Sql.Database(mssql_server, db_name, [Query="select distinct prj_name from nat_tv_buying"]),
+				
+				    prj_reg_tv_simple = Sql.Database(mssql_server, db_name, [Query="select distinct prj_name from reg_tv_simple"]),
+				    prj_reg_tv_buying = Sql.Database(mssql_server, db_name, [Query="select distinct prj_name from reg_tv_buying"]),
+				
+				    prj_big_tv_simple = Sql.Database(mssql_server, db_name, [Query="select distinct prj_name from big_tv_simple"]),
+				    prj_big_tv_buying = Sql.Database(mssql_server, db_name, [Query="select distinct prj_name from big_tv_buying"]),
+				    prj_combine = Table.Combine(
+				        {prj_simple, prj_buying, 
+				        prj_reg_tv_simple, prj_reg_tv_buying,
+				        prj_big_tv_simple, prj_big_tv_buying}),
+				    #"Текст в верхнем регистре" = Table.TransformColumns(prj_combine,{{"prj_name", Text.Upper, type text}}),
+				    #"Удаленные дубликаты" = Table.Distinct(#"Текст в верхнем регистре"),
+				    #"Условный столбец добавлен" = Table.AddColumn(#"Удаленные дубликаты", "prj_name_rus", each if Text.Contains([prj_name], "BUYING") then "Баинговая аудитория" else [prj_name])
+				in
+				    #"Условный столбец добавлен"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

@@ -1,0 +1,89 @@
+table adex_company_dict
+	lineageTag: e76253d6-eb2e-496d-9499-405cd3a9f747
+
+	column cid
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d533f4a5-aaa1-45ad-9481-410ad29dd93f
+		summarizeBy: none
+		sourceColumn: cid
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column media_type
+		dataType: string
+		isHidden
+		lineageTag: c290ebb0-9503-4bd7-b514-ab7abf5a9e24
+		summarizeBy: none
+		sourceColumn: media_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column companyName
+		dataType: string
+		lineageTag: 7d41f752-ba26-4a6d-ac90-7caebd5d6425
+		summarizeBy: none
+		sourceColumn: companyName
+
+		annotation SummarizationSetBy = Automatic
+
+	column netId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 732c65f7-0c71-4106-8fe2-833489944c13
+		summarizeBy: none
+		sourceColumn: netId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column netName
+		dataType: string
+		lineageTag: 7a9cc30f-39e2-477f-a268-8d60b041f7dc
+		summarizeBy: none
+		sourceColumn: netName
+
+		annotation SummarizationSetBy = Automatic
+
+	column cid_custom
+		dataType: string
+		isHidden
+		lineageTag: 62ba0bc5-d955-4fd5-b5b3-b8fcd8c3b779
+		summarizeBy: none
+		sourceColumn: cid_custom
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nid_custom
+		dataType: string
+		isHidden
+		lineageTag: a0cc89bc-1cf8-4ba5-9553-ad31de90a0ef
+		summarizeBy: none
+		sourceColumn: nid_custom
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition adex_company_dict = m
+		mode: import
+		queryGroup: 06_Media_costs\06_01_Справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select * from media_company_dict_view"])
+				in
+				    Источник
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

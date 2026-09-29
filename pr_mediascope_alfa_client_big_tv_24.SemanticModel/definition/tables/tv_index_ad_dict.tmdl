@@ -1,0 +1,295 @@
+table tv_index_ad_dict
+	lineageTag: f0302bad-fc68-4dda-8277-f87dd2e847bb
+
+	column media_key_id
+		dataType: string
+		isHidden
+		lineageTag: b49c81ae-ed2b-4e32-996d-5962e6f9e239
+		summarizeBy: none
+		sourceColumn: media_key_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column advertiserListId
+		dataType: int64
+		formatString: 0
+		lineageTag: a5eb1644-7e3e-4fe5-b0f1-a625c92a86b2
+		summarizeBy: count
+		sourceColumn: advertiserListId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column brandListId
+		dataType: int64
+		formatString: 0
+		lineageTag: 2dd853f6-43c1-4eca-8be1-11b4e582fcf9
+		summarizeBy: count
+		sourceColumn: brandListId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column subbrandListId
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ce2b9ff-1089-48cc-ba93-ecfcd3219966
+		summarizeBy: count
+		sourceColumn: subbrandListId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column modelListId
+		dataType: int64
+		formatString: 0
+		lineageTag: e6dbe696-253f-48a6-b501-2055fa43b063
+		summarizeBy: count
+		sourceColumn: modelListId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList2Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 575ff206-4b0f-4413-99a7-7a9f57f7e8a6
+		summarizeBy: count
+		sourceColumn: articleList2Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList3Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b443d5bd-afd9-412a-8661-a30f4cd786da
+		summarizeBy: count
+		sourceColumn: articleList3Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList4Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f427ccdf-9d8c-49d9-ada5-3f699cdec48d
+		summarizeBy: count
+		sourceColumn: articleList4Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8bf74f1b-f9ff-4a53-b351-0c30f579d3f7
+		summarizeBy: count
+		sourceColumn: adId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adName
+		dataType: string
+		isHidden
+		lineageTag: ff25b546-d288-4cea-a30e-cc82defa622d
+		summarizeBy: none
+		sourceColumn: adName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adNotes
+		dataType: string
+		isHidden
+		lineageTag: 8e90ffe4-26ee-4382-af04-62c1fcd5ae71
+		summarizeBy: none
+		sourceColumn: adNotes
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adFirstIssueDate
+		dataType: string
+		isHidden
+		lineageTag: 8e162aeb-63e3-478f-9cb0-3afe06b2f45e
+		summarizeBy: none
+		sourceColumn: adFirstIssueDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cleaning_flag
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 61960afc-a639-4eba-b9fc-13ab9431c63f
+		summarizeBy: sum
+		sourceColumn: cleaning_flag
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column media_type
+		dataType: string
+		isHidden
+		lineageTag: 40fcf26a-fe87-4570-a24e-8dec29361c57
+		summarizeBy: none
+		sourceColumn: media_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column advertiserListName
+		dataType: string
+		lineageTag: c2dd06ac-a49a-44ad-87ab-cdbf729e4fb9
+		summarizeBy: none
+		sourceColumn: advertiserListName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column brandListName
+		dataType: string
+		lineageTag: 4c9b192f-1531-482a-825d-2da28d739bcd
+		summarizeBy: none
+		sourceColumn: brandListName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column subbrandListName
+		dataType: string
+		lineageTag: 7cc6413e-f0aa-4265-b471-5d5c5a8ec7a5
+		summarizeBy: none
+		sourceColumn: subbrandListName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column modelListName
+		dataType: string
+		lineageTag: 8ce441b9-cc24-4a96-a6dc-cb893355b5e3
+		summarizeBy: none
+		sourceColumn: modelListName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList2Name
+		dataType: string
+		lineageTag: bf3b2e70-be11-45a3-8119-0ffc79356c94
+		summarizeBy: none
+		sourceColumn: articleList2Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList3Name
+		dataType: string
+		lineageTag: 54e7d7a9-b52b-4e9b-aeda-5d3366764b68
+		summarizeBy: none
+		sourceColumn: articleList3Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column articleList4Name
+		dataType: string
+		lineageTag: 116f2eb4-746d-46f1-827d-67cf1548b987
+		summarizeBy: none
+		sourceColumn: articleList4Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adSloganAudioId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dd365d9b-03fb-4f89-98d7-793295125d78
+		summarizeBy: count
+		sourceColumn: adSloganAudioId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adSloganVideoId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 61c986ef-a172-45d4-84fd-9a5492dacf9d
+		summarizeBy: count
+		sourceColumn: adSloganVideoId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adSloganAudioName
+		dataType: string
+		isHidden
+		lineageTag: caf61de9-3d88-4ce2-bd8e-882e94abb67e
+		summarizeBy: none
+		sourceColumn: adSloganAudioName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adSloganVideoName
+		dataType: string
+		isHidden
+		lineageTag: 153ed41f-df07-4646-ba8d-5f606b00e2ac
+		summarizeBy: none
+		sourceColumn: adSloganVideoName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition tv_index_ad_dict = m
+		mode: import
+		queryGroup: 05_TV_Index\05_01_Справочники
+		source = ```
+				let
+				    Источник = Sql.Database(mssql_server, db_name, 
+				    [Query="select * from tv_index_ad_dict_cats_name_view where cleaning_flag in ("&cleaning_flag&")"])
+				in
+				    Источник
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

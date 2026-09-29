@@ -1,0 +1,59 @@
+table ad_type_dict
+	lineageTag: dd70f5a5-45c2-455a-87b8-c0429d05d8aa
+
+	column ad_type_custom
+		dataType: string
+		isHidden
+		lineageTag: 73236818-93a7-4b2e-8ce5-206fad0b6021
+		summarizeBy: none
+		sourceColumn: ad_type_custom
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adTypeId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b094be3e-1bc9-405c-9076-583a31729987
+		summarizeBy: count
+		sourceColumn: adTypeId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column media_type
+		dataType: string
+		isHidden
+		lineageTag: dadd2844-9585-4245-98e7-9b289a515d96
+		summarizeBy: none
+		sourceColumn: media_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adTypeName
+		dataType: string
+		lineageTag: 1b0ed199-ac44-4ecf-9cb1-9c9b5f14548b
+		summarizeBy: none
+		sourceColumn: adTypeName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ad_type_dict = m
+		mode: import
+		queryGroup: 03_Общие_справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select * from ad_type_view"]),
+				    #"Удаленные дубликаты" = Table.Distinct(Источник, {"ad_type_custom"})
+				in
+				    #"Удаленные дубликаты"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

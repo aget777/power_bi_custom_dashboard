@@ -1,0 +1,1273 @@
+table _Меры_31_01_Рекламная_активность
+	lineageTag: 530d0496-55fc-469f-b916-b1285519b03e
+
+	measure 3302_01_Номер_выбранной_недели_пр = max('Календарь'[Номер недели])
+		formatString: 0
+		isHidden
+		displayFolder: 06_Текст_и_заголовки
+		lineageTag: b43b9b93-64f1-43ff-a578-b4ebd9eb7463
+
+		changedProperty = IsHidden
+
+	measure 3303_01_Начало_выбранной_недели = FORMAT(min('Календарь'[Начало недели]), "dd MMMM")
+		isHidden
+		displayFolder: 06_Текст_и_заголовки
+		lineageTag: 6719020f-2cc1-48ea-8f79-10b13132e48b
+
+		changedProperty = IsHidden
+
+	measure 3303_02_Конец_выбранной_недели = FORMAT(max('Календарь'[Конец недели]), "dd MMMM YYYY")
+		isHidden
+		displayFolder: 06_Текст_и_заголовки
+		lineageTag: f480ea00-99f4-4111-bebf-dcdc0c64416c
+
+		changedProperty = IsHidden
+
+	measure 3303_03_Начало_конец_периода =
+			[3303_01_Начало_выбранной_недели] & " " & UNICHAR(9679) & " "
+			& [3303_02_Конец_выбранной_недели]
+		isHidden
+		displayFolder: 06_Текст_и_заголовки
+		lineageTag: cd0a65a2-22c3-43d9-a75b-aff7b12558ec
+
+		changedProperty = IsHidden
+
+	measure 3301_01_Выбранная_аудитория_презентация =
+			[3301_00_01_Выбранная_аудитория_custom] & " " &
+			UNICHAR(9679) & " Прямая реклама"
+		isHidden
+		displayFolder: 06_Текст_и_заголовки
+		lineageTag: 163bcb52-0dbf-472d-a883-43688c0ffc63
+
+		changedProperty = IsHidden
+
+	measure 3101_01_TRP_total = CALCULATE([400_00_12_Nat_Big_switch_left], all('brand_main_Top'))
+		formatString: #,0.00
+		isHidden
+		displayFolder: 01_Общая_реклама
+		lineageTag: b0a3e385-8664-4393-a0eb-3d203a99c382
+
+		changedProperty = IsHidden
+
+	measure 3102_01_SOV_% = DIVIDE([400_00_12_Nat_Big_switch_left], [3101_01_TRP_total], BLANK())
+		formatString: 0%;-0%;0%
+		isHidden
+		displayFolder: 01_Общая_реклама
+		lineageTag: fcc9c492-3f47-468b-bfef-b386b1792c43
+
+		changedProperty = IsHidden
+
+	measure 3110_00_Сampaigns_status = SELECTEDVALUE('campaigns_dict'[status])
+		isHidden
+		displayFolder: 02_Новые_и_Завершенные_кампании
+		lineageTag: d730d684-7dd8-4155-818c-aedef804153f
+
+		changedProperty = IsHidden
+
+	measure 3110_01_New_campaigns = CALCULATE([3110_00_Сampaigns_status], 'campaigns_dict'[status]="NEW")
+		isHidden
+		displayFolder: 02_Новые_и_Завершенные_кампании
+		lineageTag: 47dab383-d47f-47c1-8026-533389cb479a
+
+		changedProperty = IsHidden
+
+	measure 3110_02_Stop_campaigns = CALCULATE([3110_00_Сampaigns_status], 'campaigns_dict'[status]="STOP")
+		isHidden
+		displayFolder: 02_Новые_и_Завершенные_кампании
+		lineageTag: 4d8a6eba-b84d-4eae-b952-754a9c3e5f1d
+
+		changedProperty = IsHidden
+
+	measure 3120_01_TPR_total_category_5_n_6 = ```
+			CALCULATE([400_00_12_Nat_Big_switch_left], 
+			all('all_reports_ad_dict'[category_5]),
+			all('all_reports_ad_dict'[category_6]),
+			all('brand_main_Top'))
+			```
+		formatString: #,0.00
+		isHidden
+		displayFolder: 03_Розница
+		lineageTag: c4b846e9-2131-41f6-be4d-2df05ab35fae
+
+		changedProperty = IsHidden
+
+	measure 3120_02_SOV_%_category_5_n_6 = DIVIDE([400_00_12_Nat_Big_switch_left], [3120_01_TPR_total_category_5_n_6], BLANK())
+		formatString: 0%;-0%;0%
+		isHidden
+		displayFolder: 03_Розница
+		lineageTag: b8582e94-0b6c-46c0-b698-e128d8512827
+
+		changedProperty = IsHidden
+
+	measure 3122_01_TPR_Розница = CALCULATE([400_00_12_Nat_Big_switch_left], 'all_reports_ad_dict'[category_5]="РОЗНИЦА")
+		formatString: #,0.00
+		isHidden
+		displayFolder: 03_Розница
+		lineageTag: f1b0128a-c283-46e1-ac36-527879f8e4e7
+
+		changedProperty = IsHidden
+
+	measure 3121_02_SOV_%_общ_Розница = DIVIDE([3122_01_TPR_Розница], [400_00_12_Nat_Big_switch_left], BLANK())
+		formatString: 0%;-0%;0%
+		isHidden
+		displayFolder: 03_Розница
+		lineageTag: a24081b5-89d2-42dc-a592-fdb652bc4e8a
+
+		changedProperty = IsHidden
+
+	measure 3123_02_SOV_%_Розница_Продуктовые_сегменты = ```
+			DIVIDE([3122_01_TPR_Розница], 
+			[3122_03_TRP_all_розница], BLANK())
+			```
+		formatString: 0%;-0%;0%
+		isHidden
+		displayFolder: 03_Розница
+		lineageTag: ba38b8dd-c70a-4013-b266-4ca97b4ec9d0
+
+		changedProperty = IsHidden
+
+	measure 3132_01_TPR_Бизнес = CALCULATE([400_00_12_Nat_Big_switch_left], 'all_reports_ad_dict'[category_5]="БИЗНЕС")
+		formatString: #,0.00
+		isHidden
+		displayFolder: 04_Бизнес
+		lineageTag: 90f87bff-7507-4ac1-a587-47c2851b4fb6
+
+		changedProperty = IsHidden
+
+	measure 3132_02_SOV_%_Бизнес = DIVIDE([3132_01_TPR_Бизнес], [3132_03_TRP_all_бизнес], BLANK())
+		formatString: 0%;-0%;0%
+		isHidden
+		displayFolder: 04_Бизнес
+		lineageTag: 93090b79-ef5e-48d7-8120-0a269b46b9de
+
+		changedProperty = IsHidden
+
+	measure 3133_02_SOV_%_Бизнес_сегменты = ```
+			DIVIDE([3132_01_TPR_Бизнес], 
+			[3132_03_TRP_all_бизнес], BLANK())
+			```
+		formatString: 0%;-0%;0%
+		isHidden
+		displayFolder: 04_Бизнес
+		lineageTag: d1353692-1447-406d-b246-e6909eb9b583
+
+		changedProperty = IsHidden
+
+	measure 3202_01_html_top5_general_ads =
+			
+			VAR MetricFormat = "#,0"
+			VAR BrandsBase =
+			    ADDCOLUMNS(
+			        FILTER(
+			            ALLSELECTED('brand_main_Top'[brand_main_top]),
+			            NOT ISBLANK('brand_main_Top'[brand_main_top])
+			                && 'brand_main_Top'[brand_main_top] <> "ОСТАЛЬНОЕ"
+			        ),
+			        "__value", [400_00_12_Nat_Big_switch_left],
+			        "__sov", [3102_01_SOV_%],
+			        "__logo", CALCULATE(SELECTEDVALUE('logos_dict'[logo_link]))
+			    )
+			VAR BrandsFiltered =
+			    FILTER(
+			        BrandsBase,
+			        NOT ISBLANK([__value]) && [__value] > 0
+			            && 'brand_main_Top'[brand_main_top] <> "OZON+OZON БАНК"
+			    )
+			VAR TopBrands =
+			    TOPN(
+			        5,
+			        BrandsFiltered,
+			        [__value], DESC,
+			        'brand_main_Top'[brand_main_top], ASC
+			    )
+			VAR MaxValue = MAXX(TopBrands, [__value])
+			VAR RowsHtml =
+			    CONCATENATEX(
+			        TopBrands,
+			        VAR BrandRaw = 'brand_main_Top'[brand_main_top]
+			        VAR Brand =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(BrandRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        VAR MetricValue = [__value]
+			        VAR SovValue = [__sov]
+			        VAR LogoRaw = [__logo]
+			        VAR Logo =
+			            SUBSTITUTE(
+			                SUBSTITUTE(LogoRaw, "'", "%27"),
+			                """", "%22"
+			            )
+			        VAR RankNo =
+			            COUNTROWS(
+			                FILTER(
+			                    TopBrands,
+			                    [__value] > MetricValue
+			                        || (
+			                            [__value] = MetricValue
+			                                && 'brand_main_Top'[brand_main_top] <= BrandRaw
+			                        )
+			                )
+			            )
+			        VAR BarWidth = ROUND(DIVIDE(MetricValue, MaxValue, 0) * 100, 0) & "%"
+			        VAR FirstLetter = LEFT(BrandRaw, 1)
+			        VAR LogoHtml =
+			            IF(
+			                NOT ISBLANK(Logo) && Logo <> "",
+			                "<img class='logo' src='" & Logo & "'>",
+			                "<div class='logo logo-fallback'>" & FirstLetter & "</div>"
+			            )
+			        RETURN
+			            "<div class='top-row'>"
+			                & "<div class='rank'>" & RankNo & "</div>"
+			                & LogoHtml
+			                & "<div class='brand' title='" & Brand & "'>" & Brand & "</div>"
+			                & "<div class='value'>" & FORMAT(MetricValue, MetricFormat) & " TRP</div>"
+			                & "<div class='bar-track'><div class='bar-fill' style='width:" & BarWidth & ";'></div></div>"
+			                & "<div class='sov'>" & IF(ISBLANK(SovValue), "", FORMAT(SovValue, "0%") & " SOV") & "</div>"
+			            & "</div>",
+			        "",
+			        [__value], DESC,
+			        'brand_main_Top'[brand_main_top], ASC
+			    )
+			VAR EmptyHtml =
+			    "<div class='empty'>Нет данных</div>"
+			RETURN
+			    "<div class='top5-card'>"
+			        & "<style>"
+			        & ".top5-card{width:100%;height:100%;box-sizing:border-box;background:#0F1722;border:1px solid #1C2739;border-radius:8px;padding:20px 20px;font-family:Segoe UI,Arial,sans-serif;color:#E3EAF2;overflow:hidden;}"
+			        & ".top5-head{height:26px;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:#E2C16F;}"
+			        & ".top5-icon{width:22px;height:22px;color:#E2C16F;display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px;}"
+			        & ".top5-icon svg{width:22px;height:22px;display:block;}"
+			        & ".top5-rows{margin-top:10px;display:flex;flex-direction:column;gap:5px;}"
+			        & ".top-row{height:27px;display:grid;grid-template-columns:22px 34px minmax(118px,1fr) 96px 126px 52px;gap:8px;align-items:center;}"
+			        & ".rank{color:#9AA3B2;font-size:13px;text-align:right;}"
+			        & ".logo{width:30px;height:30px;border-radius:7px;object-fit:contain;background:#FFFFFF;display:flex;align-items:center;justify-content:center;}"
+			        & ".logo-fallback{background:#1C2739;color:#E2C16F;font-weight:800;font-size:14px;}"
+			        & ".brand{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#E3EAF2;font-size:14px;font-weight:650;}"
+			        & ".value{white-space:nowrap;color:#9AA3B2;font-size:12px;text-align:right;}"
+			        & ".bar-track{height:8px;background:#1C2739;border-radius:999px;overflow:hidden;}"
+			        & ".bar-fill{height:100%;background:#E2C16F;border-radius:999px;}"
+			        & ".sov{white-space:nowrap;color:#9AA3B2;font-size:13px;font-weight:400;text-align:right;}"
+			        & ".empty{height:146px;display:flex;align-items:center;justify-content:center;color:#9AA3B2;font-size:14px;}"
+			        & "</style>"
+			        & "<div class='top5-head'><span class='top5-icon'><svg viewBox='0 0 24 24' aria-hidden='true'><path fill='currentColor' d='M7 4h10v2h4v2c0 3.2-1.7 5.5-5 6.4-.6 1-1.6 1.7-3 2V19h5v2H6v-2h5v-2.6c-1.4-.3-2.4-1-3-2C4.7 13.5 3 11.2 3 8V6h4V4Zm2 2v5c0 2 1.2 3.5 3 3.5s3-1.5 3-3.5V6H9ZM5 8c0 1.7.7 3.1 2 3.9V8H5Zm12 0v3.9c1.3-.8 2-2.2 2-3.9h-2Z'/></svg></span><span>ТОП-5 • ОБЩАЯ РЕКЛАМА</span></div>"
+			        & IF(ISEMPTY(TopBrands), EmptyHtml, "<div class='top5-rows'>" & RowsHtml & "</div>")
+			    & "</div>"
+		isHidden
+		displayFolder: 07_HTML_визуализация
+		lineageTag: a5d1e6ab-c394-45e1-bbfb-e78adebe79a9
+
+		changedProperty = IsHidden
+
+	measure 3202_02_html_top5_retail =
+			
+			VAR MetricFormat = "#,0"
+			VAR RetailSov = [3121_02_SOV_%_общ_Розница]
+			VAR RetailSovText =
+			    IF(
+			        ISBLANK(RetailSov),
+			        "",
+			        " (" & FORMAT(RetailSov, "0%") & " АКТИВНОСТИ)"
+			    )
+			VAR BrandsBase =
+			    ADDCOLUMNS(
+			        FILTER(
+			            ALLSELECTED('brand_main_Top'[brand_main_top]),
+			            NOT ISBLANK('brand_main_Top'[brand_main_top])
+			                && 'brand_main_Top'[brand_main_top] <> "ОСТАЛЬНОЕ"
+			        ),
+			        "__value", [3122_01_TPR_Розница],
+			        "__sov", [3122_02_SOV_%_Розница],
+			        "__logo", CALCULATE(SELECTEDVALUE('logos_dict'[logo_link]))
+			    )
+			VAR BrandsFiltered =
+			    FILTER(
+			        BrandsBase,
+			        NOT ISBLANK([__value]) && [__value] > 0
+			            && 'brand_main_Top'[brand_main_top] <> "OZON+OZON БАНК"
+			    )
+			VAR TopBrands =
+			    TOPN(
+			        5,
+			        BrandsFiltered,
+			        [__value], DESC,
+			        'brand_main_Top'[brand_main_top], ASC
+			    )
+			VAR MaxValue = MAXX(TopBrands, [__value])
+			VAR RowsHtml =
+			    CONCATENATEX(
+			        TopBrands,
+			        VAR BrandRaw = 'brand_main_Top'[brand_main_top]
+			        VAR Brand =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(BrandRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        VAR MetricValue = [__value]
+			        VAR SovValue = [__sov]
+			        VAR LogoRaw = [__logo]
+			        VAR Logo =
+			            SUBSTITUTE(
+			                SUBSTITUTE(LogoRaw, "'", "%27"),
+			                """", "%22"
+			            )
+			        VAR RankNo =
+			            COUNTROWS(
+			                FILTER(
+			                    TopBrands,
+			                    [__value] > MetricValue
+			                        || (
+			                            [__value] = MetricValue
+			                                && 'brand_main_Top'[brand_main_top] <= BrandRaw
+			                        )
+			                )
+			            )
+			        VAR BarWidth = ROUND(DIVIDE(MetricValue, MaxValue, 0) * 100, 0) & "%"
+			        VAR FirstLetter = LEFT(BrandRaw, 1)
+			        VAR LogoHtml =
+			            IF(
+			                NOT ISBLANK(Logo) && Logo <> "",
+			                "<img class='retail-logo' src='" & Logo & "'>",
+			                "<div class='retail-logo retail-logo-fallback'>" & FirstLetter & "</div>"
+			            )
+			        RETURN
+			            "<div class='retail-row'>"
+			                & "<div class='retail-rank'>" & RankNo & "</div>"
+			                & LogoHtml
+			                & "<div class='retail-brand' title='" & Brand & "'>" & Brand & "</div>"
+			                & "<div class='retail-value'>" & FORMAT(MetricValue, MetricFormat) & " TRP</div>"
+			                & "<div class='retail-bar-track'><div class='retail-bar-fill' style='width:" & BarWidth & ";'></div></div>"
+			                & "<div class='retail-sov'>" & IF(ISBLANK(SovValue), "", FORMAT(SovValue, "0%") & " SOV") & "</div>"
+			            & "</div>",
+			        "",
+			        [__value], DESC,
+			        'brand_main_Top'[brand_main_top], ASC
+			    )
+			VAR SegmentsBase =
+			    ADDCOLUMNS(
+			        FILTER(
+			            ALLSELECTED('all_reports_ad_dict'[category_6]),
+			            NOT ISBLANK('all_reports_ad_dict'[category_6])
+			        ),
+			        "__value", CALCULATE([3122_01_TPR_Розница]),
+			        "__sov",
+			            DIVIDE(
+			                CALCULATE([3122_01_TPR_Розница]),
+			                CALCULATE(
+			                    [3122_03_TRP_all_розница],
+			                    ALLSELECTED('all_reports_ad_dict'[category_6])
+			                ),
+			                BLANK()
+			            )
+			    )
+			VAR TopSegments =
+			    TOPN(
+			        3,
+			        FILTER(
+			            SegmentsBase,
+			            NOT ISBLANK([__sov]) && [__sov] > 0
+			        ),
+			        [__sov], DESC,
+			        'all_reports_ad_dict'[category_6], ASC
+			    )
+			VAR SegmentRowsHtml =
+			    CONCATENATEX(
+			        TopSegments,
+			        VAR SegmentRaw = 'all_reports_ad_dict'[category_6]
+			        VAR Segment =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(SegmentRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        VAR SegmentSov = [__sov]
+			        VAR RankNo =
+			            COUNTROWS(
+			                FILTER(
+			                    TopSegments,
+			                    [__sov] > SegmentSov
+			                        || (
+			                            [__sov] = SegmentSov
+			                                && 'all_reports_ad_dict'[category_6] <= SegmentRaw
+			                        )
+			                )
+			            )
+			        VAR SegmentClass =
+			            SWITCH(
+			                RankNo,
+			                1, "retail-segment-1",
+			                2, "retail-segment-2",
+			                "retail-segment-3"
+			            )
+			        RETURN
+			            "<div class='retail-segment " & SegmentClass & "'>"
+			                & "<div class='retail-segment-mark'></div>"
+			                & "<div class='retail-segment-label' title='" & Segment & "'>" & Segment & "</div>"
+			                & "<div class='retail-segment-value'>" & FORMAT(SegmentSov, "0%") & "</div>"
+			            & "</div>",
+			        "",
+			        [__sov], DESC,
+			        'all_reports_ad_dict'[category_6], ASC
+			    )
+			VAR SegmentsHtml =
+			    "<div class='retail-segments'>"
+			        & "<div class='retail-segments-title'>РОЗНИЧНЫЕ СЕГМЕНТЫ</div>"
+			        & IF(
+			            ISEMPTY(TopSegments),
+			            "<div class='retail-segment-empty'>Нет данных</div>",
+			            "<div class='retail-segment-grid'>" & SegmentRowsHtml & "</div>"
+			        )
+			    & "</div>"
+			VAR EmptyHtml =
+			    "<div class='retail-empty'>Нет данных</div>"
+			RETURN
+			    "<div class='retail-card'>"
+			        & "<style>"
+			        & ".retail-card{width:100%;height:100%; box-sizing:border-box;background:#0F1722;border:1px solid #1C2739;border-radius:8px;padding:20px 20px;font-family:Segoe UI,Arial,sans-serif;color:#E3EAF2;overflow:hidden;}"
+			        & ".retail-head{height:26px;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:#63D7BE;}"
+			        & ".retail-icon{width:22px;height:22px;color:#63D7BE;display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px;}"
+			        & ".retail-icon svg{width:22px;height:22px;display:block;}"
+			        & ".retail-head-sov{color:#63D7BE;letter-spacing:2px;}"
+			        & ".retail-rows{margin-top:10px;display:flex;flex-direction:column;gap:5px;}"
+			        & ".retail-row{height:27px;display:grid;grid-template-columns:22px 34px minmax(118px,1fr) 96px 126px 52px;gap:8px;align-items:center;}"
+			        & ".retail-rank{color:#9AA3B2;font-size:13px;text-align:right;}"
+			        & ".retail-logo{width:30px;height:30px;border-radius:7px;object-fit:contain;background:#FFFFFF;display:flex;align-items:center;justify-content:center;}"
+			        & ".retail-logo-fallback{background:#1C2739;color:#63D7BE;font-weight:800;font-size:14px;}"
+			        & ".retail-brand{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#E3EAF2;font-size:14px;font-weight:650;}"
+			        & ".retail-value{white-space:nowrap;color:#9AA3B2;font-size:12px;text-align:right;}"
+			        & ".retail-bar-track{height:8px;background:#1C2739;border-radius:999px;overflow:hidden;}"
+			        & ".retail-bar-fill{height:100%;background:#63D7BE;border-radius:999px;}"
+			        & ".retail-sov{white-space:nowrap;color:#9AA3B2;font-size:13px;font-weight:400;text-align:right;}"
+			        & ".retail-empty{height:150px;display:flex;align-items:center;justify-content:center;color:#9AA3B2;font-size:14px;}"
+			        & ".retail-segments{margin-top:16px;border-top:1px solid #1C2739;padding-top:12px;}"
+			        & ".retail-segments-title{color:#9AA3B2;font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;}"
+			        & ".retail-segment-grid{margin-top:9px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}"
+			        & ".retail-segment{min-width:0;height:52px;border:2px solid;border-radius:6px;background:#0F1722;padding:9px 9px;box-sizing:border-box;display:grid;grid-template-columns:7px minmax(0,1fr) 54px;gap:10px;align-items:center;}"
+			        & ".retail-segment-mark{width:7px;height:30px;border-radius:1px;}"
+			        & ".retail-segment-label{min-width:0;color:#E3EAF2;font-size:10px;font-weight:800;line-height:1.12;text-transform:uppercase;white-space:normal;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}"
+			        & ".retail-segment-value{font-size:20px;font-weight:900;line-height:1;text-align:right;}"
+			        & ".retail-segment-empty{height:52px;margin-top:9px;display:flex;align-items:center;justify-content:center;color:#9AA3B2;font-size:14px;}"
+			        & ".retail-segment-1{border-color:#63D7BE;}.retail-segment-1 .retail-segment-mark{background:#63D7BE;}.retail-segment-1 .retail-segment-value{color:#63D7BE;}"
+			        & ".retail-segment-2{border-color:#E2C16F;}.retail-segment-2 .retail-segment-mark{background:#E2C16F;}.retail-segment-2 .retail-segment-value{color:#E2C16F;}"
+			        & ".retail-segment-3{border-color:#EF6B78;}.retail-segment-3 .retail-segment-mark{background:#EF6B78;}.retail-segment-3 .retail-segment-value{color:#EF6B78;}"
+			        & "</style>"
+			        & "<div class='retail-head'><span class='retail-icon'><svg viewBox='0 0 24 24' aria-hidden='true'><path fill='currentColor' d='M7 8V7a5 5 0 0 1 10 0v1h3l1 12H3L4 8h3Zm2 0h6V7a3 3 0 0 0-6 0v1Zm-2 2v3h2v-3H7Zm8 0v3h2v-3h-2Z'/></svg></span><span>ТОП-5 • РОЗНИЦА<span class='retail-head-sov'>" & RetailSovText & "</span></span></div>"
+			        & IF(ISEMPTY(TopBrands), EmptyHtml, "<div class='retail-rows'>" & RowsHtml & "</div>")
+			        & SegmentsHtml
+			    & "</div>"
+		isHidden
+		displayFolder: 07_HTML_визуализация
+		lineageTag: f6eef974-67a8-4777-9598-7f4c93033845
+
+		changedProperty = IsHidden
+
+	measure 3202_03_html_top5_business =
+			
+			VAR MetricFormat = "#,0"
+			VAR BusinessSov = [3131_02_SOV_%_общ_Бизнес]
+			VAR BusinessSovText =
+			    IF(
+			        ISBLANK(BusinessSov),
+			        "",
+			        " (" & FORMAT(BusinessSov, "0%") & " АКТИВНОСТИ)"
+			    )
+			VAR BrandsBase =
+			    ADDCOLUMNS(
+			        FILTER(
+			            ALLSELECTED('brand_main_Top'[brand_main_top]),
+			            NOT ISBLANK('brand_main_Top'[brand_main_top])
+			                && 'brand_main_Top'[brand_main_top] <> "ОСТАЛЬНОЕ"
+			        ),
+			        "__value", [3132_01_TPR_Бизнес],
+			        "__sov", [3132_02_SOV_%_Бизнес],
+			        "__logo", CALCULATE(SELECTEDVALUE('logos_dict'[logo_link]))
+			    )
+			VAR BrandsFiltered =
+			    FILTER(
+			        BrandsBase,
+			        NOT ISBLANK([__value]) && [__value] >= 1
+			            && 'brand_main_Top'[brand_main_top] <> "OZON+OZON БАНК"
+			    )
+			VAR TopBrands =
+			    TOPN(
+			        5,
+			        BrandsFiltered,
+			        [__value], DESC,
+			        'brand_main_Top'[brand_main_top], ASC
+			    )
+			VAR MaxValue = MAXX(TopBrands, [__value])
+			VAR RowsHtml =
+			    CONCATENATEX(
+			        TopBrands,
+			        VAR BrandRaw = 'brand_main_Top'[brand_main_top]
+			        VAR Brand =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(BrandRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        VAR MetricValue = [__value]
+			        VAR SovValue = [__sov]
+			        VAR LogoRaw = [__logo]
+			        VAR Logo =
+			            SUBSTITUTE(
+			                SUBSTITUTE(LogoRaw, "'", "%27"),
+			                """", "%22"
+			            )
+			        VAR RankNo =
+			            COUNTROWS(
+			                FILTER(
+			                    TopBrands,
+			                    [__value] > MetricValue
+			                        || (
+			                            [__value] = MetricValue
+			                                && 'brand_main_Top'[brand_main_top] <= BrandRaw
+			                        )
+			                )
+			            )
+			        VAR BarWidth = ROUND(DIVIDE(MetricValue, MaxValue, 0) * 100, 0) & "%"
+			        VAR FirstLetter = LEFT(BrandRaw, 1)
+			        VAR LogoHtml =
+			            IF(
+			                NOT ISBLANK(Logo) && Logo <> "",
+			                "<img class='business-logo' src='" & Logo & "'>",
+			                "<div class='business-logo business-logo-fallback'>" & FirstLetter & "</div>"
+			            )
+			        RETURN
+			            "<div class='business-row'>"
+			                & "<div class='business-rank'>" & RankNo & "</div>"
+			                & LogoHtml
+			                & "<div class='business-brand' title='" & Brand & "'>" & Brand & "</div>"
+			                & "<div class='business-value'>" & FORMAT(MetricValue, MetricFormat) & " TRP</div>"
+			                & "<div class='business-bar-track'><div class='business-bar-fill' style='width:" & BarWidth & ";'></div></div>"
+			                & "<div class='business-sov'>" & IF(ISBLANK(SovValue), "", FORMAT(SovValue, "0%") & " SOV") & "</div>"
+			            & "</div>",
+			        "",
+			        [__value], DESC,
+			        'brand_main_Top'[brand_main_top], ASC
+			    )
+			VAR SegmentsBase =
+			    ADDCOLUMNS(
+			        FILTER(
+			            ALLSELECTED('all_reports_ad_dict'[category_6]),
+			            NOT ISBLANK('all_reports_ad_dict'[category_6])
+			        ),
+			        "__value", CALCULATE([3132_01_TPR_Бизнес]),
+			        "__sov",
+			            DIVIDE(
+			                CALCULATE([3132_01_TPR_Бизнес]),
+			                CALCULATE(
+			                    [3132_03_TRP_all_бизнес],
+			                    ALLSELECTED('all_reports_ad_dict'[category_6])
+			                ),
+			                BLANK()
+			            )
+			    )
+			VAR TopSegments =
+			    TOPN(
+			        3,
+			        FILTER(
+			            SegmentsBase,
+			            NOT ISBLANK([__sov]) && [__sov] > 0
+			        ),
+			        [__sov], DESC,
+			        'all_reports_ad_dict'[category_6], ASC
+			    )
+			VAR SegmentRowsHtml =
+			    CONCATENATEX(
+			        TopSegments,
+			        VAR SegmentRaw = 'all_reports_ad_dict'[category_6]
+			        VAR Segment =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(SegmentRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        VAR SegmentSov = [__sov]
+			        VAR RankNo =
+			            COUNTROWS(
+			                FILTER(
+			                    TopSegments,
+			                    [__sov] > SegmentSov
+			                        || (
+			                            [__sov] = SegmentSov
+			                                && 'all_reports_ad_dict'[category_6] <= SegmentRaw
+			                        )
+			                )
+			            )
+			        VAR SegmentClass =
+			            SWITCH(
+			                RankNo,
+			                1, "business-segment-1",
+			                2, "business-segment-2",
+			                "business-segment-3"
+			            )
+			        RETURN
+			            "<div class='business-segment " & SegmentClass & "'>"
+			                & "<div class='business-segment-mark'></div>"
+			                & "<div class='business-segment-label' title='" & Segment & "'>" & Segment & "</div>"
+			                & "<div class='business-segment-value'>" & FORMAT(SegmentSov, "0%") & "</div>"
+			            & "</div>",
+			        "",
+			        [__sov], DESC,
+			        'all_reports_ad_dict'[category_6], ASC
+			    )
+			VAR SegmentsHtml =
+			    "<div class='business-segments'>"
+			        & "<div class='business-segments-title'>БИЗНЕС СЕГМЕНТЫ</div>"
+			        & IF(
+			            ISEMPTY(TopSegments),
+			            "<div class='business-segment-empty'>Нет данных</div>",
+			            "<div class='business-segment-grid'>" & SegmentRowsHtml & "</div>"
+			        )
+			    & "</div>"
+			VAR EmptyHtml =
+			    "<div class='business-empty'>Нет данных</div>"
+			RETURN
+			    "<div class='business-card'>"
+			        & "<style>"
+			        & ".business-card{width:100%;height:100%;box-sizing:border-box;background:#0F1722;border:1px solid #1C2739;border-radius:8px;padding:20px 20px;font-family:Segoe UI,Arial,sans-serif;color:#E3EAF2;overflow:hidden;}"
+			        & ".business-head{height:26px;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:#5BAFE0;}"
+			        & ".business-icon{width:22px;height:22px;color:#5BAFE0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px;}"
+			        & ".business-icon svg{width:22px;height:22px;display:block;}"
+			        & ".business-head-sov{color:#5BAFE0;letter-spacing:2px;}"
+			        & ".business-rows{margin-top:10px;display:flex;flex-direction:column;gap:5px;}"
+			        & ".business-row{height:27px;display:grid;grid-template-columns:22px 34px minmax(118px,1fr) 96px 126px 52px;gap:8px;align-items:center;}"
+			        & ".business-rank{color:#9AA3B2;font-size:13px;text-align:right;}"
+			        & ".business-logo{width:30px;height:30px;border-radius:7px;object-fit:contain;background:#FFFFFF;display:flex;align-items:center;justify-content:center;}"
+			        & ".business-logo-fallback{background:#1C2739;color:#E2C16F;font-weight:800;font-size:14px;}"
+			        & ".business-brand{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#E3EAF2;font-size:14px;font-weight:650;}"
+			        & ".business-value{white-space:nowrap;color:#9AA3B2;font-size:12px;text-align:right;}"
+			        & ".business-bar-track{height:8px;background:#1C2739;border-radius:999px;overflow:hidden;}"
+			        & ".business-bar-fill{height:100%;background:#5BAFE0;border-radius:999px;}"
+			        & ".business-sov{white-space:nowrap;color:#9AA3B2;font-size:13px;font-weight:400;text-align:right;}"
+			        & ".business-empty{height:150px;display:flex;align-items:center;justify-content:center;color:#9AA3B2;font-size:14px;}"
+			        & ".business-segments{margin-top:16px;border-top:1px solid #1C2739;padding-top:12px;}"
+			        & ".business-segments-title{color:#9AA3B2;font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;}"
+			        & ".business-segment-grid{margin-top:9px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}"
+			        & ".business-segment{min-width:0;height:52px;border:2px solid;border-radius:6px;background:#0F1722;padding:9px 9px;box-sizing:border-box;display:grid;grid-template-columns:7px minmax(0,1fr) 54px;gap:10px;align-items:center;}"
+			        & ".business-segment-mark{width:7px;height:30px;border-radius:1px;}"
+			        & ".business-segment-label{min-width:0;color:#E3EAF2;font-size:10px;font-weight:800;line-height:1.12;text-transform:uppercase;white-space:normal;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}"
+			        & ".business-segment-value{font-size:20px;font-weight:900;line-height:1;text-align:right;}"
+			        & ".business-segment-empty{height:52px;margin-top:9px;display:flex;align-items:center;justify-content:center;color:#9AA3B2;font-size:14px;}"
+			        & ".business-segment-1{border-color:#5DB9F1;}.business-segment-1 .business-segment-mark{background:#5DB9F1;}.business-segment-1 .business-segment-value{color:#5DB9F1;}"
+			        & ".business-segment-2{border-color:#F2A35E;}.business-segment-2 .business-segment-mark{background:#F2A35E;}.business-segment-2 .business-segment-value{color:#F2A35E;}"
+			        & ".business-segment-3{border-color:#63D7BE;}.business-segment-3 .business-segment-mark{background:#63D7BE;}.business-segment-3 .business-segment-value{color:#63D7BE;}"
+			        & "</style>"
+			        & "<div class='business-head'><span class='business-icon'><svg viewBox='0 0 24 24' aria-hidden='true'><path fill='currentColor' d='M9 4h6v3h5v13H4V7h5V4Zm2 3h2V6h-2v1ZM6 9v3h6v-1h4v1h2V9H6Zm0 5v4h12v-4h-2v1h-4v-1H6Z'/></svg></span><span>ТОП-5 • БИЗНЕС<span class='business-head-sov'>" & BusinessSovText & "</span></span></div>"
+			        & IF(ISEMPTY(TopBrands), EmptyHtml, "<div class='business-rows'>" & RowsHtml & "</div>")
+			        & SegmentsHtml
+			    & "</div>"
+		isHidden
+		displayFolder: 07_HTML_визуализация
+		lineageTag: 37822c0d-4746-456e-8c91-1176271f47e7
+
+		changedProperty = IsHidden
+
+	measure 3210_01_html_new_campaigns =
+			
+			VAR CampaignsBase =
+			    ADDCOLUMNS(
+			        SUMMARIZE(
+			            FILTER(
+			                ALLSELECTED('campaigns_dict'),
+			                NOT ISBLANK('campaigns_dict'[campaign_name])
+			            ),
+			            'campaigns_dict'[campaign_category],
+			            'campaigns_dict'[campaign_name]
+			        ),
+			        "__status", [3110_01_New_campaigns]
+			    )
+			VAR CampaignsFiltered =
+			    FILTER(
+			        CampaignsBase,
+			        NOT ISBLANK([__status]) && [__status] <> ""
+			    )
+			VAR RetailCampaigns =
+			    FILTER(CampaignsFiltered, 'campaigns_dict'[campaign_category] = "РОЗНИЦА")
+			VAR BusinessCampaigns =
+			    FILTER(CampaignsFiltered, 'campaigns_dict'[campaign_category] = "БИЗНЕС")
+			VAR RetailRows =
+			    CONCATENATEX(
+			        RetailCampaigns,
+			        VAR CampaignRaw = 'campaigns_dict'[campaign_name]
+			        VAR Campaign =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(CampaignRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        VAR StatusRaw = [__status]
+			        VAR CampaignStatus =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(StatusRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        RETURN
+			            "<div class='campaign-row'>"
+			                & "<div class='status-pill'>" & CampaignStatus & "</div>"
+			                & "<div class='campaign-name' title='" & Campaign & "'>" & Campaign & "</div>"
+			            & "</div>",
+			        "",
+			        'campaigns_dict'[campaign_name], ASC
+			    )
+			VAR BusinessRows =
+			    CONCATENATEX(
+			        BusinessCampaigns,
+			        VAR CampaignRaw = 'campaigns_dict'[campaign_name]
+			        VAR Campaign =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(CampaignRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        VAR StatusRaw = [__status]
+			        VAR CampaignStatus =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(StatusRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        RETURN
+			            "<div class='campaign-row'>"
+			                & "<div class='status-pill'>" & CampaignStatus & "</div>"
+			                & "<div class='campaign-name' title='" & Campaign & "'>" & Campaign & "</div>"
+			            & "</div>",
+			        "",
+			        'campaigns_dict'[campaign_name], ASC
+			    )
+			VAR RetailBlock =
+			    IF(
+			        ISEMPTY(RetailCampaigns),
+			        "<div class='campaign-empty-small'>Нет новых кампаний</div>",
+			        RetailRows
+			    )
+			VAR BusinessBlock =
+			    IF(
+			        ISEMPTY(BusinessCampaigns),
+			        "<div class='campaign-empty-small'>Нет новых кампаний</div>",
+			        BusinessRows
+			    )
+			RETURN
+			    "<div class='campaign-card'>"
+			        & "<style>"
+			        & ".campaign-card{width:100%;height:auto;min-height:100%;box-sizing:border-box;background:#0F1722;border:1px solid #1C2739;border-radius:8px;padding:18px 18px;font-family:Segoe UI,Arial,sans-serif;color:#E3EAF2;overflow:visible;}"
+			        & ".campaign-head{height:28px;display:flex;align-items:center;gap:18px;font-size:16px;font-weight:800;letter-spacing:6px;text-transform:uppercase;color:#E3EAF2;}"
+			        & ".campaign-icon{color:#63D77A;font-size:34px;font-weight:900;line-height:1;}"
+			        & ".campaign-columns{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}"
+			        & ".campaign-col-title{height:22px;color:#9AA3B2;font-size:14px;font-weight:800;letter-spacing:3px;margin-bottom:12px;}"
+			        & ".campaign-list{display:flex;flex-direction:column;gap:8px;}"
+			        & ".campaign-row{height:24px;display:grid;grid-template-columns:72px minmax(0,1fr);gap:10px;align-items:center;}"
+			        & ".status-pill{height:22px;padding:0 8px;box-sizing:border-box;border-radius:4px;background:#2D6A3A;color:#9DEB9F;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase;}"
+			        & ".campaign-name{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#E3EAF2;font-size:18px;font-weight:500;}"
+			        & ".campaign-empty-small{height:24px;color:#9AA3B2;font-size:18px;display:flex;align-items:center;}"
+			        & "</style>"
+			        & "<div class='campaign-head'><span class='campaign-icon'>!</span><span>НОВЫЕ КАМПАНИИ</span></div>"
+			        & "<div class='campaign-columns'>"
+			            & "<div class='campaign-column'><div class='campaign-col-title'>Розница</div><div class='campaign-list'>" & RetailBlock & "</div></div>"
+			            & "<div class='campaign-column'><div class='campaign-col-title'>Бизнес</div><div class='campaign-list'>" & BusinessBlock & "</div></div>"
+			        & "</div>"
+			    & "</div>"
+		isHidden
+		displayFolder: 07_HTML_визуализация
+		lineageTag: 7306fc65-a7d1-4399-8439-820768d20846
+
+		changedProperty = IsHidden
+
+	measure 3210_02_html_stop_campaigns =
+			
+			VAR CampaignsBase =
+			    ADDCOLUMNS(
+			        SUMMARIZE(
+			            ALLSELECTED('campaigns_dict'),
+			            'campaigns_dict'[campaign_category],
+			            'campaigns_dict'[campaign_name]
+			        ),
+			        "__status", [3110_02_Stop_campaigns]
+			    )
+			VAR CampaignsFiltered =
+			    FILTER(
+			        CampaignsBase,
+			        NOT ISBLANK([__status]) && [__status] <> ""
+			    )
+			VAR RetailCampaigns =
+			    FILTER(CampaignsFiltered, 'campaigns_dict'[campaign_category] = "РОЗНИЦА")
+			VAR BusinessCampaigns =
+			    FILTER(CampaignsFiltered, 'campaigns_dict'[campaign_category] = "БИЗНЕС")
+			VAR RetailRows =
+			    CONCATENATEX(
+			        RetailCampaigns,
+			        VAR CampaignRaw = 'campaigns_dict'[campaign_name]
+			        VAR Campaign =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(CampaignRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        VAR StatusRaw = [__status]
+			        VAR CampaignStatus =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(StatusRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        RETURN
+			            "<div class='stop-row'>"
+			                & "<div class='stop-pill'>" & CampaignStatus & "</div>"
+			                & "<div class='stop-name' title='" & Campaign & "'>" & Campaign & "</div>"
+			            & "</div>",
+			        "",
+			        'campaigns_dict'[campaign_name], ASC
+			    )
+			VAR BusinessRows =
+			    CONCATENATEX(
+			        BusinessCampaigns,
+			        VAR CampaignRaw = 'campaigns_dict'[campaign_name]
+			        VAR Campaign =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(CampaignRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        VAR StatusRaw = [__status]
+			        VAR CampaignStatus =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(StatusRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        RETURN
+			            "<div class='stop-row'>"
+			                & "<div class='stop-pill'>" & CampaignStatus & "</div>"
+			                & "<div class='stop-name' title='" & Campaign & "'>" & Campaign & "</div>"
+			            & "</div>",
+			        "",
+			        'campaigns_dict'[campaign_name], ASC
+			    )
+			VAR RetailBlock =
+			    IF(
+			        ISEMPTY(RetailCampaigns),
+			        "<div class='stop-empty-small'>Нет завершённых кампаний</div>",
+			        RetailRows
+			    )
+			VAR BusinessBlock =
+			    IF(
+			        ISEMPTY(BusinessCampaigns),
+			        "<div class='stop-empty-small'>Нет завершённых кампаний</div>",
+			        BusinessRows
+			    )
+			RETURN
+			    "<div class='stop-card'>"
+			        & "<style>"
+			        & ".stop-card{width:100%;height:auto;min-height:100%; box-sizing:border-box;background:#0F1722;border:1px solid #1C2739;border-radius:8px;padding:18px 18px;font-family:Segoe UI,Arial,sans-serif;color:#E3EAF2;overflow:visible;}"
+			        & ".stop-head{height:28px;display:flex;align-items:center;gap:18px;font-size:16px;font-weight:800;letter-spacing:6px;text-transform:uppercase;color:#E3EAF2;}"
+			        & ".stop-icon{color:#FF6B78;font-size:32px;font-weight:900;line-height:1;}"
+			        & ".stop-columns{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}"
+			        & ".stop-col-title{height:22px;color:#9AA3B2;font-size:14px;font-weight:800;letter-spacing:3px;margin-bottom:12px;}"
+			        & ".stop-list{display:flex;flex-direction:column;gap:8px;}"
+			        & ".stop-row{height:24px;display:grid;grid-template-columns:72px minmax(0,1fr);gap:10px;align-items:center;}"
+			        & ".stop-pill{height:22px;padding:0 8px;box-sizing:border-box;border-radius:4px;background:#6D3435;color:#FF8D91;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase;}"
+			        & ".stop-name{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#E3EAF2;font-size:18px;font-weight:500;}"
+			        & ".stop-empty-small{height:24px;color:#9AA3B2;font-size:18px;display:flex;align-items:center;}"
+			        & "</style>"
+			        & "<div class='stop-head'><span class='stop-icon'>×</span><span>ЗАВЕРШЁННЫЕ КАМПАНИИ</span></div>"
+			        & "<div class='stop-columns'>"
+			            & "<div class='stop-column'><div class='stop-col-title'>Розница</div><div class='stop-list'>" & RetailBlock & "</div></div>"
+			            & "<div class='stop-column'><div class='stop-col-title'>Бизнес</div><div class='stop-list'>" & BusinessBlock & "</div></div>"
+			        & "</div>"
+			    & "</div>"
+		isHidden
+		displayFolder: 07_HTML_визуализация
+		lineageTag: 5ddc05e8-ba16-493a-88bf-6fa70213b690
+
+		changedProperty = IsHidden
+
+	measure 3301_00_01_Выбранная_аудитория_custom = SELECTEDVALUE('new_aud_gdocs'[prj-name-custom])
+		isHidden
+		lineageTag: d87bfce3-633d-4a03-96e2-ef06d63cdb87
+
+		changedProperty = IsHidden
+
+	measure 3132_03_TRP_all_бизнес = ```
+			CALCULATE([3132_01_TPR_Бизнес], 
+			ALL('brand_main_Top'), 
+			ALL('logos_dict'), 
+			all(all_reports_ad_dict[category_6]))
+			```
+		formatString: #,0.00
+		isHidden
+		displayFolder: 04_Бизнес
+		lineageTag: 3fba4d81-f8ec-4ae0-b077-12bb85cd9450
+
+		changedProperty = IsHidden
+
+	measure 3131_02_SOV_%_общ_Бизнес = DIVIDE([3132_01_TPR_Бизнес], [400_00_12_Nat_Big_switch_left], BLANK())
+		formatString: #,0%;-#,0%;#,0%
+		isHidden
+		displayFolder: 04_Бизнес
+		lineageTag: 47ea7c9e-cc22-442f-829a-06026e1fde97
+
+		changedProperty = IsHidden
+
+	measure 3122_03_TRP_all_розница = ```
+			CALCULATE([3122_01_TPR_Розница], ALL('brand_main_Top'), 
+			ALL('logos_dict'), 
+			all(all_reports_ad_dict[category_6]),
+			all(all_reports_ad_dict[category_12]))
+			```
+		isHidden
+		displayFolder: 03_Розница
+		lineageTag: 200dc651-f433-4722-8e4d-09dca0c71eeb
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 3122_02_SOV_%_Розница = DIVIDE([3122_01_TPR_Розница], [3122_03_TRP_all_розница], BLANK())
+		formatString: #,0%;-#,0%;#,0%
+		isHidden
+		displayFolder: 03_Розница
+		lineageTag: e71f295d-bb55-4682-b1cb-5330864f007b
+
+		changedProperty = IsHidden
+
+	measure 3142_01_TPR_Имидж = CALCULATE([400_00_12_Nat_Big_switch_left], 'all_reports_ad_dict'[category_5]="ИМИДЖ")
+		formatString: #,0.00
+		isHidden
+		displayFolder: 05_Имидж
+		lineageTag: 019f6819-7c87-4d45-8f92-62f0c89abf0c
+
+		changedProperty = IsHidden
+
+	measure 3141_02_SOV_%_общ_Имидж = DIVIDE([3142_01_TPR_Имидж], [400_00_12_Nat_Big_switch_left], BLANK())
+		formatString: #,0%;-#,0%;#,0%
+		isHidden
+		displayFolder: 05_Имидж
+		lineageTag: 0d40a428-ab51-46f1-a234-eee77e56f597
+
+		changedProperty = IsHidden
+
+	measure 3142_02_SOV_%_Имидж = DIVIDE([3142_01_TPR_Имидж], [3142_03_TRP_all_имидж], BLANK())
+		formatString: #,0%;-#,0%;#,0%
+		isHidden
+		displayFolder: 05_Имидж
+		lineageTag: 95b364ce-e07f-44ef-b39a-63d56793b32f
+
+		changedProperty = IsHidden
+
+	measure 3142_03_TRP_all_имидж = ```
+			CALCULATE([3142_01_TPR_Имидж], 
+			ALL('brand_main_Top'), 
+			ALL('logos_dict'), 
+			all(all_reports_ad_dict[category_6]),
+			all(all_reports_ad_dict[category_12]))
+			```
+		formatString: #,0.00
+		isHidden
+		displayFolder: 05_Имидж
+		lineageTag: 4ea83cc7-fd8b-4be0-adbc-a8d44de5c494
+
+		changedProperty = IsHidden
+
+	measure 3143_02_SOV_%_Имидж_сегменты = ```
+			DIVIDE([3142_01_TPR_Имидж], 
+			[3142_03_TRP_all_имидж], BLANK())
+			```
+		formatString: #,0%;-#,0%;#,0%
+		isHidden
+		displayFolder: 05_Имидж
+		lineageTag: 58c8740a-be66-4d98-8695-bc0782590554
+
+		changedProperty = IsHidden
+
+	measure 3202_04_html_top3_image =
+			
+			VAR MetricFormat = "#,0"
+			VAR ImageSov = [3141_02_SOV_%_общ_Имидж]
+			VAR ImageSovText =
+			    IF(
+			        ISBLANK(ImageSov),
+			        "",
+			        " (" & FORMAT(ImageSov, "0%") & " АКТИВНОСТИ)"
+			    )
+			VAR BrandsBase =
+			    ADDCOLUMNS(
+			        FILTER(
+			            ALLSELECTED('brand_main_Top'[brand_main_top]),
+			            NOT ISBLANK('brand_main_Top'[brand_main_top])
+			                && 'brand_main_Top'[brand_main_top] <> "ОСТАЛЬНОЕ"
+			        ),
+			        "__value", [3142_01_TPR_Имидж],
+			        "__sov", [3142_02_SOV_%_Имидж],
+			        "__logo", CALCULATE(SELECTEDVALUE('logos_dict'[logo_link]))
+			    )
+			VAR BrandsFiltered =
+			    FILTER(
+			        BrandsBase,
+			        NOT ISBLANK([__value]) && [__value] >= 1
+			            && 'brand_main_Top'[brand_main_top] <> "OZON+OZON БАНК"
+			    )
+			VAR TopBrands =
+			    TOPN(
+			        3,
+			        BrandsFiltered,
+			        [__value], DESC,
+			        'brand_main_Top'[brand_main_top], ASC
+			    )
+			VAR MaxValue = MAXX(TopBrands, [__value])
+			VAR RowsHtml =
+			    CONCATENATEX(
+			        TopBrands,
+			        VAR BrandRaw = 'brand_main_Top'[brand_main_top]
+			        VAR Brand =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(BrandRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        VAR MetricValue = [__value]
+			        VAR SovValue = [__sov]
+			        VAR LogoRaw = [__logo]
+			        VAR Logo =
+			            SUBSTITUTE(
+			                SUBSTITUTE(LogoRaw, "'", "%27"),
+			                """", "%22"
+			            )
+			        VAR RankNo =
+			            COUNTROWS(
+			                FILTER(
+			                    TopBrands,
+			                    [__value] > MetricValue
+			                        || (
+			                            [__value] = MetricValue
+			                                && 'brand_main_Top'[brand_main_top] <= BrandRaw
+			                        )
+			                )
+			            )
+			        VAR BarWidth = ROUND(DIVIDE(MetricValue, MaxValue, 0) * 100, 0) & "%"
+			        VAR FirstLetter = LEFT(BrandRaw, 1)
+			        VAR LogoHtml =
+			            IF(
+			                NOT ISBLANK(Logo) && Logo <> "",
+			                "<img class='image-logo' src='" & Logo & "'>",
+			                "<div class='image-logo image-logo-fallback'>" & FirstLetter & "</div>"
+			            )
+			        RETURN
+			            "<div class='image-row'>"
+			                & "<div class='image-rank'>" & RankNo & "</div>"
+			                & LogoHtml
+			                & "<div class='image-brand' title='" & Brand & "'>" & Brand & "</div>"
+			                & "<div class='image-value'>" & FORMAT(MetricValue, MetricFormat) & " TRP</div>"
+			                & "<div class='image-bar-track'><div class='image-bar-fill' style='width:" & BarWidth & ";'></div></div>"
+			                & "<div class='image-sov'>" & IF(ISBLANK(SovValue), "", FORMAT(SovValue, "0%") & " SOV") & "</div>"
+			            & "</div>",
+			        "",
+			        [__value], DESC,
+			        'brand_main_Top'[brand_main_top], ASC
+			    )
+			VAR SegmentsBase =
+			    ADDCOLUMNS(
+			        FILTER(
+			            ALLSELECTED('all_reports_ad_dict'[category_6]),
+			            NOT ISBLANK('all_reports_ad_dict'[category_6])
+			        ),
+			        "__value", CALCULATE([3142_01_TPR_Имидж]),
+			        "__sov", CALCULATE([3143_02_SOV_%_Имидж_сегменты])
+			    )
+			VAR TopSegments =
+			    TOPN(
+			        3,
+			        FILTER(
+			            SegmentsBase,
+			            NOT ISBLANK([__sov]) && [__sov] > 0
+			        ),
+			        [__sov], DESC,
+			        'all_reports_ad_dict'[category_6], ASC
+			    )
+			VAR SegmentRowsHtml =
+			    CONCATENATEX(
+			        TopSegments,
+			        VAR SegmentRaw = 'all_reports_ad_dict'[category_6]
+			        VAR Segment =
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        SUBSTITUTE(SegmentRaw, "&", "&amp;"),
+			                        "<", "&lt;"
+			                    ),
+			                    ">", "&gt;"
+			                ),
+			                "'", "&#39;"
+			            )
+			        VAR SegmentSov = [__sov]
+			        VAR RankNo =
+			            COUNTROWS(
+			                FILTER(
+			                    TopSegments,
+			                    [__sov] > SegmentSov
+			                        || (
+			                            [__sov] = SegmentSov
+			                                && 'all_reports_ad_dict'[category_6] <= SegmentRaw
+			                        )
+			                )
+			            )
+			        VAR SegmentClass =
+			            SWITCH(
+			                RankNo,
+			                1, "image-segment-1",
+			                2, "image-segment-2",
+			                "image-segment-3"
+			            )
+			        RETURN
+			            "<div class='image-segment " & SegmentClass & "'>"
+			                & "<div class='image-segment-mark'></div>"
+			                & "<div class='image-segment-label' title='" & Segment & "'>" & Segment & "</div>"
+			                & "<div class='image-segment-value'>" & FORMAT(SegmentSov, "0%") & "</div>"
+			            & "</div>",
+			        "",
+			        [__sov], DESC,
+			        'all_reports_ad_dict'[category_6], ASC
+			    )
+			VAR SegmentsHtml =
+			    "<div class='image-segments'>"
+			        & "<div class='image-segments-title'>ИМИДЖ-СЕГМЕНТЫ</div>"
+			        & IF(
+			            ISEMPTY(TopSegments),
+			            "<div class='image-segment-empty'>Нет данных</div>",
+			            "<div class='image-segment-grid'>" & SegmentRowsHtml & "</div>"
+			        )
+			    & "</div>"
+			VAR EmptyHtml =
+			    "<div class='image-empty'>Нет данных</div>"
+			RETURN
+			    "<div class='image-card'>"
+			        & "<style>"
+			        & ".image-card{width:100%;height:100%;box-sizing:border-box;background:#0F1722;border:1px solid #1C2739;border-radius:8px;padding:16px 18px;font-family:Segoe UI,Arial,sans-serif;color:#E3EAF2;overflow:hidden;}"
+			        & ".image-head{height:26px;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:#B58CFF;}"
+			        & ".image-icon{width:22px;height:22px;color:#B58CFF;display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px;}"
+			        & ".image-icon svg{width:22px;height:22px;display:block;}"
+			        & ".image-head-sov{color:#B58CFF;letter-spacing:2px;}"
+			        & ".image-rows{margin-top:10px;display:flex;flex-direction:column;gap:5px;}"
+			        & ".image-row{height:27px;display:grid;grid-template-columns:22px 34px minmax(118px,1fr) 96px 126px 52px;gap:8px;align-items:center;}"
+			        & ".image-rank{color:#9AA3B2;font-size:13px;text-align:right;}"
+			        & ".image-logo{width:30px;height:30px;border-radius:7px;object-fit:contain;background:#FFFFFF;display:flex;align-items:center;justify-content:center;}"
+			        & ".image-logo-fallback{background:#1C2739;color:#B58CFF;font-weight:800;font-size:14px;}"
+			        & ".image-brand{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#E3EAF2;font-size:14px;font-weight:650;}"
+			        & ".image-value{white-space:nowrap;color:#9AA3B2;font-size:12px;text-align:right;}"
+			        & ".image-bar-track{height:8px;background:#1C2739;border-radius:999px;overflow:hidden;}"
+			        & ".image-bar-fill{height:100%;background:#B58CFF;border-radius:999px;}"
+			        & ".image-sov{white-space:nowrap;color:#9AA3B2;font-size:13px;font-weight:400;text-align:right;}"
+			        & ".image-empty{height:92px;display:flex;align-items:center;justify-content:center;color:#9AA3B2;font-size:14px;}"
+			        & ".image-segments{margin-top:16px;border-top:1px solid #1C2739;padding-top:12px;}"
+			        & ".image-segments-title{color:#9AA3B2;font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;}"
+			        & ".image-segment-grid{margin-top:9px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}"
+			        & ".image-segment{min-width:0;height:52px;border:2px solid;border-radius:6px;background:#0F1722;padding:9px 9px;box-sizing:border-box;display:grid;grid-template-columns:7px minmax(0,1fr) 54px;gap:10px;align-items:center;}"
+			        & ".image-segment-mark{width:7px;height:30px;border-radius:1px;}"
+			        & ".image-segment-label{min-width:0;color:#E3EAF2;font-size:10px;font-weight:800;line-height:1.12;text-transform:uppercase;white-space:normal;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}"
+			        & ".image-segment-value{font-size:20px;font-weight:900;line-height:1;text-align:right;}"
+			        & ".image-segment-empty{height:52px;margin-top:9px;display:flex;align-items:center;justify-content:center;color:#9AA3B2;font-size:14px;}"
+			        & ".image-segment-1{border-color:#B58CFF;}.image-segment-1 .image-segment-mark{background:#B58CFF;}.image-segment-1 .image-segment-value{color:#B58CFF;}"
+			        & ".image-segment-2{border-color:#E2C16F;}.image-segment-2 .image-segment-mark{background:#E2C16F;}.image-segment-2 .image-segment-value{color:#E2C16F;}"
+			        & ".image-segment-3{border-color:#EF6B78;}.image-segment-3 .image-segment-mark{background:#EF6B78;}.image-segment-3 .image-segment-value{color:#EF6B78;}"
+			        & "</style>"
+			        & "<div class='image-head'><span class='image-icon'><svg viewBox='0 0 24 24' aria-hidden='true'><path fill='currentColor' d='M12 3 2 9l10 6 8-4.8V17h2V9L12 3Zm0 2.3L17.6 9 12 12.4 6.4 9 12 5.3ZM6 13.2v4.1c1.8 1.8 3.8 2.7 6 2.7s4.2-.9 6-2.7v-4.1l-6 3.6-6-3.6Z'/></svg></span><span>ТОП-3 • ИМИДЖ<span class='image-head-sov'>" & ImageSovText & "</span></span></div>"
+			        & IF(ISEMPTY(TopBrands), EmptyHtml, "<div class='image-rows'>" & RowsHtml & "</div>")
+			        & SegmentsHtml
+			    & "</div>"
+		lineageTag: 2d6d3b0a-9cfe-49c9-9994-16d9fb6a1115
+
+	column Столбец1
+		dataType: string
+		isHidden
+		lineageTag: accf4553-5b12-4407-9f79-c1f337e67c67
+		summarizeBy: none
+		sourceColumn: Столбец1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Меры_31_01_Рекламная_активность = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t])
+				in
+				    Источник
+
+	annotation PBI_ResultType = Table
+

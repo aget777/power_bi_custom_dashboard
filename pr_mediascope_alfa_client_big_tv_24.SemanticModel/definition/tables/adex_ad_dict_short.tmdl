@@ -1,0 +1,33 @@
+table adex_ad_dict_short
+	isHidden
+	lineageTag: 5c5bad1f-6c0e-43a2-911d-528b41d912d4
+
+	column media_key_id
+		dataType: string
+		isHidden
+		lineageTag: e8f06355-4f37-491c-958d-2cae58893d57
+		summarizeBy: none
+		sourceColumn: media_key_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition adex_ad_dict_short = m
+		mode: import
+		queryGroup: 06_02_Media_costs
+		source = ```
+				let
+				    Источник = Sql.Database(mssql_server, db_name, 
+				    [Query="select media_key_id from adex_ad_dict_cats_name_view
+				            where cleaning_flag in ("&cleaning_flag&")"])
+				in
+				    Источник
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

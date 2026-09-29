@@ -1,0 +1,32 @@
+table reg_tv_ad_dict_short
+	isHidden
+	lineageTag: 98c7a15b-41ac-4423-959d-7171ad36087e
+
+	column media_key_id
+		dataType: string
+		isHidden
+		lineageTag: e3fd256b-1959-44d1-9b1f-3c374447c54d
+		summarizeBy: none
+		sourceColumn: media_key_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition reg_tv_ad_dict_short = m
+		mode: import
+		queryGroup: 07_02_Regions_Simple_Buying
+		source = ```
+				let
+				    Источник = Sql.Database(mssql_server, db_name, 
+				    [Query="select media_key_id from reg_tv_ad_dict where cleaning_flag in ("&cleaning_flag&")"])
+				in
+				    Источник
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

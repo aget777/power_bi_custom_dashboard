@@ -1,0 +1,30 @@
+table media_type_detail_dict
+	isHidden
+	lineageTag: 9cff676b-8e10-4812-af6c-db33fd3e97ee
+
+	column media_type_detail
+		dataType: string
+		isHidden
+		lineageTag: 0fd99bfc-8f76-475c-a63d-d98cdd7c61a1
+		summarizeBy: none
+		sourceColumn: media_type_detail
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition media_type_detail_dict = m
+		mode: import
+		queryGroup: 03_Общие_справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select * from media_type_detail_view"])
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

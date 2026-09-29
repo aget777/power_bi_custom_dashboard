@@ -1,0 +1,53 @@
+table tv_index_tv_company_Top
+	isHidden
+	lineageTag: 9db32158-3ad8-45fe-8219-0f5c1c6282b1
+
+	column Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a74e32b5-184f-49c7-9bbb-0ac0f0a74391
+		summarizeBy: none
+		sourceColumn: Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column tv_company_top
+		dataType: string
+		isHidden
+		lineageTag: 7c75bce6-5004-4d35-8982-96cb444f5d0b
+		summarizeBy: none
+		sourceColumn: tv_company_top
+		sortByColumn: Id
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition tv_index_tv_company_Top = m
+		mode: import
+		queryGroup: 02_02_Top_tables
+		source = ```
+				let
+				    Источник = Sql.Database(mssql_server, db_name, 
+				    [Query="select distinct tvCompanyName as tv_company_top from tv_index_tv_company_dict"]),
+				    other_table = Table.FromRecords({
+				        [tv_company_top="ОСТАЛЬНОЕ"]
+				    }),
+				    combine_tbl = Table.Combine({other_table, Источник}),
+				    #"Добавлен индекс" = Table.AddIndexColumn(combine_tbl, "Id", 1, 1, Int64.Type),
+				    #"Строки с примененным фильтром" = Table.SelectRows(#"Добавлен индекс", each [tv_company_top] <> null and [tv_company_top] <> "")
+				in
+				    #"Строки с примененным фильтром"
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

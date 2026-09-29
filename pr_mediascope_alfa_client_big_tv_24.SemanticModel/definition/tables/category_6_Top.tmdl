@@ -1,0 +1,53 @@
+table category_6_Top
+	isHidden
+	lineageTag: 36152b32-d5da-42e8-a2ec-84eb73d211ee
+
+	column category_6_main_Top
+		dataType: string
+		isHidden
+		lineageTag: b8231bcc-f012-4921-b28f-83443f9eeaf6
+		summarizeBy: none
+		sourceColumn: category_6_main_Top
+		sortByColumn: Id
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 133ddee1-7a4c-4af5-b57d-01f4974062a6
+		summarizeBy: none
+		sourceColumn: Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition category_6_Top = m
+		mode: import
+		queryGroup: 02_02_Top_tables
+		source = ```
+				let
+				    Источник = Sql.Database(mssql_server, db_name, 
+				    [Query="select distinct category_6 as category_6_main_Top from all_reports_ad_dict_view where cleaning_flag in (" & cleaning_flag & ")"]),
+				    other_table = Table.FromRecords({
+				        [category_6_main_Top="ОСТАЛЬНОЕ"]
+				    }),
+				    combine_tbl = Table.Combine({other_table, Источник}),
+				    #"Добавлен индекс" = Table.AddIndexColumn(combine_tbl, "Id", 1, 1, Int64.Type),
+				    #"Строки с примененным фильтром" = Table.SelectRows(#"Добавлен индекс", each [category_6_main_Top] <> null and [category_6_main_Top] <> "")
+				in
+				    #"Строки с примененным фильтром"
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

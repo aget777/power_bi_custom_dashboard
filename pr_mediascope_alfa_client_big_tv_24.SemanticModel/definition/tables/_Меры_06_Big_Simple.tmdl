@@ -1,0 +1,48 @@
+table _Меры_06_Big_Simple
+	isHidden
+	lineageTag: 82cd7ffa-238b-414c-ae51-4f61fb45928e
+
+	measure 603_00_Rtg000_Big_simple = sum(big_tv_simple[Rtg000])
+		formatString: #,0.00
+		isHidden
+		lineageTag: 5dfa71fb-89f6-42f6-b23a-e831f725d3dc
+
+		changedProperty = IsHidden
+
+	measure 601_01_RtgPer_Big_simple = sum(big_tv_simple[RtgPer])
+		formatString: #,0.00
+		isHidden
+		lineageTag: f545711b-2843-4980-bf59-23122fc46903
+
+		changedProperty = IsHidden
+
+	measure 602_01_StandRtgPer_Big_simple = sum(big_tv_simple[StandRtgPer])
+		formatString: #,0.00
+		isHidden
+		lineageTag: 9eb97eb6-de72-4456-967c-8728392d0b29
+
+		changedProperty = IsHidden
+
+	column Столбец1
+		dataType: string
+		isHidden
+		lineageTag: c833e27e-6a73-4d57-8ea8-3db6ed823e8b
+		summarizeBy: none
+		sourceColumn: Столбец1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Меры_06_Big_Simple = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t])
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,363 @@
+table all_reports_ad_dict
+	lineageTag: 0eb5ff54-e221-4482-8ee3-8b6a9b9008b5
+
+	column media_key_id
+		dataType: string
+		lineageTag: 36edf28f-e173-4bf4-a974-ec4913d56825
+		summarizeBy: none
+		sourceColumn: media_key_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column adId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5363cbcf-d09a-4f8e-bc37-4bebe4b26fcf
+		summarizeBy: count
+		sourceColumn: adId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adName
+		dataType: string
+		lineageTag: 09f6c945-f4c3-49a8-a9d1-387896f5ed4d
+		summarizeBy: none
+		sourceColumn: adName
+
+		annotation SummarizationSetBy = Automatic
+
+	column adNotes
+		dataType: string
+		lineageTag: 0efacdbf-9761-434e-86b1-c8aecfd3c1da
+		summarizeBy: none
+		sourceColumn: adNotes
+
+		annotation SummarizationSetBy = Automatic
+
+	column adFirstIssueDate
+		dataType: string
+		lineageTag: 863d2f13-329f-40db-83a4-61a38863643d
+		summarizeBy: none
+		sourceColumn: adFirstIssueDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column cleaning_flag
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3dd90b73-c8ba-4236-9ed1-39383f1ad1a1
+		summarizeBy: none
+		sourceColumn: cleaning_flag
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column advertiser_type
+		dataType: string
+		lineageTag: b93bd7b0-b9e9-480e-ac42-114d5d04293c
+		summarizeBy: none
+		sourceColumn: advertiser_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column advertiser_main
+		dataType: string
+		lineageTag: 786a6623-e449-4b3d-8a28-e3f124f892f9
+		summarizeBy: none
+		sourceColumn: advertiser_main
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand_main
+		dataType: string
+		lineageTag: 241dd0e0-32c2-48e2-96ae-4b51cd612f54
+		summarizeBy: none
+		sourceColumn: brand_main
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_1
+		dataType: string
+		lineageTag: a19a9acf-53bd-4844-8d22-3caf016f3a5e
+		summarizeBy: none
+		sourceColumn: category_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_2
+		dataType: string
+		lineageTag: 9d2a1ca4-dfa0-4a8a-a44d-e939c6ab2c8c
+		summarizeBy: none
+		sourceColumn: category_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_4
+		dataType: string
+		lineageTag: 23a02332-76ac-42b2-bef9-67bab00fa778
+		summarizeBy: none
+		sourceColumn: category_4
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_5
+		dataType: string
+		lineageTag: fef4ffbd-9332-409f-a73d-66f086ad6d45
+		summarizeBy: none
+		sourceColumn: category_5
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_6
+		dataType: string
+		lineageTag: ee95e726-ca50-452c-a9a4-862114e4067b
+		summarizeBy: none
+		sourceColumn: category_6
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_7
+		dataType: string
+		lineageTag: 74c7a207-cf86-422f-b52a-bbfbf0287b4c
+		summarizeBy: none
+		sourceColumn: category_7
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_8
+		dataType: string
+		lineageTag: 7b8042bc-032c-40ed-b5a8-71cc86bd1c69
+		summarizeBy: none
+		sourceColumn: category_8
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_9
+		dataType: string
+		lineageTag: e49e5e06-d3f1-46a6-b250-c0410cddbf7f
+		summarizeBy: none
+		sourceColumn: category_9
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_10
+		dataType: string
+		lineageTag: 644729d5-df40-480c-9cd6-61924f590abd
+		summarizeBy: none
+		sourceColumn: category_10
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_11
+		dataType: string
+		lineageTag: 347cd5d7-2fe7-46f5-acb4-1cd05f760f7f
+		summarizeBy: none
+		sourceColumn: category_11
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_12
+		dataType: string
+		lineageTag: 8c394d9e-8e7c-4139-9d34-b3a730a66df0
+		summarizeBy: none
+		sourceColumn: category_12
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_13
+		dataType: string
+		lineageTag: 5e7fce5f-0297-4d2e-8163-70de85fe49e9
+		summarizeBy: none
+		sourceColumn: category_13
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_14
+		dataType: string
+		isHidden
+		lineageTag: ee2ed673-5293-4d2f-a434-c0da49b2228a
+		summarizeBy: none
+		sourceColumn: category_14
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_15
+		dataType: string
+		isHidden
+		lineageTag: 2dd5b0cf-f58c-4b6e-ab73-e17e0de35e25
+		summarizeBy: none
+		sourceColumn: category_15
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_16
+		dataType: string
+		isHidden
+		lineageTag: 465cbf20-09ee-4c04-ada1-cfd150cd3c62
+		summarizeBy: none
+		sourceColumn: category_16
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_17
+		dataType: string
+		isHidden
+		lineageTag: a161f3f2-39e1-4b9d-9206-894711ec685e
+		summarizeBy: none
+		sourceColumn: category_17
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_18
+		dataType: string
+		isHidden
+		lineageTag: 39524d31-f6c2-42e7-acd8-9292fe80912b
+		summarizeBy: none
+		sourceColumn: category_18
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_19
+		dataType: string
+		isHidden
+		lineageTag: 521c8645-fd61-42e2-b7e1-bb257d82057e
+		summarizeBy: none
+		sourceColumn: category_19
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_20
+		dataType: string
+		isHidden
+		lineageTag: af96e9cf-f9cd-45e7-aed0-9b6a11f4e708
+		summarizeBy: none
+		sourceColumn: category_20
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_21
+		dataType: string
+		isHidden
+		lineageTag: 9e7d5a8c-95ca-4fa9-bcf1-99f9b396facd
+		summarizeBy: none
+		sourceColumn: category_21
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_22
+		dataType: string
+		isHidden
+		lineageTag: b75f2e13-8a14-4c58-afe2-41bf62333560
+		summarizeBy: none
+		sourceColumn: category_22
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_23
+		dataType: string
+		isHidden
+		lineageTag: d37f29a2-ea9e-48f3-aff2-2cc77bdb7d6c
+		summarizeBy: none
+		sourceColumn: category_23
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_24
+		dataType: string
+		isHidden
+		lineageTag: 39133071-2ec3-42f4-ab4a-f3ecaed79e4a
+		summarizeBy: none
+		sourceColumn: category_24
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_25
+		dataType: string
+		isHidden
+		lineageTag: 1e98217c-033d-4e63-8c77-225625257038
+		summarizeBy: none
+		sourceColumn: category_25
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cnt
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9630b2b5-9b0d-4e35-8c58-38f124c25456
+		summarizeBy: sum
+		sourceColumn: cnt
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column txt_adId
+		dataType: string
+		lineageTag: af9c95b4-5b92-4214-8efc-57a55e2b9af8
+		summarizeBy: none
+		sourceColumn: txt_adId
+
+		annotation SummarizationSetBy = Automatic
+
+	column media_type
+		dataType: string
+		isHidden
+		lineageTag: b3334c36-5c79-45b6-b72d-9655a7d53fd6
+		summarizeBy: none
+		sourceColumn: media_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition all_reports_ad_dict = m
+		mode: import
+		queryGroup: 03_Общие_справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select * from all_reports_ad_dict_view where cleaning_flag in (" & cleaning_flag & ")"]),
+				    #"Дублированный столбец" = Table.DuplicateColumn(Источник, "adId", "txt_adId"),
+				    #"Измененный тип" = Table.TransformColumnTypes(#"Дублированный столбец",{{"txt_adId", type text}})
+				in
+				    #"Измененный тип"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

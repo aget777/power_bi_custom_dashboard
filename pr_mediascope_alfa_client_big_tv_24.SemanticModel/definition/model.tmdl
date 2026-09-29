@@ -1,0 +1,150 @@
+model Model
+	culture: ru-RU
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: ru-RU
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup 00_Параметры_подключения
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 01_Calendar
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 03_Общие_справочники
+
+	annotation PBI_QueryGroupOrder = 4
+
+queryGroup 05_TV_Index
+
+	annotation PBI_QueryGroupOrder = 5
+
+queryGroup 05_TV_Index\05_01_Справочники
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 05_02_Simple_Buying
+
+	annotation PBI_QueryGroupOrder = 6
+
+queryGroup 06_Media_costs
+
+	annotation PBI_QueryGroupOrder = 7
+
+queryGroup 06_Media_costs\06_01_Справочники
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 06_02_Media_costs
+
+	annotation PBI_QueryGroupOrder = 8
+
+queryGroup 02_01_Вспомогательные_таблицы
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 02_02_Top_tables
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup 07_02_Regions_Simple_Buying
+
+	annotation PBI_QueryGroupOrder = 11
+
+queryGroup 08_Big_tv
+
+	annotation PBI_QueryGroupOrder = 12
+
+queryGroup 08_Big_tv\08_01_Справочники
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation PBI_QueryOrder = ["mssql_server","db_name","db_icreative","cleaning_flag","Календарь","Функция","last_update_power_bi","all_reports_ad_dict","media_type_dict","media_type_detail_dict","tv_type_ooh_reg_dict","ad_type_dict","regions_dict","campaigns_dict","nat_tv_prj_union_dict","tv_index_ad_dict","tv_index_tv_company_dict","tv_index_tv_net_dict","adPrimeTimeStatusName_dict","adPositionTypeName_dict","standardDuration_dict","nat_tv_ad_dict_short","nat_tv_simple","nat_tv_buying","adex_ad_dict","adex_distribution_dict","adex_estate_dict","adex_company_dict","adex_ad_dict_short","media_costs_union","start_date","end_date","end_date_report","выборТОП","переключатель_слева","переключатель_справа","сравнениеПериодов","advertiser_main_Top","_Меры_00_Стиль","_Меры_01_Adex","_Меры_02_Simple","_Меры_03_Buying","_Меры_10_TOP_Общие","списокДесятичных","cleaning_flag_dict","brand_main_Top","tv_index_tv_company_Top","category_6_Top","_Меры_29_Текст_и_Даты","tv_index_max_date","adex_max_date","end_date_Adex_filter_DB","creatives_dict","_Меры_09_Переключатели","_Меры_30_Цвета_и_Кнопки","category_7_Top","exclude_others","end_date_TV_index_filter","reg_tv_ad_dict_short","reg_tv_simple","reg_tv_buying","regions_dict_Top","_Меры_04_Reg_simple","_Меры_05_Reg_buying","locations_dict","platforms_dict","big_tv_ad_dict_short","big_tv_simple","big_tv_buying","_Меры_06_Big_Simple","_Меры_07_Big_Buying","nat_big_tv_ad_dict_short","adex_carrier_type_dict_outdoor","logos_dict","_Меры_31_01_Рекламная_активность","new_aud_gdocs","_Меры_31_02_Кампании"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation __TEdtr = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Календарь
+ref table DateTableTemplate_55ea032e-31b6-4fe4-a36d-5bf8f1218138
+ref table LocalDateTable_97719cbe-20b6-420e-bdec-c87433628163
+ref table LocalDateTable_7df3c77d-8e28-464b-b3c0-007dd29a9bb6
+ref table LocalDateTable_e74b1dd4-b662-464c-935d-b5fdee10f2d2
+ref table LocalDateTable_4a3806d9-f471-46a5-99ed-6f832dd03b77
+ref table LocalDateTable_4bb61121-6fc4-47bc-95d9-ba7eeacbd70d
+ref table last_update_power_bi
+ref table media_type_dict
+ref table media_type_detail_dict
+ref table tv_type_ooh_reg_dict
+ref table ad_type_dict
+ref table regions_dict
+ref table nat_tv_prj_union_dict
+ref table tv_index_ad_dict
+ref table tv_index_tv_company_dict
+ref table tv_index_tv_net_dict
+ref table adPrimeTimeStatusName_dict
+ref table adPositionTypeName_dict
+ref table standardDuration_dict
+ref table nat_tv_simple
+ref table nat_tv_buying
+ref table adex_ad_dict
+ref table adex_distribution_dict
+ref table adex_estate_dict
+ref table adex_company_dict
+ref table media_costs_union
+ref table выборТОП
+ref table переключатель_слева
+ref table переключатель_справа
+ref table сравнениеПериодов
+ref table _Меры_00_Стиль
+ref table _Меры_01_Adex
+ref table _Меры_02_Simple
+ref table _Меры_03_Buying
+ref table _Меры_10_TOP_Общие
+ref table списокДесятичных
+ref table all_reports_ad_dict
+ref table advertiser_main_Top
+ref table cleaning_flag_dict
+ref table brand_main_Top
+ref table tv_index_tv_company_Top
+ref table _Меры_29_Текст_и_Даты
+ref table tv_index_max_date
+ref table adex_max_date
+ref table creatives_dict
+ref table _Меры_09_Переключатели
+ref table _Меры_30_Цвета_и_Кнопки
+ref table LocalDateTable_fc1b460d-2ecb-45fc-836b-2584d460dc32
+ref table category_7_Top
+ref table exclude_others
+ref table category_6_Top
+ref table reg_tv_simple
+ref table reg_tv_buying
+ref table regions_dict_Top
+ref table _Меры_04_Reg_simple
+ref table _Меры_05_Reg_buying
+ref table locations_dict
+ref table platforms_dict
+ref table big_tv_simple
+ref table big_tv_buying
+ref table _Меры_06_Big_Simple
+ref table _Меры_07_Big_Buying
+ref table LocalDateTable_6b806d9b-c06d-468a-856e-aa2bb6e91659
+ref table nat_tv_ad_dict_short
+ref table adex_ad_dict_short
+ref table reg_tv_ad_dict_short
+ref table big_tv_ad_dict_short
+ref table nat_big_tv_ad_dict_short
+ref table adex_carrier_type_dict_outdoor
+ref table campaigns_dict
+ref table logos_dict
+ref table _Меры_31_01_Рекламная_активность
+ref table new_aud_gdocs
+ref table _Меры_31_02_Кампании
+
+ref cultureInfo ru-RU
+

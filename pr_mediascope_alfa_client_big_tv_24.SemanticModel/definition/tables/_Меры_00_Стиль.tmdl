@@ -1,0 +1,84 @@
+table _Меры_00_Стиль
+	isHidden
+	lineageTag: 7b555f95-4c88-47c1-8747-2aea31d25eb3
+
+	measure 00_01_color_border_charts = "#999999"
+		isHidden
+		lineageTag: 7597ed2f-5852-40cc-b5a5-2c1b4476d353
+
+		changedProperty = IsHidden
+
+	measure 00_03_color_border_menu_filters = "#B3B9E0"
+		isHidden
+		lineageTag: fa123763-9a27-4534-9b73-ee0531c43c13
+
+		changedProperty = IsHidden
+
+	measure 00_04_color1_line = "#0095da"
+		isHidden
+		lineageTag: 90ae7278-0a63-42ba-8bff-7d495e46481e
+
+		changedProperty = IsHidden
+
+	measure 00_05_color2_line = "#f14aa0"
+		isHidden
+		lineageTag: 8e8fe41d-74cc-452e-bbd0-fc2f2c4795c0
+
+		changedProperty = IsHidden
+
+	measure 00_08_dissap_button_selected_color = "#194160"
+		isHidden
+		lineageTag: 0d6631c6-f4bd-4dcb-a2e4-f1bd178fed1e
+
+		changedProperty = IsHidden
+
+	measure 00_07_dissap_button_default_color = "#E66C37"
+		isHidden
+		lineageTag: 36473060-1501-4ddd-9ad4-7ee160016a0c
+
+		changedProperty = IsHidden
+
+	measure 00_09_Заливка_основной_кнопки = "#CCCCCC"
+		isHidden
+		lineageTag: 9d7f1e86-212e-43ef-8dcd-3cad496c7520
+
+		changedProperty = IsHidden
+
+	measure 00_10_заливка_подкнопки = "#E3E3E3"
+		isHidden
+		lineageTag: 1271c8a3-b4fb-45f0-9cce-b6a48e8af723
+
+		changedProperty = IsHidden
+
+	measure 2901_03_07_текст_гистограмма_Хроно_TV_Index = ```
+			
+			"Хронометраж "
+			&" -- Аудитория: " & [2903_02_Выбранная_аудитория]
+			& " -- Период с " & [2901_01_01_Мин_текущая_дата] & " по " & [2901_01_02_Макс_дата_календарь] 
+			& " -- Показатель: " & [2903_00_01_Выбранный_показатель_слева]
+			```
+		lineageTag: 97b49e2a-e60f-49d3-8599-d20677c66edf
+
+	column Столбец1
+		dataType: string
+		isHidden
+		lineageTag: 5c714dee-8edc-4021-b165-7ddb12e13339
+		summarizeBy: none
+		sourceColumn: Столбец1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Меры_00_Стиль = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t])
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

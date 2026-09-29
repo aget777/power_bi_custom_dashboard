@@ -1,0 +1,39 @@
+table adex_estate_dict
+	isHidden
+	lineageTag: 6cfeedeb-6b5a-4ed6-9385-d0195bc07986
+
+	column estat
+		dataType: string
+		isHidden
+		lineageTag: 2cc86b02-3b3d-4030-9780-d4a2944946f1
+		summarizeBy: none
+		sourceColumn: estat
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		isHidden
+		lineageTag: fc32f8e1-e419-4ee3-b8ef-4096bbb6ad8a
+		summarizeBy: none
+		sourceColumn: name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition adex_estate_dict = m
+		mode: import
+		queryGroup: 06_Media_costs\06_01_Справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select * from adex_estate_dict"])
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

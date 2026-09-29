@@ -1,0 +1,952 @@
+table _Меры_31_02_Кампании
+	lineageTag: 701ebf17-5b00-4c38-ad51-871841628086
+
+	measure 3432_01_TPR_Бизнес_TOP_Category_6 = ```
+			
+			CALCULATE([493_01_Category_6_total_tv_ind], 
+			'all_reports_ad_dict'[category_5]="БИЗНЕС")
+			```
+		formatString: #,0.0
+		isHidden
+		displayFolder: 04_Бизнес_Кампании
+		lineageTag: b62db3c2-abfd-4b61-9d96-ccdc014fddea
+
+		changedProperty = IsHidden
+
+	measure 3432_02_SOV_%_Бизнес_TOP_Кампании = ```
+			
+			var main_value = DIVIDE([3432_01_TPR_Бизнес_TOP_Category_6], 
+			[3432_03_TRP_all_бизнес_Кампании], BLANK())
+			
+			var barnd_value = DIVIDE([3432_01_TPR_Бизнес_TOP_Category_6], 
+			[3432_04_TPR_Бизнес_category_12], BLANK())
+			
+			var result = 
+			if(ISINSCOPE('all_reports_ad_dict'[category_12]), barnd_value,
+			if(ISINSCOPE('brand_main_Top'[brand_main_top]), barnd_value, main_value))
+			
+			return result
+			```
+		formatString: #,0%;-#,0%;#,0%
+		isHidden
+		displayFolder: 04_Бизнес_Кампании
+		lineageTag: 9617e3d7-9fc2-4cbd-a765-bf3dfad551a5
+
+		changedProperty = IsHidden
+
+	measure 3432_03_TRP_all_бизнес_Кампании = ```
+			CALCULATE([3132_01_TPR_Бизнес], 
+			ALL('brand_main_Top'), 
+			ALL(category_6_Top),
+			ALL('logos_dict'), 
+			all(all_reports_ad_dict[category_6]),
+			all(all_reports_ad_dict[category_12]))
+			```
+		formatString: #,0
+		isHidden
+		displayFolder: 04_Бизнес_Кампании
+		lineageTag: aed0ede5-fa1d-4295-9e80-d16f579fc712
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 3422_01_TPR_Розница_TOP_Category_6 = ```
+			
+			CALCULATE([493_01_Category_6_total_tv_ind], 
+			'all_reports_ad_dict'[category_5]="РОЗНИЦА")
+			```
+		formatString: #,0.0
+		isHidden
+		displayFolder: 03_Розница_Кампании
+		lineageTag: d81e35fa-f61f-4a65-9351-e0e0e9846318
+
+		changedProperty = IsHidden
+
+	measure 3422_03_TRP_all_Розница_Кампании = ```
+			CALCULATE([3422_01_TPR_Розница_TOP_Category_6], 
+			ALL('brand_main_Top'), 
+			ALL(category_6_Top),
+			ALL('logos_dict'), 
+			all(all_reports_ad_dict[category_6]),
+			all(all_reports_ad_dict[category_12]))
+			```
+		formatString: #,0
+		isHidden
+		displayFolder: 03_Розница_Кампании
+		lineageTag: cf6868a1-4cd9-4af2-8ae4-b6436abbb424
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 3422_02_SOV_%_Розница_TOP_Кампании = ```
+			
+			var main_value = DIVIDE([3422_01_TPR_Розница_TOP_Category_6], 
+			[3422_03_TRP_all_Розница_Кампании], BLANK())
+			
+			var barnd_value = DIVIDE([3422_01_TPR_Розница_TOP_Category_6], 
+			[3422_04_TPR_Розница_category_12], BLANK())
+			
+			var result = 
+			if(ISINSCOPE('all_reports_ad_dict'[category_12]), barnd_value,
+			if(ISINSCOPE('brand_main_Top'[brand_main_top]), barnd_value, main_value))
+			
+			return result
+			```
+		formatString: #,0%;-#,0%;#,0%
+		isHidden
+		displayFolder: 03_Розница_Кампании
+		lineageTag: 62512f52-af48-4b19-97b0-71e3902d4690
+
+		changedProperty = IsHidden
+
+	measure 3403_00_Оффер_all = DISTINCTCOUNT('all_reports_ad_dict'[category_12])
+		formatString: #,0
+		lineageTag: 0a63aca4-e0e2-462f-801a-d8a70ef8060c
+
+	measure 3442_01_TPR_Имидж_TOP_Category_6 = ```
+			
+			CALCULATE([493_01_Category_6_total_tv_ind], 
+			'all_reports_ad_dict'[category_5]="ИМИДЖ")
+			```
+		formatString: #,0.0
+		isHidden
+		displayFolder: 05_Имидж
+		lineageTag: e2d71383-b92a-4509-a5cd-110e7d53797d
+
+		changedProperty = IsHidden
+
+	measure 3442_03_TRP_all_Имидж_Кампании = ```
+			CALCULATE([3142_01_TPR_Имидж], 
+			ALL('brand_main_Top'), 
+			ALL(category_6_Top),
+			ALL('logos_dict'), 
+			all(all_reports_ad_dict[category_6]),
+			all(all_reports_ad_dict[category_12]))
+			```
+		formatString: #,0
+		isHidden
+		displayFolder: 05_Имидж
+		lineageTag: 0f2fd135-fa14-42a8-b4e1-f51ce3ee5bc4
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 3442_02_SOV_%_Имидж_Кампании = ```
+			
+			var main_value = DIVIDE([3442_01_TPR_Имидж_TOP_Category_6], 
+			[3442_03_TRP_all_Имидж_Кампании], BLANK())
+			
+			var barnd_value = DIVIDE([3442_01_TPR_Имидж_TOP_Category_6], 
+			[3442_04_TPR_Имидж_category_12], BLANK())
+			
+			var result = 
+			if(ISINSCOPE('all_reports_ad_dict'[category_12]), barnd_value,
+			if(ISINSCOPE('brand_main_Top'[brand_main_top]), barnd_value, main_value))
+			
+			return result
+			```
+		formatString: #,0%;-#,0%;#,0%
+		isHidden
+		displayFolder: 05_Имидж
+		lineageTag: b934f57d-0b97-4cdf-b729-27084aaf131c
+
+		changedProperty = IsHidden
+
+	measure 3422_05_Розница_Оффер_not_blank =
+			if(ISINSCOPE('all_reports_ad_dict'[category_12]), BLANK(),
+			    CALCULATE([3403_00_Оффер_all],
+			FILTER('all_reports_ad_dict', [3422_01_TPR_Розница_TOP_Category_6] > 0)))
+		formatString: 0
+		isHidden
+		displayFolder: 03_Розница_Кампании
+		lineageTag: e8bb52e6-d97f-4ff5-8e79-4be8fc7c1cc5
+
+		changedProperty = IsHidden
+
+	measure 3422_10_html_retail_campaigns_detail =
+			
+				VAR TvrFormat = "#,0.0"
+				VAR PercentFormat = "0%"
+				VAR TotalTvr = [3422_01_TPR_Розница_TOP_Category_6]
+				VAR TopProducts =
+				    FILTER(
+				        ADDCOLUMNS(
+				            VALUES('category_6_Top'[category_6_main_Top]),
+				            "__tvr", [3422_01_TPR_Розница_TOP_Category_6],
+				            "__sov", [3422_02_SOV_%_Розница_TOP_Кампании],
+				            "__name", 'category_6_Top'[category_6_main_Top],
+				            "__isOther", IF(LOWER('category_6_Top'[category_6_main_Top]) = "остальное", 1, 0)
+				        ),
+				        NOT ISBLANK([__tvr]) && [__tvr] <> 0 && NOT ISBLANK([__name])
+				    )
+				VAR DetailProducts =
+				    FILTER(
+				        TopProducts,
+				        LOWER([__name]) <> "остальное"
+				            && LOWER([__name]) <> "прочие сегменты"
+				    )
+				VAR ProductMaxSov = MAXX(TopProducts, [__sov])
+				VAR ProductCards =
+				    CONCATENATEX(
+				        TopProducts,
+				        VAR ProductName = [__name]
+				        VAR ProductSov = [__sov]
+				        VAR ProductIsOther = [__isOther]
+				        VAR ProductRank = RANKX(FILTER(TopProducts, [__isOther] = 0), [__sov], ProductSov, DESC, Dense)
+				        VAR Accent =
+				            IF(
+				                ProductIsOther = 1,
+				                "#9AA3B2",
+				                SWITCH(
+				                    ProductRank,
+				                    1, "#63D7BE",
+				                    2, "#E2C16F",
+				                    3, "#EF6B78",
+				                    4, "#5BAFE0",
+				                    5, "#B58CFF",
+				                    "#9AA3B2"
+				                )
+				            )
+				        RETURN
+				            "<div class='rt-segment-card' style='--accent:" & Accent & "'>"
+				                & "<div class='rt-segment-mark'></div>"
+				                & "<div class='rt-segment-name'>" & ProductName & "</div>"
+				                & "<div class='rt-segment-value'>" & FORMAT(ProductSov, PercentFormat) & "</div>"
+				            & "</div>",
+				        "",
+				        [__isOther], ASC,
+			        [__sov], DESC,
+			        [__name], ASC
+				    )
+				VAR ProductSections =
+				    CONCATENATEX(
+				        DetailProducts,
+				        VAR ProductName = [__name]
+				        VAR ProductTvr = [__tvr]
+				        VAR ProductSov = [__sov]
+				        VAR ProductIsOther = [__isOther]
+				        VAR ProductRank = RANKX(FILTER(TopProducts, [__isOther] = 0), [__sov], ProductSov, DESC, Dense)
+				        VAR Accent =
+				            IF(
+				                ProductIsOther = 1,
+				                "#9AA3B2",
+				                SWITCH(
+				                    ProductRank,
+				                    1, "#63D7BE",
+				                    2, "#E2C16F",
+				                    3, "#EF6B78",
+				                    4, "#5BAFE0",
+				                    5, "#B58CFF",
+				                    "#9AA3B2"
+				                )
+				            )
+				        VAR Brands =
+				            FILTER(
+				                ADDCOLUMNS(
+				                    ALLSELECTED('brand_main_Top'[brand_main_top]),
+				                    "__tvr", CALCULATE([3422_01_TPR_Розница_TOP_Category_6], KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+				                    "__sov", CALCULATE([3422_02_SOV_%_Розница_TOP_Кампании], KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+				                    "__offer", CALCULATE([3422_05_Розница_Оффер_not_blank], KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+					                    "__logo", CALCULATE(SELECTEDVALUE('logos_dict'[logo_link]), KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+					                    "__brand", 'brand_main_Top'[brand_main_top]
+				                ),
+				                NOT ISBLANK([__tvr]) && [__tvr] <> 0
+				                    && NOT ISBLANK([__brand])
+				                    && [__brand] <> "ОСТАЛЬНОЕ"
+				            )
+				        VAR BrandRows =
+				            CONCATENATEX(
+				                Brands,
+				                VAR BrandName = [__brand]
+				                VAR BrandTvr = [__tvr]
+				                VAR BrandSov = [__sov]
+				                VAR BrandOffers = [__offer]
+				                VAR BrandInitial = LEFT(BrandName, 1)
+					                VAR BrandLogoRaw =
+					                    IF(
+					                        BrandName = "OZON+OZON БАНК",
+					                        LOOKUPVALUE('logos_dict'[logo_link], 'logos_dict'[brand_name], "OZON БАНК"),
+					                        [__logo]
+					                    )
+					                VAR BrandLogo =
+					                    SUBSTITUTE(
+					                        SUBSTITUTE(BrandLogoRaw, "'", "%27"),
+					                        """", "%22"
+					                    )
+					                VAR BrandLogoHtml =
+					                    IF(
+					                        NOT ISBLANK(BrandLogo) && BrandLogo <> "",
+					                        "<span class='rt-logo'><img class='rt-logo-img' src='" & BrandLogo & "'></span>",
+					                        "<span class='rt-logo rt-logo-fallback'>" & BrandInitial & "</span>"
+					                    )
+					                VAR BrandBarWidth = MIN(100, ROUND(BrandSov * 100, 0))
+				                VAR Offers =
+				                    FILTER(
+				                        ADDCOLUMNS(
+				                            VALUES('all_reports_ad_dict'[category_12]),
+				                            "__tvr", CALCULATE(
+				                                [3422_01_TPR_Розница_TOP_Category_6],
+				                                KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName),
+				                                KEEPFILTERS('brand_main_Top'[brand_main_top] = BrandName)
+				                            ),
+				                            "__sov", CALCULATE(
+				                                [3422_02_SOV_%_Розница_TOP_Кампании],
+				                                KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName),
+				                                KEEPFILTERS('brand_main_Top'[brand_main_top] = BrandName)
+				                            ),
+					                            "__offerName", 'all_reports_ad_dict'[category_12]
+				                        ),
+				                        NOT ISBLANK([__tvr]) && [__tvr] <> 0
+				                            && NOT ISBLANK([__offerName])
+				                            && [__offerName] <> ""
+				                    )
+				                VAR OfferRows =
+				                    CONCATENATEX(
+				                        Offers,
+				                        VAR OfferName = [__offerName]
+				                        VAR OfferTvr = [__tvr]
+				                        VAR OfferSov = [__sov]
+					                        VAR OfferBarWidth = MIN(100, ROUND(OfferSov * 100, 0))
+				                        RETURN
+				                            "<div class='rt-row rt-offer-row'>"
+				                                & "<div class='rt-rank'></div>"
+				                                & "<div class='rt-name rt-offer-name'>↳ " & OfferName & "</div>"
+				                                & "<div class='rt-offer-badge rt-offer-badge-empty'></div>"
+				                                & "<div class='rt-tvr'>" & FORMAT(OfferTvr, TvrFormat) & "</div>"
+				                                & "<div class='rt-sov-cell'><div class='rt-track'><div class='rt-fill' style='width:" & FORMAT(OfferBarWidth, "0") & "%'></div></div><span>" & FORMAT(OfferSov, PercentFormat) & "</span></div>"
+				                            & "</div>",
+				                        "",
+				                        [__tvr], DESC,
+				                        [__offerName], ASC
+				                    )
+				                RETURN
+				                    "<div class='rt-brand-block'>"
+				                        & "<div class='rt-row rt-brand-row'>"
+				                            & "<div class='rt-rank'>" & FORMAT(RANKX(Brands, [__tvr], BrandTvr, DESC, Dense), "0") & "</div>"
+				                            & "<div class='rt-name rt-brand-name'>" & BrandLogoHtml & "<span>" & BrandName & "</span></div>"
+				                            & "<div class='rt-offer-badge'>" & FORMAT(BrandOffers, "0") & "</div>"
+				                            & "<div class='rt-tvr'>" & FORMAT(BrandTvr, TvrFormat) & "</div>"
+				                            & "<div class='rt-sov-cell'><div class='rt-track'><div class='rt-fill' style='width:" & FORMAT(BrandBarWidth, "0") & "%'></div></div><span>" & FORMAT(BrandSov, PercentFormat) & "</span></div>"
+				                        & "</div>"
+				                        & OfferRows
+				                    & "</div>",
+				                "",
+				                [__tvr], DESC,
+				                [__brand], ASC
+				            )
+				        RETURN
+				            "<section class='rt-product' style='--accent:" & Accent & "'>"
+				                & "<div class='rt-product-head'>"
+				                    & "<div class='rt-product-title'><span></span>" & ProductName & "</div>"
+				                    & "<div class='rt-product-total'>" & FORMAT(ProductTvr, TvrFormat) & " TVR · " & FORMAT(ProductSov, PercentFormat) & "</div>"
+				                & "</div>"
+				                & "<div class='rt-table-head'><div></div><div></div><div>ОФФЕР</div><div>TVR</div><div>SOV</div></div>"
+				                & IF(ISEMPTY(Brands), "<div class='rt-empty'>Нет данных</div>", BrandRows)
+				            & "</section>",
+				        "",
+				        [__isOther], ASC,
+			        [__sov], DESC,
+			        [__name], ASC
+				    )
+				RETURN
+				"<div class='rt-wrap'>"
+				    & "<style>"
+				    & ".rt-wrap{width:100%;height:auto;min-height:100%;box-sizing:border-box;background:#0F1722;border:1px solid #1C2739;border-radius:8px;padding:18px 22px 24px;font-family:Segoe UI,Arial,sans-serif;color:#E3EAF2;overflow:visible;}"
+				    & ".rt-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px;}"
+				    & ".rt-title{display:flex;align-items:center;gap:12px;font-size:28px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E3EAF2;}"
+				    & ".rt-title:before{content:'';width:15px;height:15px;border:2px solid #9AA3B2;box-shadow:inset 0 0 0 3px #0F1722;background:#263244;display:inline-block;}"
+				    & ".rt-total{display:flex;align-items:baseline;gap:14px;padding:10px 18px 9px;background:#0A0E19;color:#E3EAF2;font-size:20px;font-weight:800;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;}"
+				    & ".rt-total span:last-child{font-size:24px;}"
+				    & ".rt-segments{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 14px;margin-bottom:12px;}"
+				    & ".rt-segment-card{height:56px;border:2px solid var(--accent);border-radius:8px;display:grid;grid-template-columns:9px 1fr auto;gap:13px;align-items:center;padding:0 16px;background:#0B1624;box-shadow:0 0 0 1px rgba(255,255,255,.03) inset;}"
+				    & ".rt-segment-mark{width:7px;height:31px;background:var(--accent);}"
+				    & ".rt-segment-name{font-size:15px;font-weight:850;color:var(--accent);text-transform:uppercase;line-height:1.05;}"
+				    & ".rt-segment-value{font-size:25px;font-weight:850;color:var(--accent);}"
+				    & ".rt-empty{padding:18px 0;color:#9AA3B2;font-size:14px;}"
+				    & ".rt-product{border-left:5px solid var(--accent);padding:0 0 4px 20px;margin-top:18px;}"
+				    & ".rt-product+.rt-product{border-top:1px solid #1C2739;padding-top:13px;}"
+				    & ".rt-product-head{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:14px;}"
+				    & ".rt-product-title{font-size:18px;font-weight:850;color:var(--accent);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:12px;}"
+				    & ".rt-product-title span{width:4px;height:34px;background:var(--accent);display:none;}"
+				    & ".rt-product-total{font-size:16px;font-weight:800;color:#E3EAF2;white-space:nowrap;}"
+				    & ".rt-table-head,.rt-row{display:grid;grid-template-columns:38px minmax(420px,1fr) 92px 112px 220px;gap:12px;align-items:center;}"
+				    & ".rt-table-head{margin-bottom:5px;color:#6F7B8F;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;text-align:right;}"
+				    & ".rt-table-head div:nth-child(2){text-align:left;}"
+				    & ".rt-row{min-height:31px;border-bottom:1px solid rgba(28,39,57,.72);}"
+				    & ".rt-brand-row{min-height:40px;}"
+				    & ".rt-rank{color:#7F8A9C;font-size:13px;text-align:left;}"
+				    & ".rt-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}"
+				    & ".rt-brand-name{display:flex;align-items:center;gap:14px;color:#E3EAF2;font-size:16px;font-weight:850;text-transform:uppercase;}"
+				    & ".rt-logo{width:40px;height:28px;border-radius:8px;background:#F0F3F7;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 0 rgba(255,255,255,.18) inset;flex:0 0 40px;overflow:hidden;} .rt-logo-img{width:100%;height:100%;object-fit:contain;display:block;} .rt-logo-fallback{color:var(--accent);font-weight:900;font-size:13px;}"
+				    & ".rt-offer-name{color:#7E8798;font-size:13px;padding-left:52px;}"
+				    & ".rt-offer-badge{justify-self:center;min-width:36px;height:30px;border-radius:8px;background:var(--accent);color:#06121C;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;}"
+				    & ".rt-offer-badge-empty{background:transparent;color:transparent;box-shadow:none;}"
+				    & ".rt-tvr{text-align:right;color:#D8DEE8;font-size:14px;}"
+				    & ".rt-offer-row .rt-tvr,.rt-offer-row .rt-sov-cell span{color:#7E8798;font-size:12px;}"
+				    & ".rt-sov-cell{display:grid;grid-template-columns:1fr 48px;gap:10px;align-items:center;color:#D8DEE8;font-size:13px;text-align:right;}"
+				    & ".rt-track{height:9px;border-radius:999px;background:#1B2A3B;box-shadow:0 0 0 1px rgba(255,255,255,.02) inset;overflow:hidden;}"
+				    & ".rt-fill{height:100%;border-radius:999px;background:var(--accent);}"
+				    & ".rt-offer-row .rt-fill{opacity:.42;}"
+				    & "</style>"
+				    & "<div class='rt-top'><div class='rt-title'>Розница</div><div class='rt-total'><span>TVR</span><span>" & FORMAT(TotalTvr, TvrFormat) & "</span></div></div>"
+				    & "<div class='rt-segments'>" & IF(ISEMPTY(TopProducts), "<div class='rt-empty'>Нет данных</div>", ProductCards) & "</div>"
+				    & IF(ISEMPTY(DetailProducts), "", ProductSections)
+				& "</div>"
+		isHidden
+		displayFolder: 03_Розница_Кампании
+		lineageTag: 5e6e2dbb-4198-48a6-b65a-3e7358284133
+
+		changedProperty = IsHidden
+
+	measure 3432_05_Бизнес_Оффер_not_blank =
+			if(ISINSCOPE('all_reports_ad_dict'[category_12]), BLANK(),
+			    CALCULATE([3403_00_Оффер_all],
+			FILTER('all_reports_ad_dict', [3432_01_TPR_Бизнес_TOP_Category_6] > 0)))
+		formatString: 0
+		isHidden
+		displayFolder: 04_Бизнес_Кампании
+		lineageTag: 96cfcb31-449d-4e21-8447-5a547fadb616
+
+		changedProperty = IsHidden
+
+	measure 3432_10_html_business_campaigns_detail =
+			
+				VAR TvrFormat = "#,0.0"
+				VAR PercentFormat = "0%"
+				VAR TotalTvr = [3432_01_TPR_Бизнес_TOP_Category_6]
+				VAR TopProducts =
+				    FILTER(
+				        ADDCOLUMNS(
+				            VALUES('category_6_Top'[category_6_main_Top]),
+				            "__tvr", [3432_01_TPR_Бизнес_TOP_Category_6],
+				            "__sov", [3432_02_SOV_%_Бизнес_TOP_Кампании],
+				            "__name", 'category_6_Top'[category_6_main_Top],
+				            "__isOther", IF(LOWER('category_6_Top'[category_6_main_Top]) = "остальное", 1, 0)
+				        ),
+				        NOT ISBLANK([__tvr]) && [__tvr] <> 0 && NOT ISBLANK([__name])
+				    )
+				VAR DetailProducts =
+				    FILTER(
+				        TopProducts,
+				        LOWER([__name]) <> "остальное"
+				            && LOWER([__name]) <> "прочие сегменты"
+				    )
+				VAR ProductMaxSov = MAXX(TopProducts, [__sov])
+				VAR ProductCards =
+				    CONCATENATEX(
+				        TopProducts,
+				        VAR ProductName = [__name]
+				        VAR ProductSov = [__sov]
+				        VAR ProductIsOther = [__isOther]
+				        VAR ProductRank = RANKX(FILTER(TopProducts, [__isOther] = 0), [__sov], ProductSov, DESC, Dense)
+				        VAR Accent =
+				            IF(
+				                ProductIsOther = 1,
+				                "#9AA3B2",
+				                SWITCH(
+				                    ProductRank,
+				                    1, "#63D7BE",
+				                    2, "#E2C16F",
+				                    3, "#EF6B78",
+				                    4, "#5BAFE0",
+				                    5, "#B58CFF",
+				                    "#9AA3B2"
+				                )
+				            )
+				        RETURN
+				            "<div class='rt-segment-card' style='--accent:" & Accent & "'>"
+				                & "<div class='rt-segment-mark'></div>"
+				                & "<div class='rt-segment-name'>" & ProductName & "</div>"
+				                & "<div class='rt-segment-value'>" & FORMAT(ProductSov, PercentFormat) & "</div>"
+				            & "</div>",
+				        "",
+				        [__isOther], ASC,
+			        [__sov], DESC,
+			        [__name], ASC
+				    )
+				VAR ProductSections =
+				    CONCATENATEX(
+				        DetailProducts,
+				        VAR ProductName = [__name]
+				        VAR ProductTvr = [__tvr]
+				        VAR ProductSov = [__sov]
+				        VAR ProductIsOther = [__isOther]
+				        VAR ProductRank = RANKX(FILTER(TopProducts, [__isOther] = 0), [__sov], ProductSov, DESC, Dense)
+				        VAR Accent =
+				            IF(
+				                ProductIsOther = 1,
+				                "#9AA3B2",
+				                SWITCH(
+				                    ProductRank,
+				                    1, "#63D7BE",
+				                    2, "#E2C16F",
+				                    3, "#EF6B78",
+				                    4, "#5BAFE0",
+				                    5, "#B58CFF",
+				                    "#9AA3B2"
+				                )
+				            )
+				        VAR Brands =
+				            FILTER(
+				                ADDCOLUMNS(
+				                    ALLSELECTED('brand_main_Top'[brand_main_top]),
+				                    "__tvr", CALCULATE([3432_01_TPR_Бизнес_TOP_Category_6], KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+				                    "__sov", CALCULATE([3432_02_SOV_%_Бизнес_TOP_Кампании], KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+				                    "__offer", CALCULATE([3432_05_Бизнес_Оффер_not_blank], KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+					                    "__logo", CALCULATE(SELECTEDVALUE('logos_dict'[logo_link]), KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+					                    "__brand", 'brand_main_Top'[brand_main_top]
+				                ),
+				                NOT ISBLANK([__tvr]) && [__tvr] <> 0
+				                    && NOT ISBLANK([__brand])
+				                    && [__brand] <> "ОСТАЛЬНОЕ"
+				            )
+				        VAR BrandRows =
+				            CONCATENATEX(
+				                Brands,
+				                VAR BrandName = [__brand]
+				                VAR BrandTvr = [__tvr]
+				                VAR BrandSov = [__sov]
+				                VAR BrandOffers = [__offer]
+				                VAR BrandInitial = LEFT(BrandName, 1)
+					                VAR BrandLogoRaw =
+					                    IF(
+					                        BrandName = "OZON+OZON БАНК",
+					                        LOOKUPVALUE('logos_dict'[logo_link], 'logos_dict'[brand_name], "OZON БАНК"),
+					                        [__logo]
+					                    )
+					                VAR BrandLogo =
+					                    SUBSTITUTE(
+					                        SUBSTITUTE(BrandLogoRaw, "'", "%27"),
+					                        """", "%22"
+					                    )
+					                VAR BrandLogoHtml =
+					                    IF(
+					                        NOT ISBLANK(BrandLogo) && BrandLogo <> "",
+					                        "<span class='rt-logo'><img class='rt-logo-img' src='" & BrandLogo & "'></span>",
+					                        "<span class='rt-logo rt-logo-fallback'>" & BrandInitial & "</span>"
+					                    )
+					                VAR BrandBarWidth = MIN(100, ROUND(BrandSov * 100, 0))
+				                VAR Offers =
+				                    FILTER(
+				                        ADDCOLUMNS(
+				                            VALUES('all_reports_ad_dict'[category_12]),
+				                            "__tvr", CALCULATE(
+				                                [3432_01_TPR_Бизнес_TOP_Category_6],
+				                                KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName),
+				                                KEEPFILTERS('brand_main_Top'[brand_main_top] = BrandName)
+				                            ),
+				                            "__sov", CALCULATE(
+				                                [3432_02_SOV_%_Бизнес_TOP_Кампании],
+				                                KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName),
+				                                KEEPFILTERS('brand_main_Top'[brand_main_top] = BrandName)
+				                            ),
+					                            "__offerName", 'all_reports_ad_dict'[category_12]
+				                        ),
+				                        NOT ISBLANK([__tvr]) && [__tvr] <> 0
+				                            && NOT ISBLANK([__offerName])
+				                            && [__offerName] <> ""
+				                    )
+				                VAR OfferRows =
+				                    CONCATENATEX(
+				                        Offers,
+				                        VAR OfferName = [__offerName]
+				                        VAR OfferTvr = [__tvr]
+				                        VAR OfferSov = [__sov]
+					                        VAR OfferBarWidth = MIN(100, ROUND(OfferSov * 100, 0))
+				                        RETURN
+				                            "<div class='rt-row rt-offer-row'>"
+				                                & "<div class='rt-rank'></div>"
+				                                & "<div class='rt-name rt-offer-name'>↳ " & OfferName & "</div>"
+				                                & "<div class='rt-offer-badge rt-offer-badge-empty'></div>"
+				                                & "<div class='rt-tvr'>" & FORMAT(OfferTvr, TvrFormat) & "</div>"
+				                                & "<div class='rt-sov-cell'><div class='rt-track'><div class='rt-fill' style='width:" & FORMAT(OfferBarWidth, "0") & "%'></div></div><span>" & FORMAT(OfferSov, PercentFormat) & "</span></div>"
+				                            & "</div>",
+				                        "",
+				                        [__tvr], DESC,
+				                        [__offerName], ASC
+				                    )
+				                RETURN
+				                    "<div class='rt-brand-block'>"
+				                        & "<div class='rt-row rt-brand-row'>"
+				                            & "<div class='rt-rank'>" & FORMAT(RANKX(Brands, [__tvr], BrandTvr, DESC, Dense), "0") & "</div>"
+				                            & "<div class='rt-name rt-brand-name'>" & BrandLogoHtml & "<span>" & BrandName & "</span></div>"
+				                            & "<div class='rt-offer-badge'>" & FORMAT(BrandOffers, "0") & "</div>"
+				                            & "<div class='rt-tvr'>" & FORMAT(BrandTvr, TvrFormat) & "</div>"
+				                            & "<div class='rt-sov-cell'><div class='rt-track'><div class='rt-fill' style='width:" & FORMAT(BrandBarWidth, "0") & "%'></div></div><span>" & FORMAT(BrandSov, PercentFormat) & "</span></div>"
+				                        & "</div>"
+				                        & OfferRows
+				                    & "</div>",
+				                "",
+				                [__tvr], DESC,
+				                [__brand], ASC
+				            )
+				        RETURN
+				            "<section class='rt-product' style='--accent:" & Accent & "'>"
+				                & "<div class='rt-product-head'>"
+				                    & "<div class='rt-product-title'><span></span>" & ProductName & "</div>"
+				                    & "<div class='rt-product-total'>" & FORMAT(ProductTvr, TvrFormat) & " TVR · " & FORMAT(ProductSov, PercentFormat) & "</div>"
+				                & "</div>"
+				                & "<div class='rt-table-head'><div></div><div></div><div>ОФФЕР</div><div>TVR</div><div>SOV</div></div>"
+				                & IF(ISEMPTY(Brands), "<div class='rt-empty'>Нет данных</div>", BrandRows)
+				            & "</section>",
+				        "",
+				        [__isOther], ASC,
+			        [__sov], DESC,
+			        [__name], ASC
+				    )
+				RETURN
+				"<div class='rt-wrap'>"
+				    & "<style>"
+				    & ".rt-wrap{width:100%;height:auto;min-height:100%;box-sizing:border-box;background:#0F1722;border:1px solid #1C2739;border-radius:8px;padding:18px 22px 24px;font-family:Segoe UI,Arial,sans-serif;color:#E3EAF2;overflow:visible;}"
+				    & ".rt-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px;}"
+				    & ".rt-title{display:flex;align-items:center;gap:12px;font-size:28px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E3EAF2;}"
+				    & ".rt-title:before{content:'';width:15px;height:15px;border:2px solid #9AA3B2;box-shadow:inset 0 0 0 3px #0F1722;background:#263244;display:inline-block;}"
+				    & ".rt-total{display:flex;align-items:baseline;gap:14px;padding:10px 18px 9px;background:#0A0E19;color:#E3EAF2;font-size:20px;font-weight:800;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;}"
+				    & ".rt-total span:last-child{font-size:24px;}"
+				    & ".rt-segments{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 14px;margin-bottom:12px;}"
+				    & ".rt-segment-card{height:56px;border:2px solid var(--accent);border-radius:8px;display:grid;grid-template-columns:9px 1fr auto;gap:13px;align-items:center;padding:0 16px;background:#0B1624;box-shadow:0 0 0 1px rgba(255,255,255,.03) inset;}"
+				    & ".rt-segment-mark{width:7px;height:31px;background:var(--accent);}"
+				    & ".rt-segment-name{font-size:15px;font-weight:850;color:var(--accent);text-transform:uppercase;line-height:1.05;}"
+				    & ".rt-segment-value{font-size:25px;font-weight:850;color:var(--accent);}"
+				    & ".rt-empty{padding:18px 0;color:#9AA3B2;font-size:14px;}"
+				    & ".rt-product{border-left:5px solid var(--accent);padding:0 0 4px 20px;margin-top:18px;}"
+				    & ".rt-product+.rt-product{border-top:1px solid #1C2739;padding-top:13px;}"
+				    & ".rt-product-head{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:14px;}"
+				    & ".rt-product-title{font-size:18px;font-weight:850;color:var(--accent);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:12px;}"
+				    & ".rt-product-title span{width:4px;height:34px;background:var(--accent);display:none;}"
+				    & ".rt-product-total{font-size:16px;font-weight:800;color:#E3EAF2;white-space:nowrap;}"
+				    & ".rt-table-head,.rt-row{display:grid;grid-template-columns:38px minmax(420px,1fr) 92px 112px 220px;gap:12px;align-items:center;}"
+				    & ".rt-table-head{margin-bottom:5px;color:#6F7B8F;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;text-align:right;}"
+				    & ".rt-table-head div:nth-child(2){text-align:left;}"
+				    & ".rt-row{min-height:31px;border-bottom:1px solid rgba(28,39,57,.72);}"
+				    & ".rt-brand-row{min-height:40px;}"
+				    & ".rt-rank{color:#7F8A9C;font-size:13px;text-align:left;}"
+				    & ".rt-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}"
+				    & ".rt-brand-name{display:flex;align-items:center;gap:14px;color:#E3EAF2;font-size:16px;font-weight:850;text-transform:uppercase;}"
+				    & ".rt-logo{width:40px;height:28px;border-radius:8px;background:#F0F3F7;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 0 rgba(255,255,255,.18) inset;flex:0 0 40px;overflow:hidden;} .rt-logo-img{width:100%;height:100%;object-fit:contain;display:block;} .rt-logo-fallback{color:var(--accent);font-weight:900;font-size:13px;}"
+				    & ".rt-offer-name{color:#7E8798;font-size:13px;padding-left:52px;}"
+				    & ".rt-offer-badge{justify-self:center;min-width:36px;height:30px;border-radius:8px;background:var(--accent);color:#06121C;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;}"
+				    & ".rt-offer-badge-empty{background:transparent;color:transparent;box-shadow:none;}"
+				    & ".rt-tvr{text-align:right;color:#D8DEE8;font-size:14px;}"
+				    & ".rt-offer-row .rt-tvr,.rt-offer-row .rt-sov-cell span{color:#7E8798;font-size:12px;}"
+				    & ".rt-sov-cell{display:grid;grid-template-columns:1fr 48px;gap:10px;align-items:center;color:#D8DEE8;font-size:13px;text-align:right;}"
+				    & ".rt-track{height:9px;border-radius:999px;background:#1B2A3B;box-shadow:0 0 0 1px rgba(255,255,255,.02) inset;overflow:hidden;}"
+				    & ".rt-fill{height:100%;border-radius:999px;background:var(--accent);}"
+				    & ".rt-offer-row .rt-fill{opacity:.42;}"
+				    & "</style>"
+				    & "<div class='rt-top'><div class='rt-title'>Бизнес</div><div class='rt-total'><span>TVR</span><span>" & FORMAT(TotalTvr, TvrFormat) & "</span></div></div>"
+				    & "<div class='rt-segments'>" & IF(ISEMPTY(TopProducts), "<div class='rt-empty'>Нет данных</div>", ProductCards) & "</div>"
+				    & IF(ISEMPTY(DetailProducts), "", ProductSections)
+				& "</div>"
+		isHidden
+		displayFolder: 04_Бизнес_Кампании
+		lineageTag: c1be8912-7784-4fd2-9a70-a4fefc8708ea
+
+		changedProperty = IsHidden
+
+	measure 3442_05_Имидж_Оффер_not_blank =
+			if(ISINSCOPE('all_reports_ad_dict'[category_12]), BLANK(),
+			    CALCULATE([3403_00_Оффер_all],
+			FILTER('all_reports_ad_dict', [3442_01_TPR_Имидж_TOP_Category_6] > 0)))
+		formatString: 0
+		isHidden
+		displayFolder: 05_Имидж
+		lineageTag: 5ddf0982-b9ae-42d0-bb63-26790399531d
+
+		changedProperty = IsHidden
+
+	measure 3442_10_html_image_campaigns_detail =
+			
+				VAR TvrFormat = "#,0.0"
+				VAR PercentFormat = "0%"
+				VAR TotalTvr = [3442_01_TPR_Имидж_TOP_Category_6]
+				VAR TopProducts =
+				    FILTER(
+				        ADDCOLUMNS(
+				            VALUES('category_6_Top'[category_6_main_Top]),
+				            "__tvr", [3442_01_TPR_Имидж_TOP_Category_6],
+				            "__sov", [3442_02_SOV_%_Имидж_Кампании],
+				            "__name", 'category_6_Top'[category_6_main_Top],
+				            "__isOther", IF(LOWER('category_6_Top'[category_6_main_Top]) = "остальное", 1, 0)
+				        ),
+				        NOT ISBLANK([__tvr]) && [__tvr] <> 0 && NOT ISBLANK([__name])
+				    )
+				VAR DetailProducts =
+				    FILTER(
+				        TopProducts,
+				        LOWER([__name]) <> "остальное"
+				            && LOWER([__name]) <> "прочие сегменты"
+				    )
+				VAR ProductMaxSov = MAXX(TopProducts, [__sov])
+				VAR ProductCards =
+				    CONCATENATEX(
+				        TopProducts,
+				        VAR ProductName = [__name]
+				        VAR ProductSov = [__sov]
+				        VAR ProductIsOther = [__isOther]
+				        VAR ProductRank = RANKX(FILTER(TopProducts, [__isOther] = 0), [__sov], ProductSov, DESC, Dense)
+				        VAR Accent =
+				            IF(
+				                ProductIsOther = 1,
+				                "#9AA3B2",
+				                SWITCH(
+				                    ProductRank,
+				                    1, "#63D7BE",
+				                    2, "#E2C16F",
+				                    3, "#EF6B78",
+				                    4, "#5BAFE0",
+				                    5, "#B58CFF",
+				                    "#9AA3B2"
+				                )
+				            )
+				        RETURN
+				            "<div class='rt-segment-card' style='--accent:" & Accent & "'>"
+				                & "<div class='rt-segment-mark'></div>"
+				                & "<div class='rt-segment-name'>" & ProductName & "</div>"
+				                & "<div class='rt-segment-value'>" & FORMAT(ProductSov, PercentFormat) & "</div>"
+				            & "</div>",
+				        "",
+				        [__isOther], ASC,
+			        [__sov], DESC,
+			        [__name], ASC
+				    )
+				VAR ProductSections =
+				    CONCATENATEX(
+				        DetailProducts,
+				        VAR ProductName = [__name]
+				        VAR ProductTvr = [__tvr]
+				        VAR ProductSov = [__sov]
+				        VAR ProductIsOther = [__isOther]
+				        VAR ProductRank = RANKX(FILTER(TopProducts, [__isOther] = 0), [__sov], ProductSov, DESC, Dense)
+				        VAR Accent =
+				            IF(
+				                ProductIsOther = 1,
+				                "#9AA3B2",
+				                SWITCH(
+				                    ProductRank,
+				                    1, "#63D7BE",
+				                    2, "#E2C16F",
+				                    3, "#EF6B78",
+				                    4, "#5BAFE0",
+				                    5, "#B58CFF",
+				                    "#9AA3B2"
+				                )
+				            )
+				        VAR Brands =
+				            FILTER(
+				                ADDCOLUMNS(
+				                    ALLSELECTED('brand_main_Top'[brand_main_top]),
+				                    "__tvr", CALCULATE([3442_01_TPR_Имидж_TOP_Category_6], KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+				                    "__sov", CALCULATE([3442_02_SOV_%_Имидж_Кампании], KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+				                    "__offer", CALCULATE([3442_05_Имидж_Оффер_not_blank], KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+					                    "__logo", CALCULATE(SELECTEDVALUE('logos_dict'[logo_link]), KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName)),
+					                    "__brand", 'brand_main_Top'[brand_main_top]
+				                ),
+				                NOT ISBLANK([__tvr]) && [__tvr] <> 0
+				                    && NOT ISBLANK([__brand])
+				                    && [__brand] <> "ОСТАЛЬНОЕ"
+				            )
+				        VAR BrandRows =
+				            CONCATENATEX(
+				                Brands,
+				                VAR BrandName = [__brand]
+				                VAR BrandTvr = [__tvr]
+				                VAR BrandSov = [__sov]
+				                VAR BrandOffers = [__offer]
+				                VAR BrandInitial = LEFT(BrandName, 1)
+					                VAR BrandLogoRaw =
+					                    IF(
+					                        BrandName = "OZON+OZON БАНК",
+					                        LOOKUPVALUE('logos_dict'[logo_link], 'logos_dict'[brand_name], "OZON БАНК"),
+					                        [__logo]
+					                    )
+					                VAR BrandLogo =
+					                    SUBSTITUTE(
+					                        SUBSTITUTE(BrandLogoRaw, "'", "%27"),
+					                        """", "%22"
+					                    )
+					                VAR BrandLogoHtml =
+					                    IF(
+					                        NOT ISBLANK(BrandLogo) && BrandLogo <> "",
+					                        "<span class='rt-logo'><img class='rt-logo-img' src='" & BrandLogo & "'></span>",
+					                        "<span class='rt-logo rt-logo-fallback'>" & BrandInitial & "</span>"
+					                    )
+					                VAR BrandBarWidth = MIN(100, ROUND(BrandSov * 100, 0))
+				                VAR Offers =
+				                    FILTER(
+				                        ADDCOLUMNS(
+				                            VALUES('all_reports_ad_dict'[category_12]),
+				                            "__tvr", CALCULATE(
+				                                [3442_01_TPR_Имидж_TOP_Category_6],
+				                                KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName),
+				                                KEEPFILTERS('brand_main_Top'[brand_main_top] = BrandName)
+				                            ),
+				                            "__sov", CALCULATE(
+				                                [3442_02_SOV_%_Имидж_Кампании],
+				                                KEEPFILTERS('category_6_Top'[category_6_main_Top] = ProductName),
+				                                KEEPFILTERS('brand_main_Top'[brand_main_top] = BrandName)
+				                            ),
+					                            "__offerName", 'all_reports_ad_dict'[category_12]
+				                        ),
+				                        NOT ISBLANK([__tvr]) && [__tvr] <> 0
+				                            && NOT ISBLANK([__offerName])
+				                            && [__offerName] <> ""
+				                    )
+				                VAR OfferRows =
+				                    CONCATENATEX(
+				                        Offers,
+				                        VAR OfferName = [__offerName]
+				                        VAR OfferTvr = [__tvr]
+				                        VAR OfferSov = [__sov]
+					                        VAR OfferBarWidth = MIN(100, ROUND(OfferSov * 100, 0))
+				                        RETURN
+				                            "<div class='rt-row rt-offer-row'>"
+				                                & "<div class='rt-rank'></div>"
+				                                & "<div class='rt-name rt-offer-name'>↳ " & OfferName & "</div>"
+				                                & "<div class='rt-offer-badge rt-offer-badge-empty'></div>"
+				                                & "<div class='rt-tvr'>" & FORMAT(OfferTvr, TvrFormat) & "</div>"
+				                                & "<div class='rt-sov-cell'><div class='rt-track'><div class='rt-fill' style='width:" & FORMAT(OfferBarWidth, "0") & "%'></div></div><span>" & FORMAT(OfferSov, PercentFormat) & "</span></div>"
+				                            & "</div>",
+				                        "",
+				                        [__tvr], DESC,
+				                        [__offerName], ASC
+				                    )
+				                RETURN
+				                    "<div class='rt-brand-block'>"
+				                        & "<div class='rt-row rt-brand-row'>"
+				                            & "<div class='rt-rank'>" & FORMAT(RANKX(Brands, [__tvr], BrandTvr, DESC, Dense), "0") & "</div>"
+				                            & "<div class='rt-name rt-brand-name'>" & BrandLogoHtml & "<span>" & BrandName & "</span></div>"
+				                            & "<div class='rt-offer-badge'>" & FORMAT(BrandOffers, "0") & "</div>"
+				                            & "<div class='rt-tvr'>" & FORMAT(BrandTvr, TvrFormat) & "</div>"
+				                            & "<div class='rt-sov-cell'><div class='rt-track'><div class='rt-fill' style='width:" & FORMAT(BrandBarWidth, "0") & "%'></div></div><span>" & FORMAT(BrandSov, PercentFormat) & "</span></div>"
+				                        & "</div>"
+				                        & OfferRows
+				                    & "</div>",
+				                "",
+				                [__tvr], DESC,
+				                [__brand], ASC
+				            )
+				        RETURN
+				            "<section class='rt-product' style='--accent:" & Accent & "'>"
+				                & "<div class='rt-product-head'>"
+				                    & "<div class='rt-product-title'><span></span>" & ProductName & "</div>"
+				                    & "<div class='rt-product-total'>" & FORMAT(ProductTvr, TvrFormat) & " TVR · " & FORMAT(ProductSov, PercentFormat) & "</div>"
+				                & "</div>"
+				                & "<div class='rt-table-head'><div></div><div></div><div>ОФФЕР</div><div>TVR</div><div>SOV</div></div>"
+				                & IF(ISEMPTY(Brands), "<div class='rt-empty'>Нет данных</div>", BrandRows)
+				            & "</section>",
+				        "",
+				        [__isOther], ASC,
+			        [__sov], DESC,
+			        [__name], ASC
+				    )
+				RETURN
+				"<div class='rt-wrap'>"
+				    & "<style>"
+				    & ".rt-wrap{width:100%;height:auto;min-height:100%;box-sizing:border-box;background:#0F1722;border:1px solid #1C2739;border-radius:8px;padding:18px 22px 24px;font-family:Segoe UI,Arial,sans-serif;color:#E3EAF2;overflow:visible;}"
+				    & ".rt-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px;}"
+				    & ".rt-title{display:flex;align-items:center;gap:12px;font-size:28px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E3EAF2;}"
+				    & ".rt-title:before{content:'';width:15px;height:15px;border:2px solid #9AA3B2;box-shadow:inset 0 0 0 3px #0F1722;background:#263244;display:inline-block;}"
+				    & ".rt-total{display:flex;align-items:baseline;gap:14px;padding:10px 18px 9px;background:#0A0E19;color:#E3EAF2;font-size:20px;font-weight:800;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;}"
+				    & ".rt-total span:last-child{font-size:24px;}"
+				    & ".rt-segments{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 14px;margin-bottom:12px;}"
+				    & ".rt-segment-card{height:56px;border:2px solid var(--accent);border-radius:8px;display:grid;grid-template-columns:9px 1fr auto;gap:13px;align-items:center;padding:0 16px;background:#0B1624;box-shadow:0 0 0 1px rgba(255,255,255,.03) inset;}"
+				    & ".rt-segment-mark{width:7px;height:31px;background:var(--accent);}"
+				    & ".rt-segment-name{font-size:15px;font-weight:850;color:var(--accent);text-transform:uppercase;line-height:1.05;}"
+				    & ".rt-segment-value{font-size:25px;font-weight:850;color:var(--accent);}"
+				    & ".rt-empty{padding:18px 0;color:#9AA3B2;font-size:14px;}"
+				    & ".rt-product{border-left:5px solid var(--accent);padding:0 0 4px 20px;margin-top:18px;}"
+				    & ".rt-product+.rt-product{border-top:1px solid #1C2739;padding-top:13px;}"
+				    & ".rt-product-head{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:14px;}"
+				    & ".rt-product-title{font-size:18px;font-weight:850;color:var(--accent);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:12px;}"
+				    & ".rt-product-title span{width:4px;height:34px;background:var(--accent);display:none;}"
+				    & ".rt-product-total{font-size:16px;font-weight:800;color:#E3EAF2;white-space:nowrap;}"
+				    & ".rt-table-head,.rt-row{display:grid;grid-template-columns:38px minmax(420px,1fr) 92px 112px 220px;gap:12px;align-items:center;}"
+				    & ".rt-table-head{margin-bottom:5px;color:#6F7B8F;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;text-align:right;}"
+				    & ".rt-table-head div:nth-child(2){text-align:left;}"
+				    & ".rt-row{min-height:31px;border-bottom:1px solid rgba(28,39,57,.72);}"
+				    & ".rt-brand-row{min-height:40px;}"
+				    & ".rt-rank{color:#7F8A9C;font-size:13px;text-align:left;}"
+				    & ".rt-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}"
+				    & ".rt-brand-name{display:flex;align-items:center;gap:14px;color:#E3EAF2;font-size:16px;font-weight:850;text-transform:uppercase;}"
+				    & ".rt-logo{width:40px;height:28px;border-radius:8px;background:#F0F3F7;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 0 rgba(255,255,255,.18) inset;flex:0 0 40px;overflow:hidden;} .rt-logo-img{width:100%;height:100%;object-fit:contain;display:block;} .rt-logo-fallback{color:var(--accent);font-weight:900;font-size:13px;}"
+				    & ".rt-offer-name{color:#7E8798;font-size:13px;padding-left:52px;}"
+				    & ".rt-offer-badge{justify-self:center;min-width:36px;height:30px;border-radius:8px;background:var(--accent);color:#06121C;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;}"
+				    & ".rt-offer-badge-empty{background:transparent;color:transparent;box-shadow:none;}"
+				    & ".rt-tvr{text-align:right;color:#D8DEE8;font-size:14px;}"
+				    & ".rt-offer-row .rt-tvr,.rt-offer-row .rt-sov-cell span{color:#7E8798;font-size:12px;}"
+				    & ".rt-sov-cell{display:grid;grid-template-columns:1fr 48px;gap:10px;align-items:center;color:#D8DEE8;font-size:13px;text-align:right;}"
+				    & ".rt-track{height:9px;border-radius:999px;background:#1B2A3B;box-shadow:0 0 0 1px rgba(255,255,255,.02) inset;overflow:hidden;}"
+				    & ".rt-fill{height:100%;border-radius:999px;background:var(--accent);}"
+				    & ".rt-offer-row .rt-fill{opacity:.42;}"
+				    & "</style>"
+				    & "<div class='rt-top'><div class='rt-title'>Имидж</div><div class='rt-total'><span>TVR</span><span>" & FORMAT(TotalTvr, TvrFormat) & "</span></div></div>"
+				    & "<div class='rt-segments'>" & IF(ISEMPTY(TopProducts), "<div class='rt-empty'>Нет данных</div>", ProductCards) & "</div>"
+				    & IF(ISEMPTY(DetailProducts), "", ProductSections)
+				& "</div>"
+		isHidden
+		displayFolder: 05_Имидж
+		lineageTag: ab798e54-02ed-41eb-bc14-bfcd6dd85528
+
+		changedProperty = IsHidden
+
+	measure 3422_04_TPR_Розница_category_12 =
+			
+			CALCULATE([3422_01_TPR_Розница_TOP_Category_6],
+			all('brand_main_Top'), all('all_reports_ad_dict'[category_12]))
+		isHidden
+		displayFolder: 03_Розница_Кампании
+		lineageTag: d0a33731-0931-49f9-b93a-c810fc96dd4a
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 3432_04_TPR_Бизнес_category_12 =
+			
+			CALCULATE([3432_01_TPR_Бизнес_TOP_Category_6],
+			all('brand_main_Top'), all('all_reports_ad_dict'[category_12]))
+		isHidden
+		displayFolder: 04_Бизнес_Кампании
+		lineageTag: 0cb957dc-94fb-4a0e-929a-8d48ea0de900
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 3442_04_TPR_Имидж_category_12 =
+			
+			CALCULATE([3442_01_TPR_Имидж_TOP_Category_6],
+			all('brand_main_Top'), all('all_reports_ad_dict'[category_12]))
+		isHidden
+		displayFolder: 05_Имидж
+		lineageTag: e3ae3542-aa8d-487d-92a7-b1c8b8fb8d1b
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Столбец1
+		dataType: string
+		isHidden
+		lineageTag: 3752c0aa-4108-4bd2-ade9-2a6f1256ae68
+		summarizeBy: none
+		sourceColumn: Столбец1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Меры_31_02_Кампании = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t])
+				in
+				    Источник
+
+	annotation PBI_ResultType = Table
+

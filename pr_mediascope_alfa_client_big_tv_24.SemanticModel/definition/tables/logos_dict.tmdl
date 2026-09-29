@@ -1,0 +1,46 @@
+table logos_dict
+	isHidden
+	lineageTag: 35758062-c6b5-48fe-957c-0256a0946c4b
+
+	column brand_name
+		dataType: string
+		isHidden
+		lineageTag: e6293f15-5770-4095-b08a-f71389898dcc
+		summarizeBy: none
+		sourceColumn: brand_name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column logo_link
+		dataType: string
+		isHidden
+		lineageTag: 3c6758cb-89fa-4221-b53d-c47f9aeb00d3
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: logo_link
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition logos_dict = m
+		mode: import
+		queryGroup: 03_Общие_справочники
+		source =
+				let
+				    Источник = Csv.Document(Web.Contents("https://docs.google.com/spreadsheets/d/e/2PACX-1vRLcLAM3N250g4mGfNOShfQsuWk-xk_8zvR_fj-3LlZx-38DC7yAZv-QTMb87RVnn-exGGHRhvYk2hW/pub?gid=1994890599&single=true&output=csv"),
+				    [Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Повышенные заголовки" = Table.PromoteHeaders(Источник, [PromoteAllScalars=true]),
+				    #"Текст в верхнем регистре" = Table.TransformColumns(#"Повышенные заголовки",{{"brand_name", Text.Upper, type text}}),
+				    #"Удаленные дубликаты" = Table.Distinct(#"Текст в верхнем регистре", {"brand_name"})
+				in
+				    #"Удаленные дубликаты"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

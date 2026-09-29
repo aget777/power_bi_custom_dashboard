@@ -1,0 +1,33 @@
+table списокДесятичных
+	isHidden
+	lineageTag: 768adef0-08fd-4b30-9158-d1d791cbd573
+
+	column Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c354ad49-debb-4930-84da-836d4febfe14
+		summarizeBy: count
+		sourceColumn: Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition списокДесятичных = m
+		mode: import
+		queryGroup: 02_01_Вспомогательные_таблицы
+		source =
+				let
+				    Источник = Table.FromList(
+				Table.SelectRows(переключатель_слева, each [type]="float")[Id],
+				Splitter.SplitByNothing(),
+				type table[Id= Int64.Type]
+				)
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

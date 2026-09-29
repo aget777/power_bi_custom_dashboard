@@ -1,0 +1,127 @@
+table _Меры_09_Переключатели
+	lineageTag: 07c0fbb1-b15c-4fff-a6e1-efc81cc79900
+
+	measure 400_00_12_Nat_Big_switch_left = ```
+			IF(HASONEVALUE('переключатель_слева'[Показатель]),
+			SWITCH(VALUES('переключатель_слева'[Id]),
+			1, [201_01_RtgPer_Nat_simple] + [301_01_SalesRtgPer_Nat_buying] + 
+			[601_01_RtgPer_Big_simple] + [701_01_SalesRtgPer_Big_buying],
+			2, [202_01_StandRtgPer_Nat_simple] + [302_01_StandSalesRtgPer_Nat_buying] +
+			[602_01_StandRtgPer_Big_simple] + [702_01_StandSalesRtgPer_Big_buying],
+			3, BLANK(),
+			4, BLANK(),
+			5, [305_01_Costs_disc_Nat_buying] + [705_01_Costs_disc_Big_buying],
+			6, BLANK(),
+			7, [307_01_Quantity_Nat_buying] + [707_01_Quantity_Big_buying], 
+			8, BLANK()), BLANK())
+			```
+		lineageTag: 8e085578-a479-4553-a151-c59f4f6c2462
+
+		formatStringDefinition = ```
+				if(
+				    SELECTEDVALUE('переключатель_слева'[Id]) in 
+				    VALUES('списокДесятичных'[Id]), "#,0.00", 
+				    "#0,#")
+				```
+
+	measure 400_00_01_02_Adex_switch_right =
+			IF(HASONEVALUE('переключатель_справа'[Показатель]),
+			SWITCH(VALUES('переключатель_справа'[Id]),
+			5, [105_01_Costs_disc_adex], [105_01_Costs_disc_adex]),[105_01_Costs_disc_adex])
+		isHidden
+		lineageTag: f1811fc4-9352-476d-9ffb-81cf09a83883
+
+		formatStringDefinition = ```
+				if(
+				    SELECTEDVALUE('переключатель_справа'[Id]) in 
+				    VALUES('списокДесятичных'[Id]), "#,0.00", 
+				    "#0,#")
+				```
+
+		changedProperty = IsHidden
+
+	measure 400_00_04_Reg_tv_switch_left = ```
+			IF(HASONEVALUE('переключатель_слева'[Показатель]),
+			SWITCH(VALUES('переключатель_слева'[Id]),
+			1, [401_01_RtgPer_Reg_simple] + [501_01_SalesRtgPer_Reg_buying],
+			2, [402_01_StandRtgPer_Reg_simple] + [502_01_StandSalesRtgPer_Reg_buying],
+			3, [403_01_Rtg000_sample_Reg_simple],
+			4, BLANK(),
+			5, [505_01_Costs_disc_Reg_buying],
+			6, BLANK(),
+			7, [507_01_Quantity_Reg_buying], 
+			8, BLANK()), BLANK())
+			```
+		lineageTag: 59bf37f4-7e78-4077-b36a-43bf78f014ba
+
+		formatStringDefinition = ```
+				if(
+				    SELECTEDVALUE('переключатель_слева'[Id]) in 
+				    VALUES('списокДесятичных'[Id]), "#,0.00", 
+				    "#0,#")
+				```
+
+		changedProperty = IsHidden
+
+	measure 400_00_06_Big_tv_switch_left =
+			IF(HASONEVALUE('переключатель_слева'[Показатель]),
+			SWITCH(VALUES('переключатель_слева'[Id]),
+			1, [601_01_RtgPer_Big_simple] + [701_01_SalesRtgPer_Big_buying],
+			2, [602_01_StandRtgPer_Big_simple] + [702_01_StandSalesRtgPer_Big_buying],
+			3, [705_01_Costs_disc_Big_buying],
+			4, BLANK(),
+			5, Blank(),
+			6, BLANK(),
+			7, [707_01_Quantity_Big_buying],
+			8, BLANK()), BLANK())
+		isHidden
+		lineageTag: 81840527-a79d-446d-8875-625b16582da8
+
+		formatStringDefinition = ```
+				if(
+				    SELECTEDVALUE('переключатель_слева'[Id]) in 
+				    VALUES('списокДесятичных'[Id]), "#,0.00", 
+				    "#0,#")
+				```
+
+		changedProperty = IsHidden
+
+	measure 400_00_01_01_Adex_switch_left = ```
+			IF(HASONEVALUE('переключатель_слева'[Показатель]),
+			SWITCH(VALUES('переключатель_слева'[Id]),
+			5, [105_01_Costs_disc_adex], 
+			6, BLANK(),
+			7, [107_01_Quantity_adex],
+			8, [108_01_Vol_adex],
+			BLANK()),BLANK())
+			```
+		lineageTag: 31d204d8-df12-4e80-b634-8dcd5953d056
+
+		formatStringDefinition = ```
+				if(
+				    SELECTEDVALUE('переключатель_слева'[Id]) in 
+				    VALUES('списокДесятичных'[Id]), "#,0.00", 
+				    "#0,#")
+				```
+
+	column Столбец1
+		dataType: string
+		isHidden
+		lineageTag: 6a15e631-34e4-4f22-ad82-1870c27b775c
+		summarizeBy: none
+		sourceColumn: Столбец1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Меры_09_Переключатели = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t])
+				in
+				    Источник
+
+	annotation PBI_ResultType = Table
+

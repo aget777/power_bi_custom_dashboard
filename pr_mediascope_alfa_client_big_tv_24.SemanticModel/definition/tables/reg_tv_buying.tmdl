@@ -1,0 +1,272 @@
+table reg_tv_buying
+	lineageTag: 5d96444d-8255-4811-b28e-79ed1bf422a8
+
+	column prj_name
+		dataType: string
+		isHidden
+		lineageTag: 99b39429-f220-41ba-861c-0b452f5167ec
+		summarizeBy: none
+		sourceColumn: prj_name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column media_key_id
+		dataType: string
+		isHidden
+		lineageTag: 30f8226f-5df7-4aa6-a1a9-2ce8df437c9b
+		summarizeBy: none
+		sourceColumn: media_key_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column media_type
+		dataType: string
+		isHidden
+		lineageTag: 6dcd84b5-d0fe-43bc-a8cb-5a0b31749a02
+		summarizeBy: none
+		sourceColumn: media_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column media_type_detail
+		dataType: string
+		isHidden
+		lineageTag: aa477adf-c0bb-4a99-8d7a-0ac4e11a7d6c
+		summarizeBy: none
+		sourceColumn: media_type_detail
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8fe5ebcb-ceee-465c-a76b-eaad5d02741b
+		summarizeBy: count
+		sourceColumn: adId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column researchDate
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: dc487052-f4d1-450f-8908-0753516bc84b
+		summarizeBy: none
+		sourceColumn: researchDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column tvCompanyId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f8332ffb-5fd6-400a-be83-5f65a26c5db8
+		summarizeBy: none
+		sourceColumn: tvCompanyId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adDistributionType
+		dataType: string
+		isHidden
+		lineageTag: 1a7e7f4f-906e-47dd-9639-3b24ccfa07a6
+		summarizeBy: none
+		sourceColumn: adDistributionType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column regionId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d367488d-aceb-4030-a8c9-aa1fce443226
+		summarizeBy: none
+		sourceColumn: regionId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adTypeId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6053446e-7e5c-4eee-a831-511d3f7f9b8b
+		summarizeBy: count
+		sourceColumn: adTypeId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ad_type_custom
+		dataType: string
+		isHidden
+		lineageTag: b0ad1852-59ff-49a9-9f93-ae1357f15f65
+		summarizeBy: none
+		sourceColumn: ad_type_custom
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cid_custom
+		dataType: string
+		isHidden
+		lineageTag: 0c4275d4-1292-4d4b-a93e-4f8e8d6bba31
+		summarizeBy: none
+		sourceColumn: cid_custom
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column tv_type_ooh_reg
+		dataType: string
+		isHidden
+		lineageTag: 8a01bc7b-a079-4d1c-9297-d2d95348acfc
+		summarizeBy: none
+		sourceColumn: tv_type_ooh_reg
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column adStandardDuration
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4c087c5a-8618-43c3-8229-24431ca8f5c8
+		summarizeBy: none
+		sourceColumn: adStandardDuration
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesRtgPer
+		dataType: double
+		isHidden
+		lineageTag: e1611234-d672-4218-b0f7-1766b593bb8a
+		summarizeBy: sum
+		sourceColumn: SalesRtgPer
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column StandSalesRtgPer
+		dataType: double
+		isHidden
+		lineageTag: 62b3996a-bff7-42cb-955c-6c22eb15cfcd
+		summarizeBy: sum
+		sourceColumn: StandSalesRtgPer
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Quantity
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fb1dd402-fd9a-484c-b8f9-387a76ba61e2
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ConsolidatedCostRUB
+		dataType: double
+		isHidden
+		lineageTag: b10a8a50-c384-4820-a0b1-b8fd91cb995b
+		summarizeBy: sum
+		sourceColumn: ConsolidatedCostRUB
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column disc
+		dataType: double
+		isHidden
+		lineageTag: 1485ceab-009a-4e39-9fe0-cd18f66110a8
+		summarizeBy: sum
+		sourceColumn: disc
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ConsolidatedCostRUB_disc
+		dataType: double
+		isHidden
+		lineageTag: 25bead71-b185-4039-8c92-dcf9e24dd6bd
+		summarizeBy: sum
+		sourceColumn: ConsolidatedCostRUB_disc
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition reg_tv_buying = m
+		mode: import
+		queryGroup: 07_02_Regions_Simple_Buying
+		source = ```
+				let
+				    Источник = Sql.Database(mssql_server, db_name, 
+				    [Query="select 
+				                t1.prj_name, t1.media_key_id, t1.media_type, t1.media_type_detail, t1.adId, t1.researchDate, 
+				                t1.tvCompanyId, t1.adDistributionType, 
+				                t1.regionId, t1.adTypeId,  
+				                t1.ad_type_custom, t1.cid_custom, t1.tv_type_ooh_reg,
+				                t1.adStandardDuration, t1.SalesRtgPer, t1.StandSalesRtgPer,t1.Quantity, t1.ConsolidatedCostRUB, t1.disc, t1.ConsolidatedCostRUB_disc 
+				            from reg_tv_buying t1 
+				            left join reg_tv_ad_dict t2
+				            on t1.media_key_id=t2.media_key_id
+				            where t2.cleaning_flag in ("&cleaning_flag&") and 
+				            t1.researchDate>="& Date.ToText(start_date, "yyyy-MM-dd")&" and
+				            (t1.SalesRtgPer>0 or t1.StandSalesRtgPer>0 or t1.Quantity>0 or t1.ConsolidatedCostRUB>0)"]),
+				    #"Измененный тип" = Table.TransformColumnTypes(Источник,{{"researchDate", type date}})
+				
+				in
+				    #"Измененный тип"
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

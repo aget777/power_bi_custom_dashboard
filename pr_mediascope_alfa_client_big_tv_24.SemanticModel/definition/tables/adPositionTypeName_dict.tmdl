@@ -1,0 +1,22 @@
+table adPositionTypeName_dict
+	lineageTag: 0896f147-c264-4888-9116-72e7235b4d8f
+
+	column adPositionTypeName
+		dataType: string
+		lineageTag: 5400d48d-04c4-4901-b2cc-a050e3a4df04
+		summarizeBy: none
+		sourceColumn: adPositionTypeName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition adPositionTypeName_dict = m
+		mode: import
+		queryGroup: 05_TV_Index\05_01_Справочники
+		source =
+				let
+				    Источник = Sql.Database(mssql_server, db_name, [Query="select distinct adPositionTypeName from nat_tv_simple"])
+				in
+				    Источник
+
+	annotation PBI_ResultType = Table
+

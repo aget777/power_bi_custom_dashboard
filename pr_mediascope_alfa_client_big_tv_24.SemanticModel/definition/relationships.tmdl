@@ -1,0 +1,476 @@
+relationship 90184e6f-fba0-4403-a7e4-06bf22a1591c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Календарь.Дата
+	toColumn: LocalDateTable_97719cbe-20b6-420e-bdec-c87433628163.Date
+
+relationship c71e2ae5-b744-4cea-86cc-561204ded215
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Календарь.'Начало месяца'
+	toColumn: LocalDateTable_7df3c77d-8e28-464b-b3c0-007dd29a9bb6.Date
+
+relationship 6dbb9510-0384-459b-9787-2088ed9b9c69
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Календарь.'Конец месяца'
+	toColumn: LocalDateTable_e74b1dd4-b662-464c-935d-b5fdee10f2d2.Date
+
+relationship d39d1629-dff3-4e18-b920-9c4ff8a8330e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Календарь.'Конец недели'
+	toColumn: LocalDateTable_4a3806d9-f471-46a5-99ed-6f832dd03b77.Date
+
+relationship 94ac6244-c426-40a2-aa8e-c6df9390cef6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Календарь.'Начало недели'
+	toColumn: LocalDateTable_4bb61121-6fc4-47bc-95d9-ba7eeacbd70d.Date
+
+relationship 3c5bb834-76ca-57ed-3a17-9331f15424bd
+	fromColumn: media_costs_union.researchDate
+	toColumn: Календарь.Дата
+
+relationship 09b9a8a2-46b0-8f1c-372d-033212134a78
+	fromColumn: nat_tv_simple.researchDate
+	toColumn: Календарь.Дата
+
+relationship 00e13a09-cc34-3625-c79e-ff4586eebb44
+	fromColumn: nat_tv_buying.researchDate
+	toColumn: Календарь.Дата
+
+relationship 37324bc2-291e-980b-d870-bc754fe41ff9
+	fromColumn: adex_ad_dict.adStandardDuration
+	toColumn: standardDuration_dict.adStandardDuration
+
+relationship e883374d-6fe3-1581-c50b-edd8ee445e0f
+	fromColumn: media_costs_union.ad_type_custom
+	toColumn: ad_type_dict.ad_type_custom
+
+relationship b59bd105-4587-2945-616c-402f52a8c516
+	fromColumn: media_costs_union.adDistributionType
+	toColumn: adex_distribution_dict.adDistributionType
+
+relationship 76cd1d46-4432-504f-ebfe-b9622d264795
+	fromColumn: media_costs_union.cid_custom
+	toColumn: adex_company_dict.cid_custom
+
+relationship e20df887-762f-bcff-fe98-1bc614b99d48
+	fromColumn: media_costs_union.estat
+	toColumn: adex_estate_dict.estat
+
+relationship 353de058-abc2-da29-55b6-88727a94786d
+	fromColumn: media_costs_union.media_key_id
+	toColumn: adex_ad_dict.media_key_id
+
+relationship 7b8143c4-221a-7c41-11d6-4cccf7c7a5aa
+	fromColumn: media_costs_union.media_type_detail
+	toColumn: media_type_detail_dict.media_type_detail
+
+relationship 93327765-25fc-d47f-326b-607bf346f9f5
+	fromColumn: media_costs_union.regionId
+	toColumn: regions_dict.regionId
+
+relationship 7a5601bd-e131-11f6-3771-a4d96f0c60d1
+	fromColumn: nat_tv_buying.ad_type_custom
+	toColumn: ad_type_dict.ad_type_custom
+
+relationship 7a15bffa-e715-87af-bb82-4a5bcd0677a5
+	fromColumn: nat_tv_buying.adDistributionType
+	toColumn: adex_distribution_dict.adDistributionType
+
+relationship 03632178-5433-897d-7808-e930aa1f2ab4
+	fromColumn: nat_tv_buying.adPositionTypeName
+	toColumn: adPositionTypeName_dict.adPositionTypeName
+
+relationship 04602eef-da7c-49db-8b3e-9828dc0f8ac6
+	fromColumn: nat_tv_buying.adPrimeTimeStatusName
+	toColumn: adPrimeTimeStatusName_dict.adPrimeTimeStatusName
+
+relationship 5a857a94-e869-7ce3-b386-c6b0ef4325ee
+	fromColumn: nat_tv_buying.adStandardDuration
+	toColumn: standardDuration_dict.adStandardDuration
+
+relationship d819868b-514e-3c3f-313f-b1fe6bd5dcd0
+	fromColumn: nat_tv_buying.media_key_id
+	toColumn: tv_index_ad_dict.media_key_id
+
+relationship eaf817a0-fd46-b442-dda9-c041fe54f0c3
+	fromColumn: nat_tv_buying.media_type_detail
+	toColumn: media_type_detail_dict.media_type_detail
+
+relationship 5ce7a10c-fe8c-5678-f87e-b0a56bc77817
+	fromColumn: nat_tv_buying.prj_name
+	toColumn: nat_tv_prj_union_dict.prj_name
+
+relationship b0521b65-ef13-eca3-6c14-9518d00bcf60
+	fromColumn: nat_tv_buying.regionId
+	toColumn: regions_dict.regionId
+
+relationship 2e27fc22-1af6-32af-ae06-7110421ff9ed
+	fromColumn: nat_tv_buying.tv_type_ooh_reg
+	toColumn: tv_type_ooh_reg_dict.tv_type_ooh_reg
+
+relationship 21b83aa0-1a6c-f007-267b-5183d7fc5773
+	fromColumn: nat_tv_buying.tvCompanyId
+	toColumn: tv_index_tv_company_dict.tvCompanyId
+
+relationship 7a28ad60-26aa-54ad-06d0-bb43f605bbb4
+	fromColumn: nat_tv_simple.ad_type_custom
+	toColumn: ad_type_dict.ad_type_custom
+
+relationship 83974fa1-2dea-2a39-2e3c-303754e1a008
+	fromColumn: nat_tv_simple.adDistributionType
+	toColumn: adex_distribution_dict.adDistributionType
+
+relationship e05d4eb9-62ea-c422-387b-2fdac2d22977
+	fromColumn: nat_tv_simple.adPositionTypeName
+	toColumn: adPositionTypeName_dict.adPositionTypeName
+
+relationship 5f2ee4c3-8fe9-b1bb-631e-835f3d940a7e
+	fromColumn: nat_tv_simple.adPrimeTimeStatusName
+	toColumn: adPrimeTimeStatusName_dict.adPrimeTimeStatusName
+
+relationship 4472ca70-224f-8f65-bf6b-1349174af954
+	fromColumn: nat_tv_simple.adStandardDuration
+	toColumn: standardDuration_dict.adStandardDuration
+
+relationship 965c9a3c-61a3-cdec-4d47-2539f280474b
+	fromColumn: nat_tv_simple.media_key_id
+	toColumn: tv_index_ad_dict.media_key_id
+
+relationship 6d229871-f2ec-faf7-8f64-19683d4578d6
+	fromColumn: nat_tv_simple.media_type_detail
+	toColumn: media_type_detail_dict.media_type_detail
+
+relationship f79a3463-f7e5-0883-e895-9a07de1134ef
+	fromColumn: nat_tv_simple.prj_name
+	toColumn: nat_tv_prj_union_dict.prj_name
+
+relationship 0bd2f1be-f8e6-cb20-b478-43a31bec0b09
+	fromColumn: nat_tv_simple.regionId
+	toColumn: regions_dict.regionId
+
+relationship 09d5b18e-182f-4458-6701-923b82867d84
+	fromColumn: nat_tv_simple.tv_type_ooh_reg
+	toColumn: tv_type_ooh_reg_dict.tv_type_ooh_reg
+
+relationship f471e340-e6df-7678-2dcc-e16a5208843e
+	fromColumn: nat_tv_simple.tvCompanyId
+	toColumn: tv_index_tv_company_dict.tvCompanyId
+
+relationship 5a511448-1841-bfed-0489-bde257b4c9c5
+	fromColumn: tv_index_tv_company_dict.tvNetId
+	toColumn: tv_index_tv_net_dict.tvNetId
+
+relationship 40390a88-0c54-e5c5-b4b2-4a8fa1fc7956
+	fromColumn: media_costs_union.tv_type_ooh_reg
+	toColumn: tv_type_ooh_reg_dict.tv_type_ooh_reg
+
+relationship e3315d16-a28a-158f-9b63-88ff033f21b7
+	fromColumn: adex_ad_dict.media_key_id
+	toColumn: all_reports_ad_dict.media_key_id
+
+relationship d73d2240-5055-8615-f7d2-ea02ab9df141
+	crossFilteringBehavior: bothDirections
+	fromColumn: tv_index_ad_dict.media_key_id
+	toColumn: all_reports_ad_dict.media_key_id
+
+relationship b89b6eae-ed79-47be-c1f3-ff76601d0e25
+	fromColumn: all_reports_ad_dict.cleaning_flag
+	toColumn: cleaning_flag_dict.Id
+
+relationship 6d2ef7f9-90b3-fa74-e2ca-709ea6fd35a5
+	fromColumn: all_reports_ad_dict.media_type
+	toColumn: media_type_dict.media_type
+
+relationship 14cdc72c-fa95-a8cb-826c-ea925a77fc60
+	fromColumn: tv_index_tv_company_dict.tvCompanyName
+	toColumn: tv_index_tv_company_Top.tv_company_top
+
+relationship ce269e0a-8be1-e074-df8c-b8d806fb1a68
+	fromColumn: all_reports_ad_dict.advertiser_main
+	toColumn: advertiser_main_Top.advertiser_main_top
+
+relationship 924f023f-5e94-65f1-2b18-b527dd540886
+	fromColumn: all_reports_ad_dict.brand_main
+	toColumn: brand_main_Top.brand_main_top
+
+relationship db6fa5e6-ddd4-dbfc-3c1a-43dc9fbef289
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: creatives_dict.media_key_id
+	toColumn: all_reports_ad_dict.media_key_id
+
+relationship 5c0e4733-6706-4dbe-a2ad-2fae0cfaefd3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: adex_max_date.max_date
+	toColumn: LocalDateTable_fc1b460d-2ecb-45fc-836b-2584d460dc32.Date
+
+relationship b927ddad-0427-61ef-e522-e55bb428dc67
+	fromColumn: all_reports_ad_dict.category_7
+	toColumn: category_7_Top.category_7_main_Top
+
+relationship 01a2228c-4bab-a8ca-34c2-fe3a3f1ab848
+	fromColumn: all_reports_ad_dict.category_6
+	toColumn: category_6_Top.category_6_main_Top
+
+relationship 5da4be4f-3dd2-ea8c-2cfc-2d8cc8a9d36b
+	crossFilteringBehavior: bothDirections
+	fromColumn: regions_dict.regionId
+	toColumn: regions_dict_Top.Id
+
+relationship ea43a607-d30c-6370-22b3-2fbafb846189
+	fromColumn: reg_tv_buying.ad_type_custom
+	toColumn: ad_type_dict.ad_type_custom
+
+relationship c9e33421-cb29-33d0-598c-9c13afebe6b6
+	fromColumn: reg_tv_buying.adDistributionType
+	toColumn: adex_distribution_dict.adDistributionType
+
+relationship 52f899f3-5f48-cf5c-ecff-05af46aa6e32
+	fromColumn: reg_tv_buying.adStandardDuration
+	toColumn: standardDuration_dict.adStandardDuration
+
+relationship f054251e-2711-6e9e-bb9e-19e81559b355
+	fromColumn: reg_tv_buying.media_type_detail
+	toColumn: media_type_detail_dict.media_type_detail
+
+relationship 5abbf403-7688-a18f-31dc-f325fc1edfbd
+	fromColumn: reg_tv_buying.prj_name
+	toColumn: nat_tv_prj_union_dict.prj_name
+
+relationship dc1a8320-cdc6-9203-8ff9-72f3d27b805e
+	fromColumn: reg_tv_buying.regionId
+	toColumn: regions_dict.regionId
+
+relationship ca426c24-e082-a8e5-42bc-ae1deb3cbc71
+	fromColumn: reg_tv_buying.researchDate
+	toColumn: Календарь.Дата
+
+relationship b9c25545-4750-2765-50ed-05234f5b67aa
+	fromColumn: reg_tv_buying.tv_type_ooh_reg
+	toColumn: tv_type_ooh_reg_dict.tv_type_ooh_reg
+
+relationship 02f61465-161f-964c-4d0e-932512787a62
+	fromColumn: reg_tv_buying.tvCompanyId
+	toColumn: tv_index_tv_company_dict.tvCompanyId
+
+relationship ec0b9a1b-7c04-6d70-bbc8-0b1295f9d2ec
+	fromColumn: reg_tv_simple.ad_type_custom
+	toColumn: ad_type_dict.ad_type_custom
+
+relationship 590b1f4d-bd00-2684-f37a-e6645a30986d
+	fromColumn: reg_tv_simple.adDistributionType
+	toColumn: adex_distribution_dict.adDistributionType
+
+relationship facfb1eb-4a6a-f35e-c14c-5fbc8021acb7
+	fromColumn: reg_tv_simple.adStandardDuration
+	toColumn: standardDuration_dict.adStandardDuration
+
+relationship 0bb1c8c8-60a7-b5f0-55a4-fddfe1541e4b
+	fromColumn: reg_tv_simple.media_type_detail
+	toColumn: media_type_detail_dict.media_type_detail
+
+relationship d11e58cf-4760-bae0-d0c9-87a2e38dc3c5
+	fromColumn: reg_tv_simple.prj_name
+	toColumn: nat_tv_prj_union_dict.prj_name
+
+relationship 9ffc902b-fcc9-4e4f-4e6c-0da6514c6514
+	fromColumn: reg_tv_simple.researchDate
+	toColumn: Календарь.Дата
+
+relationship 8b347d86-77a9-c50c-9ac2-26d73928d26e
+	fromColumn: reg_tv_simple.tv_type_ooh_reg
+	toColumn: tv_type_ooh_reg_dict.tv_type_ooh_reg
+
+relationship 9c9a360a-94dc-ee04-acc2-8ab267370361
+	fromColumn: reg_tv_simple.tvCompanyId
+	toColumn: tv_index_tv_company_dict.tvCompanyId
+
+relationship 1295ecf5-237a-c978-9676-f2025203ea80
+	fromColumn: big_tv_buying.ad_type_custom
+	toColumn: ad_type_dict.ad_type_custom
+
+relationship 0b9d5c2c-aa6f-9b74-db0c-7559394e83e6
+	fromColumn: big_tv_buying.adDistributionType
+	toColumn: adex_distribution_dict.adDistributionType
+
+relationship 8791be54-e848-ae0b-a4ee-006d4d1d14c6
+	fromColumn: big_tv_buying.adPositionTypeName
+	toColumn: adPositionTypeName_dict.adPositionTypeName
+
+relationship 7a84e9b6-1704-6549-703f-6c1ff12c6679
+	fromColumn: big_tv_buying.adPrimeTimeStatusName
+	toColumn: adPrimeTimeStatusName_dict.adPrimeTimeStatusName
+
+relationship a1f6fc3f-971e-d101-a32c-26141741ee6d
+	fromColumn: big_tv_buying.adStandardDuration
+	toColumn: standardDuration_dict.adStandardDuration
+
+relationship 0b52711d-260d-5d74-4725-140855355a5a
+	fromColumn: big_tv_buying.media_type_detail
+	toColumn: media_type_detail_dict.media_type_detail
+
+relationship dbed62ab-4cf2-701a-528a-edd3a94abf07
+	fromColumn: big_tv_buying.prj_name
+	toColumn: nat_tv_prj_union_dict.prj_name
+
+relationship 72b67c28-32c2-b2f8-bf9f-e62d12c7e0a5
+	fromColumn: big_tv_buying.regionId
+	toColumn: regions_dict.regionId
+
+relationship af9fc7b6-8698-caea-2898-324c75f84883
+	fromColumn: big_tv_buying.researchDate
+	toColumn: Календарь.Дата
+
+relationship ac92e322-0115-da10-cc2f-c3a48539eb24
+	fromColumn: big_tv_buying.tv_type_ooh_reg
+	toColumn: tv_type_ooh_reg_dict.tv_type_ooh_reg
+
+relationship aab7090f-efa9-ae5e-7f49-eddd12c268f1
+	fromColumn: big_tv_buying.tvCompanyId
+	toColumn: tv_index_tv_company_dict.tvCompanyId
+
+relationship 00d52bd2-d2a3-0f5e-caa5-73cafe96abc0
+	fromColumn: big_tv_buying.platformId
+	toColumn: platforms_dict.platformId
+
+relationship 01884cde-8a86-f7cf-044a-c12dffdec88d
+	fromColumn: big_tv_buying.locationId
+	toColumn: locations_dict.locationId
+
+relationship 34503c61-0bb4-9a2b-4078-f56086ae6377
+	fromColumn: big_tv_simple.locationId
+	toColumn: locations_dict.locationId
+
+relationship c8d2766c-8f34-e81a-5f7f-e85512e1c1bc
+	fromColumn: big_tv_simple.platformId
+	toColumn: platforms_dict.platformId
+
+relationship 6bd49cf3-a55f-4d8a-9229-21c001ccec82
+	fromColumn: big_tv_simple.ad_type_custom
+	toColumn: ad_type_dict.ad_type_custom
+
+relationship 62f147e6-1882-1a34-3ad6-6005e6f41afc
+	fromColumn: big_tv_simple.adDistributionType
+	toColumn: adex_distribution_dict.adDistributionType
+
+relationship 2f1844fb-a741-bd6d-8b1c-1dbdecba9792
+	fromColumn: big_tv_simple.adPositionTypeName
+	toColumn: adPositionTypeName_dict.adPositionTypeName
+
+relationship d6b9247c-b0c4-b137-20c2-87f44de0ee68
+	fromColumn: big_tv_simple.adPrimeTimeStatusName
+	toColumn: adPrimeTimeStatusName_dict.adPrimeTimeStatusName
+
+relationship 373c3316-5304-54d0-7227-b2d0f8657e17
+	fromColumn: big_tv_simple.adStandardDuration
+	toColumn: standardDuration_dict.adStandardDuration
+
+relationship 401a90d3-df22-a6af-bc10-17f58a4bc9d8
+	fromColumn: big_tv_simple.media_type_detail
+	toColumn: media_type_detail_dict.media_type_detail
+
+relationship e6a50d71-13f2-e676-b754-f50e96634f44
+	fromColumn: big_tv_simple.prj_name
+	toColumn: nat_tv_prj_union_dict.prj_name
+
+relationship b8b3107b-9620-2371-506f-cdce0b15d5f3
+	fromColumn: big_tv_simple.regionId
+	toColumn: regions_dict.regionId
+
+relationship 5db7cd2f-322f-5bc1-400d-496db201e19a
+	fromColumn: big_tv_simple.researchDate
+	toColumn: Календарь.Дата
+
+relationship ebbd74fe-214e-8af6-01b3-513e309feeab
+	fromColumn: big_tv_simple.tv_type_ooh_reg
+	toColumn: tv_type_ooh_reg_dict.tv_type_ooh_reg
+
+relationship 0d2f1808-24aa-510d-ae16-e6f197760458
+	fromColumn: big_tv_simple.tvCompanyId
+	toColumn: tv_index_tv_company_dict.tvCompanyId
+
+relationship 3cff58dc-af83-a6b5-81a3-b82a68e82275
+	fromColumn: reg_tv_simple.media_key_id
+	toColumn: tv_index_ad_dict.media_key_id
+
+relationship 65991485-ebc7-2aaf-164d-74661059e0e1
+	fromColumn: reg_tv_buying.media_key_id
+	toColumn: tv_index_ad_dict.media_key_id
+
+relationship b8298fcf-b980-f6ea-3ad8-3b4c1fb87ee8
+	fromColumn: big_tv_simple.media_key_id
+	toColumn: tv_index_ad_dict.media_key_id
+
+relationship 85ee68a1-e8ff-e4e0-e995-355abc18e862
+	fromColumn: big_tv_buying.media_key_id
+	toColumn: tv_index_ad_dict.media_key_id
+
+relationship 441798ff-5746-2a63-0af3-a6b4ba871c57
+	fromColumn: reg_tv_simple.regionId
+	toColumn: regions_dict.regionId
+
+relationship 9be9b4ac-6c9c-47a5-9acd-69ba96bf02ad
+	joinOnDateBehavior: datePartOnly
+	fromColumn: tv_index_max_date.max_date
+	toColumn: LocalDateTable_6b806d9b-c06d-468a-856e-aa2bb6e91659.Date
+
+relationship 2de3bb93-6427-7822-f889-643261a4b740
+	crossFilteringBehavior: bothDirections
+	fromColumn: adex_ad_dict_short.media_key_id
+	toColumn: creatives_dict.media_key_id
+
+relationship 21d6f6ef-e031-4abf-d596-2397cc4864c0
+	crossFilteringBehavior: bothDirections
+	fromColumn: nat_tv_ad_dict_short.media_key_id
+	toColumn: creatives_dict.media_key_id
+
+relationship b9f86468-6c9f-2482-6f35-157eaf2ab83d
+	crossFilteringBehavior: bothDirections
+	fromColumn: reg_tv_ad_dict_short.media_key_id
+	toColumn: creatives_dict.media_key_id
+
+relationship 28d87c02-b968-0858-5726-8140a55e007e
+	crossFilteringBehavior: bothDirections
+	fromColumn: big_tv_ad_dict_short.media_key_id
+	toColumn: creatives_dict.media_key_id
+
+relationship fba3cf48-1c78-cedd-e423-99abb459e613
+	crossFilteringBehavior: bothDirections
+	fromColumn: nat_big_tv_ad_dict_short.media_key_id
+	toColumn: creatives_dict.media_key_id
+
+relationship 5323daad-a73f-d3f0-d86d-6c9738aac494
+	fromColumn: nat_tv_simple.locationId
+	toColumn: locations_dict.locationId
+
+relationship 12e48d07-8ac2-92e3-290d-336c1aa7d895
+	fromColumn: nat_tv_buying.locationId
+	toColumn: locations_dict.locationId
+
+relationship c321ad8a-702e-ddfd-21ac-ad81e84eada7
+	fromColumn: nat_tv_simple.platformId
+	toColumn: platforms_dict.platformId
+
+relationship 71ac8891-fb84-88b1-1c8d-9fa51d514967
+	fromColumn: nat_tv_buying.platformId
+	toColumn: platforms_dict.platformId
+
+relationship 6f99c73e-3bfb-f33f-9a28-3828d567b9c4
+	fromColumn: media_costs_union.from_cid
+	toColumn: adex_carrier_type_dict_outdoor.carrier_type_id
+
+relationship 2fb5f228-0dd2-9960-1da5-edf17183fe39
+	fromColumn: campaigns_dict.start_date
+	toColumn: Календарь.Дата
+
+relationship b11286d1-cd2d-dad8-1b73-ddf7b3c911b1
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: brand_main_Top.brand_main_top
+	toColumn: logos_dict.brand_name
+
+relationship 99430581-4604-6b8c-d66a-c17d908800fb
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: new_aud_gdocs.prj_name_rus
+	toColumn: nat_tv_prj_union_dict.prj_name_rus
+

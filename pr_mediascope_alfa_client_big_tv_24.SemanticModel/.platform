@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "pr_mediascope_alfa_client_big_tv_24"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "57423143-10ef-437e-bec9-65c78e30f939"
+  }
+}

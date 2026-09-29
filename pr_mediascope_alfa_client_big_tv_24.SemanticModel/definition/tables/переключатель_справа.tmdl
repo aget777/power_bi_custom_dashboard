@@ -1,0 +1,56 @@
+table переключатель_справа
+	isHidden
+	lineageTag: e72caed7-4a50-4983-ac1c-ef0977f762de
+
+	column Показатель
+		dataType: string
+		isHidden
+		lineageTag: 4f7aea0b-19de-4ea6-9e36-159881bf67f6
+		summarizeBy: none
+		sourceColumn: Показатель
+		sortByColumn: Id
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 761812cd-4cdc-4e58-93ac-2b637c4c69dc
+		summarizeBy: count
+		sourceColumn: Id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		isHidden
+		lineageTag: 15e6a0c3-5ef9-4692-a6f3-2952cafdc297
+		summarizeBy: none
+		sourceColumn: type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition переключатель_справа = m
+		mode: import
+		queryGroup: 02_01_Вспомогательные_таблицы
+		source =
+				let
+				    Источник = переключатель_слева
+				in
+				    Источник
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+
