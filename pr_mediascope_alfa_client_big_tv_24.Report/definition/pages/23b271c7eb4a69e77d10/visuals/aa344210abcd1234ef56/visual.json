@@ -37,6 +37,13 @@
       "contentFormatting": [
         {
           "properties": {
+            "hyperlinks": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
             "showRawHtml": {
               "expr": {
                 "Literal": {
